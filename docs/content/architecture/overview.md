@@ -5,7 +5,7 @@ draft: false
 weight: 100
 ---
 
-The goal of IVYO, the Ivory Operator from Highgo is to provide a means to quickly get
+The goal of IVYO, the Ivory Operator from IvorySQL is to provide a means to quickly get
 your applications up and running on Ivory for both development and
 production environments. To understand how IVYO does this, we
 want to give you a tour of its architecture, with explains both the architecture
@@ -14,15 +14,15 @@ IvorySQL in production!
 
 # IVYO Architecture
 
-The Highgo IvorySQL Operator extends Kubernetes to provide a higher-level
+The IvorySQL IvorySQL Operator extends Kubernetes to provide a higher-level
 abstraction for rapid creation and management of IvorySQL clusters.  The
-Highgo IvorySQL Operator leverages a Kubernetes concept referred to as
+IvorySQL IvorySQL Operator leverages a Kubernetes concept referred to as
 "[Custom Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)”
 to create several
 [custom resource definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions)
 that allow for the management of IvorySQL clusters.
 
-The main custom resource definition is [`postgresclusters.ivory-operator.crunchydata.com`]({{< relref "references/crd.md" >}}). This allows you to control all the information about a Ivory cluster, including:
+The main custom resource definition is [`ivoryclusters.ivory-operator.ivorysql.org`]({{< relref "references/crd.md" >}}). This allows you to control all the information about a Ivory cluster, including:
 
 - General information
 - Resource allocation
@@ -58,7 +58,7 @@ This can be accomplished with a relatively simple manifest. Please refer to the 
 The Ivory Operator handles setting up all of the various StatefulSets, Deployments, Services and other Kubernetes objects.
 
 You will also notice that **high-availability is enabled by default** if you deploy at least one Ivory replica. The
-Highgo IvorySQL Operator uses a distributed-consensus method for IvorySQL
+IvorySQL IvorySQL Operator uses a distributed-consensus method for IvorySQL
 cluster high-availability, and as such delegates the management of each
 cluster's availability to the clusters themselves. This removes the IvorySQL
 Operator from being a single-point-of-failure, and has benefits such as faster
@@ -68,7 +68,7 @@ section.
 
 ## Kubernetes StatefulSets: The IVYO Deployment Model
 
-IVYO, the Ivory Operator from Highgo, uses [Kubernetes StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
+IVYO, the Ivory Operator from IvorySQL, uses [Kubernetes StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
 for running Ivory instances, and will use [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) for more ephemeral services.
 
 IVYO deploys Kubernetes Statefulsets in a way to allow for creating both different Ivory instance groups and be able to support advanced operations such as rolling updates that minimize or eliminate Ivory downtime. Additional components in our

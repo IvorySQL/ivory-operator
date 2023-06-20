@@ -28,8 +28,8 @@ IVYO provides several ways to add replicas to make a HA cluster:
 For the purposes of this tutorial, we will go with the first method and set `spec.instances.replicas` to `2`. Your manifest should look similar to:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -61,14 +61,14 @@ spec:
 Apply these updates to your Ivory cluster with the following command:
 
 ```
-kubectl apply -k kustomize/postgres
+kubectl apply -k kustomize/ivory
 ```
 
 Within moment, you should see a new Ivory instance initializing! You can see all of your Ivory Pods for the `hippo` cluster by running the following command:
 
 ```
 kubectl -n ivory-operator get pods \
-  --selector=ivory-operator.crunchydata.com/cluster=hippo,ivory-operator.crunchydata.com/instance-set
+  --selector=ivory-operator.ivorysql.org/cluster=hippo,ivory-operator.ivorysql.org/instance-set
 ```
 
 Let's test our high availability set up.
@@ -85,7 +85,7 @@ Recall in the [connecting a Ivory cluster]({{< relref "./connect-cluster.md" >}}
 
 ```
 kubectl -n ivory-operator get svc \
-  --selector=ivory-operator.crunchydata.com/cluster=hippo
+  --selector=ivory-operator.ivorysql.org/cluster=hippo
 ```
 
 yields something similar to:
@@ -109,7 +109,7 @@ This would seem like it could create a downtime scenario, but run the above sele
 
 ```
 kubectl -n ivory-operator get svc \
-  --selector=ivory-operator.crunchydata.com/cluster=hippo
+  --selector=ivory-operator.ivorysql.org/cluster=hippo
 ```
 
 You should see something similar to:
@@ -135,8 +135,8 @@ What happens if we remove the StatefulSet that is pointed to the Pod that repres
 
 ```
 PRIMARY_POD=$(kubectl -n ivory-operator get pods \
-  --selector=ivory-operator.crunchydata.com/role=master \
-  -o jsonpath='{.items[*].metadata.labels.ivory-operator\.crunchydata\.com/instance}')
+  --selector=ivory-operator.ivorysql.org/role=master \
+  -o jsonpath='{.items[*].metadata.labels.ivory-operator\.ivorysql\.com/instance}')
 ```
 
 Inspect the environmental variable to see which Pod is the current primary:
@@ -161,7 +161,7 @@ Let's see what happens. Try getting all of the StatefulSets for the Ivory instan
 
 ```
 kubectl get sts -n ivory-operator \
-  --selector=ivory-operator.crunchydata.com/cluster=hippo,ivory-operator.crunchydata.com/instance
+  --selector=ivory-operator.ivorysql.org/cluster=hippo,ivory-operator.ivorysql.org/instance
 ```
 
 You should see something similar to:
@@ -178,8 +178,8 @@ What about the other instance? We can see that it became the new primary though 
 
 ```
 kubectl -n ivory-operator get pods \
-  --selector=ivory-operator.crunchydata.com/role=master \
-  -o jsonpath='{.items[*].metadata.labels.ivory-operator\.crunchydata\.com/instance}'
+  --selector=ivory-operator.ivorysql.org/role=master \
+  -o jsonpath='{.items[*].metadata.labels.ivory-operator\.ivorysql\.org/instance}'
 ```
 
 which should yield something similar to:
@@ -211,7 +211,7 @@ spec:
       synchronous_mode: true
 ```
 
-While IvorySQL defaults [`synchronous_commit`](https://www.postgresql.org/docs/current/runtime-config-wal.html#GUC-SYNCHRONOUS-COMMIT) to `on`, you may also want to explicitly set it, in which case the above block becomes:
+While PostgreSQL defaults [`synchronous_commit`](https://www.postgresql.org/docs/current/runtime-config-wal.html#GUC-SYNCHRONOUS-COMMIT) to `on`, you may also want to explicitly set it, in which case the above block becomes:
 
 ```yaml
 spec:
@@ -241,9 +241,9 @@ spec:
 
 IVYO sets up several labels for Ivory cluster management that can be used for Pod anti-affinity or affinity rules in general. These include:
 
-- `ivory-operator.crunchydata.com/cluster`: This is assigned to all managed Pods in a Ivory cluster. The value of this label is the name of your Ivory cluster, in this case: `hippo`.
-- `ivory-operator.crunchydata.com/instance-set`: This is assigned to all Ivory instances within a group of `spec.instances`. In the example above, the value of this label is `instance1`. If you do not assign a label, the value is automatically set by IVYO using a `NN` format, e.g. `00`.
-- `ivory-operator.crunchydata.com/instance`: This is a unique label assigned to each Ivory instance containing the name of the Ivory instance.
+- `ivory-operator.ivorysql.org/cluster`: This is assigned to all managed Pods in a Ivory cluster. The value of this label is the name of your Ivory cluster, in this case: `hippo`.
+- `ivory-operator.ivorysql.org/instance-set`: This is assigned to all Ivory instances within a group of `spec.instances`. In the example above, the value of this label is `instance1`. If you do not assign a label, the value is automatically set by IVYO using a `NN` format, e.g. `00`.
+- `ivory-operator.ivorysql.org/instance`: This is a unique label assigned to each Ivory instance containing the name of the Ivory instance.
 
 Let's look at how we can set up affinity rules for our Ivory cluster to help improve high availability.
 
@@ -265,8 +265,8 @@ First, let's deploy our Ivory cluster with preferred Pod anti-affinity. Note tha
 We can set up our HA Ivory cluster with preferred Pod anti-affinity like so:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -289,8 +289,8 @@ spec:
               topologyKey: kubernetes.io/hostname
               labelSelector:
                 matchLabels:
-                  ivory-operator.crunchydata.com/cluster: hippo
-                  ivory-operator.crunchydata.com/instance-set: instance1
+                  ivory-operator.ivorysql.org/cluster: hippo
+                  ivory-operator.ivorysql.org/instance-set: instance1
   backups:
     pgbackrest:
       image: {{< param imageCrunchyPGBackrest >}}
@@ -318,11 +318,11 @@ affinity:
         topologyKey: kubernetes.io/hostname
         labelSelector:
           matchLabels:
-            ivory-operator.crunchydata.com/cluster: hippo
-            ivory-operator.crunchydata.com/instance-set: instance1
+            ivory-operator.ivorysql.org/cluster: hippo
+            ivory-operator.ivorysql.org/instance-set: instance1
 ```
 
-`spec.instances.affinity.podAntiAffinity` follows the standard Kubernetes [Pod anti-affinity spec](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/). The values for the `matchLabels` are derived from what we described in the previous section: `ivory-operator.crunchydata.com/cluster` is set to our cluster name of `hippo`, and `ivory-operator.crunchydata.com/instance-set` is set to the instance set name of `instance1`. We choose a `topologyKey` of `kubernetes.io/hostname`, which is standard in Kubernetes clusters.
+`spec.instances.affinity.podAntiAffinity` follows the standard Kubernetes [Pod anti-affinity spec](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/). The values for the `matchLabels` are derived from what we described in the previous section: `ivory-operator.ivorysql.org/cluster` is set to our cluster name of `hippo`, and `ivory-operator.ivorysql.org/instance-set` is set to the instance set name of `instance1`. We choose a `topologyKey` of `kubernetes.io/hostname`, which is standard in Kubernetes clusters.
 
 Preferred Pod anti-affinity will perform a best effort to schedule your Ivory Pods to different nodes. Let's see how you can require your Ivory Pods to be scheduled to different nodes.
 
@@ -333,8 +333,8 @@ Required Pod anti-affinity forces Kubernetes to scheduled your Ivory Pods to dif
 Using the previous example, let's indicate to Kubernetes that we want to use required Pod anti-affinity for our Ivory clusters:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -355,8 +355,8 @@ spec:
           - topologyKey: kubernetes.io/hostname
             labelSelector:
               matchLabels:
-                ivory-operator.crunchydata.com/cluster: hippo
-                ivory-operator.crunchydata.com/instance-set: instance1
+                ivory-operator.ivorysql.org/cluster: hippo
+                ivory-operator.ivorysql.org/instance-set: instance1
   backups:
     pgbackrest:
       image: {{< param imageCrunchyPGBackrest >}}
@@ -377,7 +377,7 @@ If you are in a single Node Kubernetes clusters, you will notice that not all of
 
 ```
 kubectl get pods -n ivory-operator -o wide \
-  --selector=ivory-operator.crunchydata.com/cluster=hippo,ivory-operator.crunchydata.com/instance
+  --selector=ivory-operator.ivorysql.org/cluster=hippo,ivory-operator.ivorysql.org/instance
 ```
 
 ### Node Affinity
@@ -387,8 +387,8 @@ Node affinity can be used to assign your Ivory instances to Nodes with specific 
 Let's see an example with required Node affinity. Let's say we have a set of Nodes that are reserved for database usage that have a label `workload-role=db`. We can create a Ivory cluster with a required Node affinity rule to scheduled all of the databases to those Nodes using the following configuration:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -462,14 +462,14 @@ To begin, we can set our topology spread constraints on our cluster Instance Pod
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              ivory-operator.crunchydata.com/instance-set: instance1
+              ivory-operator.ivorysql.org/instance-set: instance1
 ```
 
-we will expect 5 Instance pods to be created. Each of these Pods will have the standard `ivory-operator.crunchydata.com/instance-set: instance1` Label set, so each Pod will be properly counted when determining the `maxSkew`. Since we have 3 nodes with a `maxSkew` of 1 and we've set `whenUnsatisfiable` to `DoNotSchedule`, we should see 2 Pods on 2 of the nodes and 1 Pod on the remaining Node, thus ensuring our Pods are distributed as evenly as possible.
+we will expect 5 Instance pods to be created. Each of these Pods will have the standard `ivory-operator.ivorysql.org/instance-set: instance1` Label set, so each Pod will be properly counted when determining the `maxSkew`. Since we have 3 nodes with a `maxSkew` of 1 and we've set `whenUnsatisfiable` to `DoNotSchedule`, we should see 2 Pods on 2 of the nodes and 1 Pod on the remaining Node, thus ensuring our Pods are distributed as evenly as possible.
 
 #### pgBackRest Repo Pod Spread Constraints
 
-We can also set topology spread constraints on our cluster's pgBackRest repo host pod. While we normally will only have a single pod per cluster, we could use a more generic label to add a preference that repo host Pods from different clusters are distributed among our Nodes. For example, by setting our `matchLabel` value to `ivory-operator.crunchydata.com/pgbackrest: ""` and our `whenUnsatisfiable` value to `ScheduleAnyway`, we will allow our repo host Pods to be scheduled no matter what Nodes may be available, but attempt to minimize skew as much as possible.
+We can also set topology spread constraints on our cluster's pgBackRest repo host pod. While we normally will only have a single pod per cluster, we could use a more generic label to add a preference that repo host Pods from different clusters are distributed among our Nodes. For example, by setting our `matchLabel` value to `ivory-operator.ivorysql.org/pgbackrest: ""` and our `whenUnsatisfiable` value to `ScheduleAnyway`, we will allow our repo host Pods to be scheduled no matter what Nodes may be available, but attempt to minimize skew as much as possible.
 
 ```
       repoHost:
@@ -479,7 +479,7 @@ We can also set topology spread constraints on our cluster's pgBackRest repo hos
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
             matchLabels:
-              ivory-operator.crunchydata.com/pgbackrest: ""
+              ivory-operator.ivorysql.org/pgbackrest: ""
 ```
 
 #### Putting it All Together
@@ -487,8 +487,8 @@ We can also set topology spread constraints on our cluster's pgBackRest repo hos
 Now that each of our Pods has our desired Topology Spread Constraints defined, let's put together a complete cluster definition:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -503,7 +503,7 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              ivory-operator.crunchydata.com/instance-set: instance1
+              ivory-operator.ivorysql.org/instance-set: instance1
       dataVolumeClaimSpec:
         accessModes:
         - "ReadWriteOnce"
@@ -520,7 +520,7 @@ spec:
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
             matchLabels:
-              ivory-operator.crunchydata.com/pgbackrest: ""
+              ivory-operator.ivorysql.org/pgbackrest: ""
       repos:
       - name: repo1
         volume:
@@ -537,7 +537,7 @@ You can then apply those changes in your Kubernetes cluster.
 Once your cluster finishes deploying, you can check that your Pods are assigned to the correct Nodes:
 
 ```
-kubectl get pods -n ivory-operator -o wide --selector=ivory-operator.crunchydata.com/cluster=hippo
+kubectl get pods -n ivory-operator -o wide --selector=ivory-operator.ivorysql.org/cluster=hippo
 ```
 
 ## Next Steps

@@ -5,7 +5,7 @@ draft: false
 weight: 20
 ---
 
-Ready to get started with [IVYO](https://github.com/ivorysql/ivory-operator), the [Ivory Operator](https://github.com/ivorysql/ivory-operator) from [Highgo](https://www.crunchydata.com)? Us too!
+Ready to get started with [IVYO](https://github.com/ivorysql/ivory-operator), the [Ivory Operator](https://github.com/ivorysql/ivory-operator) from [IvorySQL](https://ivorysql.org)? Us too!
 
 This tutorial covers several concepts around day-to-day life managing a Ivory cluster with IVYO. While going through and looking at various "HOWTOs" with IVYO, we will also cover concepts and features that will help you have a successful cloud native Ivory journey!
 

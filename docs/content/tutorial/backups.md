@@ -59,7 +59,7 @@ Now that we've covered the basics, let's learn how to set up our backup reposito
 
 ## Setting Up a Backup Repository
 
-As mentioned above, IVYO, the Ivory Operator from Highgo, supports multiple ways to store backups. Let's look into each method and see how you can ensure your backups and archives are being safely stored!
+As mentioned above, IVYO, the Ivory Operator from IvorySQL, supports multiple ways to store backups. Let's look into each method and see how you can ensure your backups and archives are being safely stored!
 
 ## Using Kubernetes Volumes
 
@@ -140,8 +140,8 @@ Watch your cluster: you will see that your backups and archives are now being st
 
 ### Using an AWS-integrated identity provider and role
 
-If you deploy PostgresClusters to AWS Elastic Kubernetes Service, you can take advantage of their
-IAM role integration. When you attach a certain annotation to your PostgresCluster spec, AWS will
+If you deploy ivoryclusters to AWS Elastic Kubernetes Service, you can take advantage of their
+IAM role integration. When you attach a certain annotation to your ivorycluster spec, AWS will
 automatically mount an AWS token and other needed environment variables. These environment
 variables will then be used by pgBackRest to assume the identity of a role that has permissions
 to upload to an S3 repository.
@@ -161,10 +161,10 @@ You can then make the following changes to the files in the `kustomize/s3` direc
 
 1\. Add the `s3` section to the spec in `kustomize/s3/postgres.yaml` as discussed in the
 [Using S3 Credentials](#using-s3-credentials) section above. In addition to that, add the required `eks.amazonaws.com/role-arn`
-annotation to the PostgresCluster spec using the IAM `ARN` that you noted above.
+annotation to the ivorycluster spec using the IAM `ARN` that you noted above.
 
 For instance, given an IAM role with the ARN `arn:aws:iam::123456768901:role/allow_bucket_access`,
-you would add the following to the PostgresCluster spec:
+you would add the following to the ivorycluster spec:
 
 ```
 spec:
@@ -310,8 +310,8 @@ resources:
 Finally, create the manifest for the Ivory cluster in a file named `postgres.yaml` that is similar to the following:
 
 ```yaml
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -381,15 +381,15 @@ The full list of [pgBackRest configuration options](https://pgbackrest.org/confi
 
 ## IPv6 Support
 
-If you are running your cluster in an IPv6-only environment, you will need to add an annotation to your PostgresCluster so that IVYO knows to set pgBackRest's `tls-server-address` to an IPv6 address. Otherwise, `tls-server-address` will be set to `0.0.0.0`, making pgBackRest inaccessible, and backups will not run. The annotation should be added as shown below:
+If you are running your cluster in an IPv6-only environment, you will need to add an annotation to your ivorycluster so that IVYO knows to set pgBackRest's `tls-server-address` to an IPv6 address. Otherwise, `tls-server-address` will be set to `0.0.0.0`, making pgBackRest inaccessible, and backups will not run. The annotation should be added as shown below:
 
 ```yaml
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
   annotations:
-    ivory-operator.crunchydata.com/pgbackrest-ip-version: IPv6
+    ivory-operator.ivorysql.org/pgbackrest-ip-version: IPv6
 ```
 
 ## Next Steps

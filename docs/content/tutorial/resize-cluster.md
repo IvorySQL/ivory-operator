@@ -18,7 +18,7 @@ Coupled with [tweaks to your Ivory configuration file]({{< relref "./customize-c
 allocating more memory and CPU to your cluster can help it to perform better under load.
 
 It's important for instances in the same high availability set to have the same resources.
-IVYO lets you adjust CPU and memory within the `resources` sections of the `postgresclusters.ivory-operator.crunchydata.com` custom resource. These include:
+IVYO lets you adjust CPU and memory within the `resources` sections of the `ivoryclusters.ivory-operator.ivorysql.org` custom resource. These include:
 
 - `spec.instances.resources` section, which sets the resource values for the IvorySQL container,
   as well as any init containers in the associated pod and containers created by the `pgDataVolume` and `pgWALVolume` [data migration jobs]({{< relref "guides/data-migration.md" >}}).
@@ -30,7 +30,7 @@ IVYO lets you adjust CPU and memory within the `resources` sections of the `post
 - `spec.backups.pgbackrest.sidecars.pgbackrestConfig.resources` section, which sets the resources for the `pgbackrest-config` sidecar container.
 - `spec.backups.pgbackrest.jobs.resources` section, which sets the resources for any pgBackRest backup job.
 - `spec.backups.pgbackrest.restore.resources` section, which sets the resources for manual pgBackRest restore jobs.
-- `spec.dataSource.postgresCluster.resources` section, which sets the resources for pgBackRest restore jobs created during the [cloning]({{< relref "./disaster-recovery.md" >}}) process.
+- `spec.dataSource.ivorycluster.resources` section, which sets the resources for pgBackRest restore jobs created during the [cloning]({{< relref "./disaster-recovery.md" >}}) process.
 - `spec.proxy.pgBouncer.resources` section, which sets the resources for the `pgbouncer` container.
 - `spec.proxy.pgBouncer.sidecars.pgbouncerConfig.resources` section, which sets the resources for the `pgbouncer-config` sidecar container.
 
@@ -39,8 +39,8 @@ The layout of these `resources` sections should be familiar: they follow the sam
 For example, using the `spec.instances.resources` section, let's say we want to update our `hippo` Ivory cluster so that each instance has a limit of `2.0` CPUs and `4Gi` of memory. We can make the following changes to the manifest:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -85,15 +85,15 @@ resources:
 Apply these updates to your Ivory cluster with the following command:
 
 ```
-kubectl apply -k kustomize/postgres
+kubectl apply -k kustomize/ivory
 ```
 
 Now, let's watch how the rollout happens:
 
 ```
 watch "kubectl -n ivory-operator get pods \
-  --selector=ivory-operator.crunchydata.com/cluster=hippo,ivory-operator.crunchydata.com/instance \
-  -o=jsonpath='{range .items[*]}{.metadata.name}{\"\t\"}{.metadata.labels.ivory-operator\.crunchydata\.com/role}{\"\t\"}{.status.phase}{\"\t\"}{.spec.containers[].resources.limits}{\"\n\"}{end}'"
+  --selector=ivory-operator.ivorysql.org/cluster=hippo,ivory-operator.ivorysql.org/instance \
+  -o=jsonpath='{range .items[*]}{.metadata.name}{\"\t\"}{.metadata.labels.ivory-operator\.ivorysql\.org/role}{\"\t\"}{.status.phase}{\"\t\"}{.spec.containers[].resources.limits}{\"\n\"}{end}'"
 ```
 
 Observe how each Pod is terminated one-at-a-time. This is part of a "rolling update". Because updating the resources of a Pod is a destructive action, IVYO first applies the CPU and memory changes to the replicas. IVYO ensures that the changes are successfully applied to a replica instance before moving on to the next replica.
@@ -104,7 +104,7 @@ By rolling out the changes in this way, IVYO ensures there is minimal to zero di
 
 ## Resize PVC
 
-Your application is a success! Your data continues to grow, and it's becoming apparently that you need more disk. That's great: you can resize your PVC directly on your `postgresclusters.ivory-operator.crunchydata.com` custom resource with minimal to zero downtime.
+Your application is a success! Your data continues to grow, and it's becoming apparently that you need more disk. That's great: you can resize your PVC directly on your `ivoryclusters.ivory-operator.ivorysql.org` custom resource with minimal to zero downtime.
 
 PVC resizing, also known as [volume expansion](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims), is a function of your storage class: it must support volume resizing. Additionally, PVCs can only be **sized up**: you cannot shrink the size of a PVC.
 
@@ -118,8 +118,8 @@ The above should be familiar: it follows the same pattern as the standard [Kuber
 For example, let's say we want to update our `hippo` Ivory cluster so that each instance now uses a `10Gi` PVC and our backup repository uses a `20Gi` PVC. We can do so with the following markup:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -175,7 +175,7 @@ volumeClaimSpec:
 Apply these updates to your Ivory cluster with the following command:
 
 ```
-kubectl apply -k kustomize/postgres
+kubectl apply -k kustomize/ivory
 ```
 
 ### Resize PVCs With StorageClass That Does Not Allow Expansion
@@ -185,8 +185,8 @@ Not all Kubernetes Storage Classes allow for [volume expansion](https://kubernet
 Let's go back to the previous example:
 
 ```yaml
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -222,8 +222,8 @@ spec:
 First, create a new instance that has the larger volume size. Call this instance `instance2`. The manifest would look like this:
 
 ```yaml
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -290,8 +290,8 @@ This creates a second set of two Ivory instances, both of which come up as repli
 Once this new instance set is available and they are caught to the primary, you can then apply the following manifest:
 
 ```yaml
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:

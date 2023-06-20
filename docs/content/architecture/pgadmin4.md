@@ -73,14 +73,14 @@ Optionally, you can also set a [custom password]({{< relref "architecture/user-m
 ## User Synchronization
 
 The operator will synchronize users [defined in the spec]({{< relref "tutorial/user-management.md" >}})
-(e.g., in [`spec.users`]({{< relref "/references/crd#postgresclusterspecusersindex" >}}))
+(e.g., in [`spec.users`]({{< relref "/references/crd#ivoryclusterspecusersindex" >}}))
 with the pgAdmin 4 deployment. Any user created in the database without being defined in the spec will not be
 synchronized.
 
 ## Custom Configuration
 
 You can adjust some pgAdmin settings through the
-[`userInterface.pgAdmin.config`]({{< relref "/references/crd#postgresclusterspecuserinterfacepgadminconfig" >}})
+[`userInterface.pgAdmin.config`]({{< relref "/references/crd#ivoryclusterspecuserinterfacepgadminconfig" >}})
 field. For example, set `SHOW_GRAVATAR_IMAGE` to `False` to disable automatic profile pictures:
 
 ```yaml
@@ -149,7 +149,7 @@ enable `LDAP_AUTO_CREATE_USER`:
 ```
 
 When using a dedicated user to bind, you can store the `LDAP_BIND_PASSWORD` setting in a Secret and
-reference it through the [`ldapBindPassword`]({{< relref "/references/crd#postgresclusterspecuserinterfacepgadminconfigldapbindpassword" >}})
+reference it through the [`ldapBindPassword`]({{< relref "/references/crd#ivoryclusterspecuserinterfacepgadminconfigldapbindpassword" >}})
 field:
 
 ```yaml

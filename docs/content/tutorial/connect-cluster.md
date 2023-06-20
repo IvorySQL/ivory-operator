@@ -12,7 +12,7 @@ It's one thing to [create a Ivory cluster]({{< relref "./create-cluster.md" >}})
 IVYO creates a series of Kubernetes [Services](https://kubernetes.io/docs/concepts/services-networking/service/) to provide stable endpoints for connecting to your Ivory databases. These endpoints make it easy to provide a consistent way for your application to maintain connectivity to your data. To inspect what services are available, you can run the following command:
 
 ```
-kubectl -n ivory-operator get svc --selector=ivory-operator.crunchydata.com/cluster=hippo
+kubectl -n ivory-operator get svc --selector=ivory-operator.ivorysql.org/cluster=hippo
 ```
 
 will yield something similar to:
@@ -36,9 +36,9 @@ When your Ivory cluster is initialized, IVYO will bootstrap a database and Ivory
 - `host`: The name of the host of the database.
   This references the [Service](https://kubernetes.io/docs/concepts/services-networking/service/) of the primary Ivory instance.
 - `port`: The port that the database is listening on.
-- `uri`: A [IvorySQL connection URI](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING)
+- `uri`: A [PostgresSQL connection URI](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING)
   that provides all the information for logging into the Ivory database.
-- `jdbc-uri`: A [IvorySQL JDBC connection URI](https://jdbc.postgresql.org/documentation/use/) that provides
+- `jdbc-uri`: A [PostgresSQL JDBC connection URI](https://jdbc.postgresql.org/documentation/use/) that provides
   all the information for logging into the Ivory database via the JDBC driver.
 
 All connections are over TLS. IVYO provides its own certificate authority (CA) to allow you to securely connect your applications to your Ivory clusters. This allows you to use the [`verify-full` "SSL mode"](https://www.postgresql.org/docs/current/libpq-ssl.html#LIBPQ-SSL-SSLMODE-STATEMENTS) of Ivory, which provides eavesdropping protection and prevents MITM attacks. You can also choose to bring your own CA, which is described later in this tutorial in the [Customize Cluster]({{< relref "./customize-cluster.md" >}}) section.
@@ -75,7 +75,7 @@ For our `hippo` cluster, you would see the Service type and nodePort modificatio
 For example:
 
 ```
-kubectl -n ivory-operator get svc --selector=ivory-operator.crunchydata.com/cluster=hippo
+kubectl -n ivory-operator get svc --selector=ivory-operator.ivorysql.org/cluster=hippo
 ```
 
 will yield something similar to:
@@ -101,8 +101,8 @@ will show our custom annotation and label have been added:
 Name:              hippo-ha
 Namespace:         ivory-operator
 Labels:            my-label=value2
-                   ivory-operator.crunchydata.com/cluster=hippo
-                   ivory-operator.crunchydata.com/patroni=hippo-ha
+                   ivory-operator.ivorysql.org/cluster=hippo
+                   ivory-operator.ivorysql.org/patroni=hippo-ha
 Annotations:       my-annotation: value1
 ```
 
@@ -118,7 +118,7 @@ features of IVYO).
 
 For this tutorial, we are going to connect [Keycloak](https://www.keycloak.org/), an open source
 identity management application. Keycloak can be deployed on Kubernetes and is backed by a Ivory
-database. While we provide an [example of deploying Keycloak and a PostgresCluster](https://github.com/ivorysql/ivory-operator-examples/tree/main/kustomize/keycloak)
+database. While we provide an [example of deploying Keycloak and a ivorycluster](https://github.com/ivorysql/ivory-operator-examples/tree/main/kustomize/keycloak)
 in the [Ivory Operator examples](https://github.com/ivorysql/ivory-operator-examples)
 repository, the manifest below deploys it using our `hippo` cluster that is already running:
 
@@ -146,7 +146,7 @@ spec:
         name: keycloak
         env:
         - name: DB_VENDOR
-          value: "postgres"
+          value: "ivory"
         - name: DB_ADDR
           valueFrom: { secretKeyRef: { name: hippo-pguser-hippo, key: host } }
         - name: DB_PORT

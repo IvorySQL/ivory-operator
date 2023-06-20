@@ -26,7 +26,7 @@ IVYO
 
 ### 3.2. Our logo (the "Logo"):
 
-<img width="150" src="./ivyo.svg" alt="IVYO: The Ivory Operator from Highgo"/>
+<img width="150" src="./ivyo.svg" alt="IVYO: The Ivory Operator from IvorySQL"/>
 
 ### 3.3 And the unique visual styling of our website (the "Trade Dress").
 
@@ -79,7 +79,7 @@ You may use the Word Marks and the Logos in themes, personas, or skins to show y
 
 #### 5.2.1 Distributing unmodified software
 
-You may use the Word Marks and Logos to distribute executable code if you make the code from official Project source code using the procedure for creating an executable found at [https://access.crunchydata.com/documentation/ivory-operator/latest/installation/](https://access.crunchydata.com/documentation/ivory-operator/latest/installation/).
+You may use the Word Marks and Logos to distribute executable code if you make the code from official Project source code using the procedure for creating an executable found at [https://access.ivorysql.org/documentation/ivory-operator/latest/installation/](https://access.ivorysql.org/documentation/ivory-operator/latest/installation/).
 
 #### 5.3 Unpermitted uses we consider infringing
 
@@ -130,14 +130,14 @@ We also would likely consider it an infringement to use the Marks on for-sale pr
 
 ### 7.1 Trademark legends
 
-If you are using our Marks in a way described in the sections entitled "Permitted uses," put the following notice at the foot of the page where you have used the Mark (or, if in a book, on the credits page), on packaging or labeling, and on advertising or marketing materials: "The IVYO Project is a trademark of Highgo Solutions, Inc., used with permission."
+If you are using our Marks in a way described in the sections entitled "Permitted uses," put the following notice at the foot of the page where you have used the Mark (or, if in a book, on the credits page), on packaging or labeling, and on advertising or marketing materials: "The IVYO Project is a trademark of IvorySQL Solutions, Inc., used with permission."
 
 ### 7.2 What to do when you see abuse
 
-If you are aware of a confusing use or misuse of the Marks, we would appreciate you bringing it to our attention. Please contact us at [trademarks@crunchydata.com](mailto:trademarks@crunchydata.com) so we can investigate it further.
+If you are aware of a confusing use or misuse of the Marks, we would appreciate you bringing it to our attention. Please contact us at [trademarks@ivorysql.org](mailto:trademarks@ivorysql.org) so we can investigate it further.
 
 ### 7.3 Where to get further information
 
-If you have questions, wish to speak about using our Marks in ways the Policy doesn’t address, or see abuse of our Marks, please send an email to [trademarks@crunchydata.com](mailto:trademarks@crunchydata.com).
+If you have questions, wish to speak about using our Marks in ways the Policy doesn’t address, or see abuse of our Marks, please send an email to [trademarks@ivorysql.org](mailto:trademarks@ivorysql.org).
 
 We based these guidelines on the Model Trademark Guidelines, available at [http://www.modeltrademarkguidelines.org](http://www.modeltrademarkguidelines.org), used under a Creative Commons Attribution 3.0 Unported license: [https://creativecommons.org/licenses/by/3.0/deed.en_US](https://creativecommons.org/licenses/by/3.0/deed.en_US).

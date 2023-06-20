@@ -7,7 +7,7 @@ weight: 120
 
 Deploying to your Kubernetes cluster may allow for greater reliability than other
 environments, but that's only the case when it's configured correctly. Fortunately,
-IVYO, the Ivory Operator from Highgo, is ready to help with helpful
+IVYO, the Ivory Operator from IvorySQL, is ready to help with helpful
 default settings to ensure you make the most out of your Kubernetes environment!
 
 ## High Availability By Default
@@ -37,7 +37,7 @@ throughout your Kubernetes cluster to maximize safety.
 ## Customization
 
 While the default scheduling settings are designed to meet the widest variety of
-environments, they can be customized or removed as needed. Assuming a PostgresCluster
+environments, they can be customized or removed as needed. Assuming a ivorycluster
 named 'hippo', the default Pod Topology Spread Constraints applied on Ivory
 Instance and pgBackRest Repo Host Pods are as follows:
 
@@ -48,9 +48,9 @@ topologySpreadConstraints:
     whenUnsatisfiable: ScheduleAnyway
     labelSelector:
       matchLabels:
-        ivory-operator.crunchydata.com/cluster: hippo
+        ivory-operator.ivorysql.org/cluster: hippo
       matchExpressions:
-      - key: ivory-operator.crunchydata.com/data
+      - key: ivory-operator.ivorysql.org/data
         operator: In
         values:
         - postgres
@@ -60,9 +60,9 @@ topologySpreadConstraints:
     whenUnsatisfiable: ScheduleAnyway
     labelSelector:
       matchLabels:
-        ivory-operator.crunchydata.com/cluster: hippo
+        ivory-operator.ivorysql.org/cluster: hippo
       matchExpressions:
-      - key: ivory-operator.crunchydata.com/data
+      - key: ivory-operator.ivorysql.org/data
         operator: In
         values:
         - postgres
@@ -78,23 +78,23 @@ topologySpreadConstraints:
     whenUnsatisfiable: ScheduleAnyway
     labelSelector:
       matchLabels:
-        ivory-operator.crunchydata.com/cluster: hippo
-        ivory-operator.crunchydata.com/role: pgbouncer
+        ivory-operator.ivorysql.org/cluster: hippo
+        ivory-operator.ivorysql.org/role: pgbouncer
   - maxSkew: 1
     topologyKey: topology.kubernetes.io/zone
     whenUnsatisfiable: ScheduleAnyway
     labelSelector:
       matchLabels:
-        ivory-operator.crunchydata.com/cluster: hippo
-        ivory-operator.crunchydata.com/role: pgbouncer
+        ivory-operator.ivorysql.org/cluster: hippo
+        ivory-operator.ivorysql.org/role: pgbouncer
 ```
 
 Which, as described in the [API documentation](https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods),
 means that there should be a maximum of one Pod difference within the
 `kubernetes.io/hostname` and `topology.kubernetes.io/zone` failure domains when
 considering either `data` Pods, i.e. Ivory Instance or pgBackRest repo host Pods
-from a single PostgresCluster or when considering PgBouncer Pods from a single
-PostgresCluster.
+from a single ivorycluster or when considering PgBouncer Pods from a single
+ivorycluster.
 
 Any other scheduling configuration settings, such as [Affinity, Anti-affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity),
 [Taints, Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/),

@@ -16,8 +16,8 @@ change for a cluster, IVYO will apply it to all of the Ivory instances.
 For example, in our previous step we added CPU and memory limits of `2.0` and `4Gi` respectively. Let's tweak some of the Ivory settings to better use our new resources. We can do this in the `spec.patroni.dynamicConfiguration` section. Here is an example updated manifest that tweaks several settings:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -74,7 +74,7 @@ patroni:
 Apply these updates to your Ivory cluster with the following command:
 
 ```
-kubectl apply -k kustomize/postgres
+kubectl apply -k kustomize/ivory
 ```
 
 IVYO will go and apply these settings, restarting each Ivory instance when necessary. You can verify that the changes are present using the Ivory `SHOW` command, e.g.
@@ -104,7 +104,7 @@ There are a few different TLS endpoints that can be customized for IVYO, includi
 * a `spec.customTLSSecret`, used to both identify the cluster and encrypt communications; and
 * a `spec.customReplicationTLSSecret`, used for replication authentication.
 
-(For more information on the `spec.customTLSSecret` and `spec.customReplicationTLSSecret` fields, see the [`PostgresCluster CRD`]({{< relref "references/crd.md" >}}).)
+(For more information on the `spec.customTLSSecret` and `spec.customReplicationTLSSecret` fields, see the [`ivorycluster CRD`]({{< relref "references/crd.md" >}}).)
 
 To customize the TLS for a Ivory cluster, you will need to create two Secrets in the Namespace of your Ivory cluster. One of these Secrets will be the `customTLSSecret` and the other will be the `customReplicationTLSSecret`. Both secrets contain a TLS key (`tls.key`), TLS certificate (`tls.crt`) and CA certificate (`ca.crt`) to use.
 
@@ -128,7 +128,7 @@ kubectl create secret generic -n ivory-operator hippo-cluster.tls \
   --from-file=tls.crt=hippo.crt
 ```
 
-After you create the Secrets, you can specify the custom TLS Secret in your `postgrescluster.ivory-operator.crunchydata.com` custom resource. For example, if you created a `hippo-cluster.tls` Secret and a `hippo-replication.tls` Secret, you would add them to your Ivory cluster:
+After you create the Secrets, you can specify the custom TLS Secret in your `ivorycluster.ivory-operator.ivorysql.org` custom resource. For example, if you created a `hippo-cluster.tls` Secret and a `hippo-replication.tls` Secret, you would add them to your Ivory cluster:
 
 ```
 spec:
@@ -184,7 +184,7 @@ There are several ways to add your own custom Kubernetes [Labels](https://kubern
 
 - Cluster: You can apply labels to any IVYO managed object in a cluster by editing the `spec.metadata.labels` section of the custom resource.
 - Ivory: You can apply labels to a Ivory instance set and its objects by editing `spec.instances.metadata.labels`.
-- pgBackRest: You can apply labels to pgBackRest and its objects by editing `postgresclusters.spec.backups.pgbackrest.metadata.labels`.
+- pgBackRest: You can apply labels to pgBackRest and its objects by editing `ivoryclusters.spec.backups.pgbackrest.metadata.labels`.
 - PgBouncer: You can apply labels to PgBouncer connection pooling instances by editing `spec.proxy.pgBouncer.metadata.labels`.
 
 ## Annotations
@@ -204,14 +204,14 @@ IVYO allows you to use [pod priority classes](https://kubernetes.io/docs/concept
 - Dedicated Repo Host: Priority defined under the repoHost section of the spec is applied to the dedicated repo host by editing the `spec.backups.pgbackrest.repoHost.priorityClassName` section of the custom resource.
 - PgBouncer: Priority is defined under the pgBouncer section of the spec and will apply to all PgBouncer Pods by editing the `spec.proxy.pgBouncer.priorityClassName` section of the custom resource.
 - Backup (manual and scheduled): Priority is defined under the `spec.backups.pgbackrest.jobs.priorityClassName` section and applies that priority to all pgBackRest backup Jobs (manual and scheduled).
-- Restore (data source or in-place): Priority is defined for either a "data source" restore or an in-place restore by editing the `spec.dataSource.postgresCluster.priorityClassName` section of the custom resource.
+- Restore (data source or in-place): Priority is defined for either a "data source" restore or an in-place restore by editing the `spec.dataSource.ivorycluster.priorityClassName` section of the custom resource.
 - Data Migration: The priority defined for the first instance set in the spec (array position 0) is used for the PGDATA and WAL migration Jobs. The pgBackRest repo migration Job will use the priority class applied to the repoHost.
 
 ## Separate WAL PVCs
 
 IvorySQL commits transactions by storing changes in its [Write-Ahead Log (WAL)](https://www.postgresql.org/docs/current/wal-intro.html). Because the way WAL files are accessed and
 utilized often differs from that of data files, and in high-performance situations, it can desirable to put WAL files on separate storage volume. With IVYO, this can be done by adding
-the `walVolumeClaimSpec` block to your desired instance in your PostgresCluster spec, either when your cluster is created or anytime thereafter:
+the `walVolumeClaimSpec` block to your desired instance in your ivorycluster spec, either when your cluster is created or anytime thereafter:
 
 ```
 spec:
@@ -238,23 +238,23 @@ To use the custom sidecar features, you will need to enable
 them via the IVYO
 [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/).
 
-IVYO feature gates are enabled by setting the `PGO_FEATURE_GATES` environment
+IVYO feature gates are enabled by setting the `IVYO_FEATURE_GATES` environment
 variable on the IVYO Deployment. For a feature named 'FeatureName', that would
 look like
 
 ```
-PGO_FEATURE_GATES="FeatureName=true"
+IVYO_FEATURE_GATES="FeatureName=true"
 ```
 
 Please note that it is possible to enable more than one feature at a time as
 this variable accepts a comma delimited list, for example:
 
 ```
-PGO_FEATURE_GATES="FeatureName=true,FeatureName2=true,FeatureName3=true..."
+IVYO_FEATURE_GATES="FeatureName=true,FeatureName2=true,FeatureName3=true..."
 ```
 
 {{% notice warning %}}
-Any feature name added to `PGO_FEATURE_GATES` must be defined by IVYO and must be
+Any feature name added to `IVYO_FEATURE_GATES` must be defined by IVYO and must be
 set to true or false. Any misconfiguration will prevent IVYO from deploying.
 See the [considerations](#considerations) below for additional guidance.
 {{% /notice %}}
@@ -264,12 +264,12 @@ See the [considerations](#considerations) below for additional guidance.
 To configure custom sidecar Containers for any of your IvorySQL instance Pods
 you will need to enable that feature via the IVYO feature gate.
 
-As mentioned above, IVYO feature gates are enabled by setting the `PGO_FEATURE_GATES`
+As mentioned above, IVYO feature gates are enabled by setting the `IVYO_FEATURE_GATES`
 environment variable on the IVYO Deployment. For the IvorySQL instance sidecar
 container feature, that will be
 
 ```
-PGO_FEATURE_GATES="InstanceSidecars=true"
+IVYO_FEATURE_GATES="InstanceSidecars=true"
 ```
 
 Once this feature is enabled, you can add your custom
@@ -282,12 +282,12 @@ below for more information!
 Similar to your IvorySQL instance Pods, to configure custom sidecar Containers
 for your pgBouncer Pods you will need to enable it via the IVYO feature gate.
 
-As mentioned above, IVYO feature gates are enabled by setting the `PGO_FEATURE_GATES`
+As mentioned above, IVYO feature gates are enabled by setting the `IVYO_FEATURE_GATES`
 environment variable on the IVYO Deployment. For the pgBouncer custom sidecar
 container feature, that will be
 
 ```
-PGO_FEATURE_GATES="PGBouncerSidecars=true"
+IVYO_FEATURE_GATES="PGBouncerSidecars=true"
 ```
 
 Once this feature is enabled, you can add your custom
@@ -300,8 +300,8 @@ below for more information!
 As a simple example, consider
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: sidecar-hippo
 spec:
@@ -368,7 +368,7 @@ The Ivory cluster spec accepts a reference to a ConfigMap containing your init S
 kubectl -n ivory-operator create configmap hippo-init-sql --from-file=init.sql=/path/to/init.sql
 ```
 
-You would add the following section to your Postgrescluster spec:
+You would add the following section to your ivorycluster spec:
 
 ```
 spec:
@@ -381,15 +381,15 @@ spec:
 The ConfigMap must exist in the same namespace as your Ivory cluster.
 {{% /notice %}}
 
-After you add the ConfigMap reference to your spec, apply the change with `kubectl apply -k kustomize/postgres`. IVYO will create your `hippo` cluster and run your initialization SQL once the cluster has started. You can verify that your SQL has been run by checking the `databaseInitSQL` status on your Ivory cluster. While the status is set, your init SQL will not be run again. You can check cluster status with the `kubectl describe` command:
+After you add the ConfigMap reference to your spec, apply the change with `kubectl apply -k kustomize/ivory`. IVYO will create your `hippo` cluster and run your initialization SQL once the cluster has started. You can verify that your SQL has been run by checking the `databaseInitSQL` status on your Ivory cluster. While the status is set, your init SQL will not be run again. You can check cluster status with the `kubectl describe` command:
 
 ```
-kubectl -n ivory-operator describe postgresclusters.ivory-operator.crunchydata.com hippo
+kubectl -n ivory-operator describe ivoryclusters.ivory-operator.ivorysql.org hippo
 ```
 
 {{% notice warning %}}
 
-In some cases, due to how Kubernetes treats PostgresCluster status, IVYO may run your SQL commands more than once. Please ensure that the commands defined in your init SQL are idempotent.
+In some cases, due to how Kubernetes treats ivorycluster status, IVYO may run your SQL commands more than once. Please ensure that the commands defined in your init SQL are idempotent.
 
 {{% /notice %}}
 
@@ -444,7 +444,7 @@ kubectl create configmap hippo-init-sql --from-file=init.sql=/path/to/init.sql -
 ```
 
 {{% notice tip %}}
-If you edit your ConfigMap and your changes aren't showing up, you may be waiting for IVYO to reconcile your cluster. After some time, IVYO will automatically reconcile the cluster or you can trigger reconciliation by applying any change to your cluster (e.g. with `kubectl apply -k kustomize/postgres`).
+If you edit your ConfigMap and your changes aren't showing up, you may be waiting for IVYO to reconcile your cluster. After some time, IVYO will automatically reconcile the cluster or you can trigger reconciliation by applying any change to your cluster (e.g. with `kubectl apply -k kustomize/ivory`).
 {{% /notice %}}
 
 To ensure that `psql` returns a failure exit code when your SQL commands fail, set the `ON_ERROR_STOP` [variable](https://www.postgresql.org/docs/current/app-psql.html#APP-PSQL-VARIABLES) as part of your SQL file:

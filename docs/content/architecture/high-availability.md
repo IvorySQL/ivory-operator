@@ -20,21 +20,21 @@ There may also be downtime events that are due to the normal case of operations,
 such as performing a minor upgrade, security patching of operating system,
 hardware upgrade, or other maintenance.
 
-Fortunately, IVYO, the Ivory Operator from Highgo, is prepared for this.
+Fortunately, IVYO, the Ivory Operator from IvorySQL, is prepared for this.
 
 ![IvorySQL Operator high availability Overview](/images/postgresql-ha-overview.png)
 
-The Highgo IvorySQL Operator supports a distributed-consensus based
+The IvorySQL IvorySQL Operator supports a distributed-consensus based
 high availability (HA) system that keeps its managed IvorySQL clusters up and
 running, even if the IvorySQL Operator disappears. Additionally, it leverages
 Kubernetes specific features such as
-[Pod Anti-Affinity](#how-the-highgo-ivorysql-operator-uses-pod-anti-affinity)
+[Pod Anti-Affinity](#how-the-IvorySQL-ivorysql-operator-uses-pod-anti-affinity)
 to limit the surface area that could lead to a IvorySQL cluster becoming
 unavailable. The IvorySQL Operator also supports automatic healing of failed
 primaries and leverages the efficient pgBackRest "delta restore" method, which
 eliminates the need to fully reprovision a failed cluster!
 
-The Highgo IvorySQL Operator also maintains high availability during a
+The IvorySQL IvorySQL Operator also maintains high availability during a
 routine task such as a IvorySQL minor version upgrade.
 
 For workloads that are sensitive to transaction loss, IVYO supports IvorySQL synchronous replication.
@@ -45,7 +45,7 @@ your high availability backing for Kubernetes. To learn more about creating a
 please review the [Kubernetes documentation](https://kubernetes.io/docs/tasks/administer-cluster/highly-available-master/)
 or consult your systems administrator.
 
-## The Highgo Ivory Operator High Availability Algorithm
+## The IvorySQL Ivory Operator High Availability Algorithm
 
 A critical aspect of any production-grade IvorySQL deployment is a reliable
 and effective high availability (HA) solution. Organizations want to know that
@@ -134,7 +134,7 @@ up with appropriate attributes.  It is then restored from the pgBackRest backup
 archive using the "delta restore" feature, which heals the instance and makes it
 ready to follow the new primary, which is known as "auto healing."
 
-## How The Highgo IvorySQL Operator Uses Pod Anti-Affinity
+## How The IvorySQL IvorySQL Operator Uses Pod Anti-Affinity
 
 Kubernetes has two types of Pod anti-affinity:
 
@@ -149,7 +149,7 @@ For an example for how pod anti-affinity works with IVYO, please see the [high a
 
 ## Synchronous Replication: Guarding Against Transactions Loss
 
-Clusters managed by the Highgo IvorySQL Operator can be deployed with
+Clusters managed by the IvorySQL IvorySQL Operator can be deployed with
 synchronous replication, which is useful for workloads that are sensitive to
 losing transactions, as IvorySQL will not consider a transaction to be
 committed until it is committed to all synchronous replicas connected to a
@@ -185,7 +185,7 @@ restricting the types of Pods that can be assigned to particular Nodes.
 Reasoning and strategy for using taints and tolerations is outside the scope of
 this documentation.
 
-You can configure the tolerations for your Ivory instances on the `postgresclusters` custom resource.
+You can configure the tolerations for your Ivory instances on the `ivoryclusters` custom resource.
 
 ## Pod Topology Spread Constraints
 
@@ -247,8 +247,8 @@ Pods in a Kubernetes cluster can experience [voluntary disruptions](https://kube
 as a result of actions initiated by the application owner or a Cluster Administrator. During these
 voluntary disruptions Pod Disruption Budgets (PDBs) can be used to ensure that a minimum number of Pods
 will be running. The operator allows you to define a minimum number of Pods that should be
-available for instance sets and PgBouncer deployments in your postgrescluster. This minimum is
-configured in the postgrescluster spec and will be used to create PDBs associated to a resource defined
+available for instance sets and PgBouncer deployments in your ivorycluster. This minimum is
+configured in the ivorycluster spec and will be used to create PDBs associated to a resource defined
 in the spec. For example, the following spec will create two PDBs, one for `instance1` and one for
 the PgBouncer deployment:
 

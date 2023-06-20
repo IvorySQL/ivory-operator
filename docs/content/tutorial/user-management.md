@@ -11,7 +11,7 @@ For detailed information for how user and database management works in IVYO, ple
 
 ## Creating a New User
 
-You can create a new user with the following snippet in the `postgrescluster` custom resource. Let's add this to our `hippo` database:
+You can create a new user with the following snippet in the `ivorycluster` custom resource. Let's add this to our `hippo` database:
 
 ```
 spec:
@@ -21,7 +21,7 @@ spec:
 
 You can now apply the changes and see that the new user is created. Note the following:
 
-- The user would only be able to connect to the default `postgres` database.
+- The user would only be able to connect to the default `ivory` database.
 - The user will not have any connection credentials populated into the `hippo-pguser-rhino` Secret.
 - The user is unprivileged.
 
@@ -74,17 +74,17 @@ spec:
       options: "CREATEDB CREATEROLE"
 ```
 
-## Managing the `postgres` User
+## Managing the `ivory` User
 
-By default, IVYO does not give you access to the `postgres` user. However, you can get access to this account by doing the following:
+By default, IVYO does not give you access to the `ivory` user. However, you can get access to this account by doing the following:
 
 ```
 spec:
   users:
-    - name: postgres
+    - name: ivory
 ```
 
-This will create a Secret of the pattern `<clusterName>-pguser-postgres` that contains the credentials of the `postgres` account. For our `hippo` cluster, this would be `hippo-pguser-postgres`.
+This will create a Secret of the pattern `<clusterName>-pguser-ivory` that contains the credentials of the `ivory` account. For our `hippo` cluster, this would be `hippo-pguser-ivory`.
 
 ## Deleting a User
 

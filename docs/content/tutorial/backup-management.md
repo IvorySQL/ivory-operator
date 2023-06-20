@@ -101,14 +101,14 @@ spec:
 ```
 
 This does not trigger the one-off backup -- you have to do that by adding the
-`ivory-operator.crunchydata.com/pgbackrest-backup` annotation to your custom resource.
+`ivory-operator.ivorysql.org/pgbackrest-backup` annotation to your custom resource.
 The best way to set this annotation is with a timestamp, so you know when you initialized the backup.
 
 For example, for our `hippo` cluster, we can run the following command to trigger the one-off backup:
 
 ```shell
-kubectl annotate -n ivory-operator postgrescluster hippo \
-  ivory-operator.crunchydata.com/pgbackrest-backup="$(date)"
+kubectl annotate -n ivory-operator ivorycluster hippo \
+  ivory-operator.ivorysql.org/pgbackrest-backup="$(date)"
 ```
 
 IVYO will detect this annotation and create a new, one-off backup Job!
@@ -118,8 +118,8 @@ If you intend to take one-off backups with similar settings in the future, you c
 To re-run the command above, you will need to add the `--overwrite` flag so the annotation's value can be updated, i.e.
 
 ```shell
-kubectl annotate -n ivory-operator postgrescluster hippo --overwrite \
-  ivory-operator.crunchydata.com/pgbackrest-backup="$(date)"
+kubectl annotate -n ivory-operator ivorycluster hippo --overwrite \
+  ivory-operator.ivorysql.org/pgbackrest-backup="$(date)"
 ```
 
 ## Next Steps

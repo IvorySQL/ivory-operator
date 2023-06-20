@@ -272,7 +272,7 @@ generate-kuttl: export KUTTL_PG_UPGRADE_FROM_VERSION ?= 14
 generate-kuttl: export KUTTL_PG_UPGRADE_TO_VERSION ?= 15
 generate-kuttl: export KUTTL_PG_VERSION ?= 15
 generate-kuttl: export KUTTL_POSTGIS_VERSION ?= 3.3
-generate-kuttl: export KUTTL_PSQL_IMAGE ?= registry.developers.crunchydata.com/crunchydata/crunchy-postgres:ubi8-15.2-0
+generate-kuttl: export KUTTL_PSQL_IMAGE ?= hub.docker.com/r/balinor2017/highgo-ivory:0.1
 generate-kuttl: ## Generate kuttl tests
 	[ ! -d testing/kuttl/e2e-generated ] || rm -r testing/kuttl/e2e-generated
 	[ ! -d testing/kuttl/e2e-generated-other ] || rm -r testing/kuttl/e2e-generated-other

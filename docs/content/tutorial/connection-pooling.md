@@ -98,7 +98,7 @@ kubectl create secret generic -n ivory-operator keycloakdb-pgbouncer.tls \
   --from-file=tls.crt=keycloakdb-pgbouncer.crt
 ```
 
-You can specify the custom TLS Secret in the `spec.proxy.pgBouncer.customTLSSecret.name` field in your `postgrescluster.ivory-operator.crunchydata.com` custom resource, e.g.:
+You can specify the custom TLS Secret in the `spec.proxy.pgBouncer.customTLSSecret.name` field in your `ivorycluster.ivory-operator.ivorysql.org` custom resource, e.g.:
 
 ```
 spec:
@@ -189,8 +189,8 @@ spec:
             podAffinityTerm:
               labelSelector:
                 matchLabels:
-                  ivory-operator.crunchydata.com/cluster: keycloakdb
-                  ivory-operator.crunchydata.com/role: pgbouncer
+                  ivory-operator.ivorysql.org/cluster: keycloakdb
+                  ivory-operator.ivorysql.org/role: pgbouncer
               topologyKey: kubernetes.io/hostname
 ```
 
@@ -211,13 +211,13 @@ spec:
         value: connection-poolers
 ```
 
-Note that setting a toleration does not necessarily mean that the PgBouncer instances will be assigned to Nodes with those taints. [Tolerations act as a **key**: they allow for you to access Nodes](https://blog.crunchydata.com/blog/kubernetes-pod-tolerations-and-postgresql-deployment-strategies). If you want to ensure that your PgBouncer instances are deployed to specific nodes, you need to combine setting tolerations with node affinity.
+Note that setting a toleration does not necessarily mean that the PgBouncer instances will be assigned to Nodes with those taints. [Tolerations act as a **key**: they allow for you to access Nodes](https://blog.ivorysql.org/blog/kubernetes-pod-tolerations-and-postgresql-deployment-strategies). If you want to ensure that your PgBouncer instances are deployed to specific nodes, you need to combine setting tolerations with node affinity.
 
 ### Pod Spread Constraints
 
 Besides using affinity, anti-affinity and tolerations, you can also set [Topology Spread Constraints](https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/) through `spec.proxy.pgBouncer.topologySpreadConstraints`. This attribute follows the Kubernetes standard topology spread contraint layout.
 
-For example, since each of of our pgBouncer Pods will have the standard `ivory-operator.crunchydata.com/role: pgbouncer` Label set, we can use this Label when determining the `maxSkew`. In the example below, since we have 3 nodes with a `maxSkew` of 1 and we've set `whenUnsatisfiable` to `ScheduleAnyway`, we should ideally see 1 Pod on each of the nodes, but our Pods can be distributed less evenly if other constraints keep this from happening.
+For example, since each of of our pgBouncer Pods will have the standard `ivory-operator.ivorysql.org/role: pgbouncer` Label set, we can use this Label when determining the `maxSkew`. In the example below, since we have 3 nodes with a `maxSkew` of 1 and we've set `whenUnsatisfiable` to `ScheduleAnyway`, we should ideally see 1 Pod on each of the nodes, but our Pods can be distributed less evenly if other constraints keep this from happening.
 
 ```
   proxy:
@@ -229,7 +229,7 @@ For example, since each of of our pgBouncer Pods will have the standard `ivory-o
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
             matchLabels:
-              ivory-operator.crunchydata.com/role: pgbouncer
+              ivory-operator.ivorysql.org/role: pgbouncer
 ```
 
 If you want to ensure that your PgBouncer instances are deployed more evenly (or not deployed at all), you need to update `whenUnsatisfiable` to `DoNotSchedule`.

@@ -9,10 +9,10 @@ weight: 105
 
 There are times when you might need to manually restart IvorySQL. This can be done by adding or updating a custom annotation to the cluster's `spec.metadata.annotations` section. IVYO will notice the change and perform a [rolling restart]({{< relref "/architecture/high-availability.md" >}}#rolling-update).
 
-For example, if you have a cluster named `hippo` in the namespace `ivory-operator`, all you need to do is patch the hippo PostgresCluster with the following:
+For example, if you have a cluster named `hippo` in the namespace `ivory-operator`, all you need to do is patch the hippo ivorycluster with the following:
 
 ```shell
-kubectl patch postgrescluster/hippo -n ivory-operator --type merge \
+kubectl patch ivorycluster/hippo -n ivory-operator --type merge \
   --patch '{"spec":{"metadata":{"annotations":{"restarted":"'"$(date)"'"}}}}'
 ```
 
@@ -23,7 +23,7 @@ Watch your hippo cluster: you will see the rolling update has been triggered and
 You can shut down a Ivory cluster by setting the `spec.shutdown` attribute to `true`. You can do this by editing the manifest, or, in the case of the `hippo` cluster, executing a command like the below:
 
 ```
-kubectl patch postgrescluster/hippo -n ivory-operator --type merge \
+kubectl patch ivorycluster/hippo -n ivory-operator --type merge \
   --patch '{"spec":{"shutdown": true}}'
 ```
 
@@ -31,7 +31,7 @@ The effect of this is that all the Kubernetes workloads for this cluster are
 scaled to 0. You can verify this with the following command:
 
 ```
-kubectl get deploy,sts,cronjob --selector=ivory-operator.crunchydata.com/cluster=hippo
+kubectl get deploy,sts,cronjob --selector=ivory-operator.ivorysql.org/cluster=hippo
 
 NAME                              READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/hippo-pgbouncer   0/0     0            0           1h
@@ -52,13 +52,13 @@ You can pause the Ivory cluster reconciliation process by setting the
 in the case of the `hippo` cluster, executing a command like the below:
 
 ```
-kubectl patch postgrescluster/hippo -n ivory-operator --type merge \
+kubectl patch ivorycluster/hippo -n ivory-operator --type merge \
   --patch '{"spec":{"paused": true}}'
 ```
 
 Pausing a cluster will suspend any changes to the cluster’s current state until
 reconciliation is resumed. This allows you to fully control when changes to
-the PostgresCluster spec are rolled out to the Ivory cluster. While paused,
+the ivorycluster spec are rolled out to the Ivory cluster. While paused,
 no statuses are updated other than the "Progressing" condition.
 
 To resume reconciliation of a Ivory cluster, you can either set `spec.paused`
@@ -114,7 +114,7 @@ PgBouncer certificate Secrets. Recent PgBouncer versions load those changes
 without downtime, but versions prior to 1.16.0 need to be restarted manually.
 There are a few ways to restart an older version PgBouncer to reload Secrets:
 
-1. Store the new certificates in a new Secret. Edit the PostgresCluster object
+1. Store the new certificates in a new Secret. Edit the ivorycluster object
    to refer to the new Secret, and IVYO will perform a rolling restart of PgBouncer.
    ```yaml
    spec:
@@ -128,7 +128,7 @@ There are a few ways to restart an older version PgBouncer to reload Secrets:
 
 2. Replace the old certificates in the current Secret. IVYO doesn't notice when
    the contents of your Secret change, so you need to trigger a rolling restart
-   of PgBouncer. Edit the PostgresCluster object to add a unique annotation.
+   of PgBouncer. Edit the ivorycluster object to add a unique annotation.
    The name and value are up to you, so long as the value differs from the
    previous value.
    ```yaml
@@ -143,16 +143,16 @@ There are a few ways to restart an older version PgBouncer to reload Secrets:
    This `kubectl patch` command uses your local date and time:
 
    ```shell
-   kubectl patch postgrescluster/hippo --type merge \
+   kubectl patch ivorycluster/hippo --type merge \
      --patch '{"spec":{"proxy":{"pgBouncer":{"metadata":{"annotations":{"restarted":"'"$(date)"'"}}}}}}'
    ```
 
 ## Changing the Primary
 
 There may be times when you want to change the primary in your HA cluster. This can be done
-using the `patroni.switchover` section of the PostgresCluster spec. It allows
-you to enable switchovers in your PostgresClusters, target a specific instance as the new
-primary, and run a failover if your PostgresCluster has entered a bad state.
+using the `patroni.switchover` section of the ivorycluster spec. It allows
+you to enable switchovers in your ivoryclusters, target a specific instance as the new
+primary, and run a failover if your ivorycluster has entered a bad state.
 
 Let's go through the process of performing a switchover!
 
@@ -167,23 +167,23 @@ spec:
 ```
 
 After you apply this change, IVYO will be looking for the trigger to perform a switchover in your
-cluster. You will trigger the switchover by adding the `ivory-operator.crunchydata.com/trigger-switchover`
+cluster. You will trigger the switchover by adding the `ivory-operator.ivorysql.org/trigger-switchover`
 annotation to your custom resource. The best way to set this annotation is
 with a timestamp, so you know when you initiated the change.
 
 For example, for our `hippo` cluster, we can run the following command to trigger the switchover:
 
 ```shell
-kubectl annotate -n ivory-operator postgrescluster hippo \
-  ivory-operator.crunchydata.com/trigger-switchover="$(date)"
+kubectl annotate -n ivory-operator ivorycluster hippo \
+  ivory-operator.ivorysql.org/trigger-switchover="$(date)"
 ```
 
 {{% notice tip %}}
 If you want to perform another switchover you can re-run the annotation command and add the `--overwrite` flag:
 
 ```shell
-kubectl annotate -n ivory-operator postgrescluster hippo --overwrite \
-  ivory-operator.crunchydata.com/trigger-switchover="$(date)"
+kubectl annotate -n ivory-operator ivorycluster hippo --overwrite \
+  ivory-operator.ivorysql.org/trigger-switchover="$(date)"
 ```
 {{% /notice %}}
 
@@ -202,7 +202,7 @@ primary has been changed on your cluster!
 {{% notice info %}}
 After changing the primary, we recommend that you disable switchovers by setting `spec.patroni.switchover.enabled`
 to false or remove the field from your spec entirely. If the field is removed the corresponding
-status will also be removed from the PostgresCluster.
+status will also be removed from the ivorycluster.
 {{% /notice %}}
 
 
@@ -213,14 +213,14 @@ primary. This target instance will be used as the candidate when performing the 
 The `spec.patroni.switchover.targetInstance` field takes the name of the instance that you are switching to.
 
 This name can be found in a couple different places; one is as the name of the StatefulSet and
-another is on the database Pod as the `ivory-operator.crunchydata.com/instance` label. The
+another is on the database Pod as the `ivory-operator.ivorysql.org/instance` label. The
 following commands can help you determine who is the current primary and what name to use as the
 `targetInstance`:
 
 ```shell-session
-$ kubectl get pods -l ivory-operator.crunchydata.com/cluster=hippo \
-    -L ivory-operator.crunchydata.com/instance \
-    -L ivory-operator.crunchydata.com/role
+$ kubectl get pods -l ivory-operator.ivorysql.org/cluster=hippo \
+    -L ivory-operator.ivorysql.org/instance \
+    -L ivory-operator.ivorysql.org/role
 
 NAME                      READY   STATUS      RESTARTS   AGE     INSTANCE               ROLE
 hippo-instance1-jdb5-0    3/3     Running     0          2m47s   hippo-instance1-jdb5   master
@@ -240,7 +240,7 @@ spec:
 ```
 
 After applying this change you will once again need to trigger the switchover by annotating the
-PostgresCluster (see above commands). You can verify the switchover has completed by checking the
+ivorycluster (see above commands). You can verify the switchover has completed by checking the
 Pod role labels and `status.patroni.switchover`.
 
 #### Failover
@@ -260,8 +260,8 @@ spec:
       type: Failover
 ```
 
-Apply this spec change and your PostgresCluster will be prepared to perform the failover. Again
-you will need to trigger the switchover by annotating the PostgresCluster (see above commands)
+Apply this spec change and your ivorycluster will be prepared to perform the failover. Again
+you will need to trigger the switchover by annotating the ivorycluster (see above commands)
 and verify that the Pod role labels and `status.patroni.switchover` are updated accordingly.
 
 {{% notice warning %}}

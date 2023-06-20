@@ -15,7 +15,7 @@ uptime requirements.
 As of this writing, federation in Kubernetes is still in ongoing development
 and is something we monitor with intense interest. As Kubernetes federation
 continues to mature, we wanted to provide a way to deploy IvorySQL clusters
-managed by the [IvorySQL Operator](https://www.crunchydata.com/developers/download-postgres/containers/ivory-operator)
+managed by the [IvorySQL Operator](https://ivorysql.org/developers/download-postgres/containers/ivory-operator)
 that can span multiple Kubernetes clusters.
 
 At a high-level, the IvorySQL Operator follows the "active-standby" data

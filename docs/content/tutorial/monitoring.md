@@ -15,13 +15,13 @@ Let's look at how IVYO allows you to enable monitoring in your cluster.
 
 ## Adding the Exporter Sidecar
 
-Let's look at how we can add the Highgo IvorySQL Exporter sidecar to your cluster using the
-`kustomize/postgres` example in the [Ivory Operator examples] repository.
+Let's look at how we can add the IvorySQL IvorySQL Exporter sidecar to your cluster using the
+`kustomize/ivory` example in the [Ivory Operator examples] repository.
 
 Monitoring tools are added using the `spec.monitoring` section of the custom resource. Currently,
-the only monitoring tool supported is the Highgo IvorySQL Exporter configured with [pgMonitor].
+the only monitoring tool supported is the IvorySQL IvorySQL Exporter configured with [pgMonitor].
 
-In the `kustomize/postgres/postgres.yaml` file, add the following YAML to the spec:
+In the `kustomize/ivory/postgres.yaml` file, add the following YAML to the spec:
 
 ```
 monitoring:
@@ -33,7 +33,7 @@ monitoring:
 Save your changes and run:
 
 ```
-kubectl apply -k kustomize/postgres
+kubectl apply -k kustomize/ivory
 ```
 
 IVYO will detect the change and add the Exporter sidecar to all Ivory Pods that exist in your
@@ -54,7 +54,7 @@ Secret via the exporter spec:
 ```
 
 Like other custom TLS Secrets that can be configured with IVYO, the Secret will need to be created in
-the same Namespace as your PostgresCluster. It should also contain the TLS key (`tls.key`) and TLS
+the same Namespace as your ivorycluster. It should also contain the TLS key (`tls.key`) and TLS
 certificate (`tls.crt`) needed to enable encryption.
 
 ```
@@ -69,7 +69,7 @@ for more information on configuring TLS for [Prometheus].
 
 ## Accessing the Metrics
 
-Once the Highgo IvorySQL Exporter has been enabled in your cluster, follow the steps outlined in
+Once the IvorySQL IvorySQL Exporter has been enabled in your cluster, follow the steps outlined in
 [IVYO Monitoring] to install the monitoring stack. This will allow you to deploy a [pgMonitor]
 configuration of [Prometheus], [Grafana], and [Alertmanager] monitoring tools in Kubernetes. These
 tools will be set up by default to connect to the Exporter containers on your Ivory Pods.

@@ -5,7 +5,7 @@ draft: false
 weight: 125
 ---
 
-IVYO manages IvorySQL users that you define in [`PostgresCluster.spec.users`]({{< relref "/references/crd#postgresclusterspecusersindex" >}}).
+IVYO manages IvorySQL users that you define in [`ivorycluster.spec.users`]({{< relref "/references/crd#ivoryclusterspecusersindex" >}}).
 There, you can list their [role attributes](https://www.postgresql.org/docs/current/role-attributes.html) and which databases they can access.
 
 Below is some information on how the user and database management systems work. To try out some examples, please see the [user and database management]({{< relref "tutorial/user-management.md" >}}) section of the [tutorial]({{< relref "tutorial/_index.md" >}}).
@@ -45,7 +45,7 @@ While the above defaults may work for your application, there are certain cases 
 
 ## Custom Users and Databases
 
-Users and databases can be customized in the [`spec.users`]({{< relref "/references/crd#postgresclusterspecusersindex" >}}) section of the custom resource. These can be adding during cluster creation and adjusted over time, but it's important to note the following:
+Users and databases can be customized in the [`spec.users`]({{< relref "/references/crd#ivoryclusterspecusersindex" >}}) section of the custom resource. These can be adding during cluster creation and adjusted over time, but it's important to note the following:
 
 - If `spec.users` is set during cluster creation, IVYO will **not** create any default users or databases except for `postgres`. If you want additional databases, you will need to specify them.
 - For any users added in `spec.users`, IVYO will created a Secret of the format `<clusterName>-pguser-<userName>`. This will contain the user credentials.

@@ -17,7 +17,7 @@ The Ivory image is referenced using the `spec.image` and looks similar to the be
 
 ```
 spec:
-  image: registry.developers.crunchydata.com/crunchydata/highgo-ivory:ubi8-14.2-0
+  image: registry.developers.ivorysql.org/crunchydata/IvorySQL-ivory:ubi8-14.2-0
 ```
 
 Diving into the tag a bit further, you will notice the `14.2-0` portion. This represents the Ivory minor version (`14.2`) and the patch number of the release `0`. If the patch number is incremented (e.g. `14.2-1`), this means that the container is rebuilt, but there are no changes to the Ivory version. If the minor version is incremented (e.g. `14.2-0`), this means that there is a newer bug fix release of Ivory within the container.
@@ -26,7 +26,7 @@ To update the image, you just need to modify the `spec.image` field with the new
 
 ```
 spec:
-  image: registry.developers.crunchydata.com/crunchydata/highgo-ivory:ubi8-14.2-1
+  image: registry.developers.ivorysql.org/crunchydata/IvorySQL-ivory:ubi8-14.2-1
 ```
 
 You can apply the changes using `kubectl apply`. Similar to the rolling update example when we [resized the cluster]({{< relref "./resize-cluster.md" >}}), the update is first applied to the Ivory replicas, then a controlled switchover occurs, and the final instance is updated.
@@ -35,16 +35,16 @@ For the `hippo` cluster, you can see the status of the rollout by running the co
 
 ```
 kubectl -n ivory-operator get pods \
-  --selector=ivory-operator.crunchydata.com/cluster=hippo,ivory-operator.crunchydata.com/instance \
-  -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata.labels.ivory-operator\.crunchydata\.com/role}{"\t"}{.status.phase}{"\t"}{.spec.containers[].image}{"\n"}{end}'
+  --selector=ivory-operator.ivorysql.org/cluster=hippo,ivory-operator.ivorysql.org/instance \
+  -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata.labels.ivory-operator\.ivorysql\.org/role}{"\t"}{.status.phase}{"\t"}{.spec.containers[].image}{"\n"}{end}'
 ```
 
 or by running a watch:
 
 ```
 watch "kubectl -n ivory-operator get pods \
-  --selector=ivory-operator.crunchydata.com/cluster=hippo,ivory-operator.crunchydata.com/instance \
-  -o=jsonpath='{range .items[*]}{.metadata.name}{\"\t\"}{.metadata.labels.ivory-operator\.crunchydata\.com/role}{\"\t\"}{.status.phase}{\"\t\"}{.spec.containers[].image}{\"\n\"}{end}'"
+  --selector=ivory-operator.ivorysql.org/cluster=hippo,ivory-operator.ivorysql.org/instance \
+  -o=jsonpath='{range .items[*]}{.metadata.name}{\"\t\"}{.metadata.labels.ivory-operator\.ivorysql\.org/role}{\"\t\"}{.status.phase}{\"\t\"}{.spec.containers[].image}{\"\n\"}{end}'"
 ```
 
 ## Rolling Back Minor Ivory Updates

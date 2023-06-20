@@ -260,7 +260,7 @@ system is powered by [Alertmanager](https://github.com/prometheus/alertmanager).
 
 The alerts that come installed by default include:
 
-- `PGExporterScrapeError`: The Highgo IvorySQL Exporter is having issues
+- `PGExporterScrapeError`: The IvorySQL IvorySQL Exporter is having issues
 scraping statistics used as part of the monitoring stack.
 - `PGIsUp`: A IvorySQL instance is down.
 - `PGIdleTxn`: There are too many connections that are in the
@@ -279,7 +279,7 @@ instance, which could risk data loss in a failover scenario. Issues a warning at
 Not attending to this can lead to out-of-disk errors.
 - `PGXIDWraparound`: Indicates that a IvorySQL instance is nearing transaction
 ID wraparound. Issues a warning at 50% and goes critical at 75%. It's important
-that you [vacuum your database](https://info.crunchydata.com/blog/managing-transaction-id-wraparound-in-postgresql)
+that you [vacuum your database](https://info.ivorysql.org/blog/managing-transaction-id-wraparound-in-postgresql)
 to prevent this.
 - `PGEmergencyVacuum`: Indicates that autovacuum is not running or cannot keep
 up with ongoing changes, i.e. it's past its "freeze" age.  Issues a warning at

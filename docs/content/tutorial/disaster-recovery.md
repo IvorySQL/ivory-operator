@@ -15,26 +15,26 @@ Let's look at how we can perform different types of restore operations. First, l
 
 {{% notice info %}}
 
-As of v5.0.5, IVYO offers the ability to restore from an existing PostgresCluster or a remote
+As of v5.0.5, IVYO offers the ability to restore from an existing ivorycluster or a remote
 cloud-based data source, such as S3, GCS, etc. For more on that, see the [Clone From Backups Stored in S3 / GCS / Azure Blob Storage](#cloud-based-data-source) section.
 
-Note that you **cannot** use both a local PostgresCluster data source and a remote cloud-based data
-source at one time; if both the `dataSource.postgresCluster` and `dataSource.pgbackrest` fields
-are filled in, the local PostgresCluster data source will take precedence.
+Note that you **cannot** use both a local ivorycluster data source and a remote cloud-based data
+source at one time; if both the `dataSource.ivorycluster` and `dataSource.pgbackrest` fields
+are filled in, the local ivorycluster data source will take precedence.
 
 {{% /notice %}}
 
-There are several attributes on the custom resource that are important to understand as part of the restore process. All of these attributes are grouped together in the [`spec.dataSource.postgresCluster`]({{< relref "/references/crd#postgresclusterspecdatasourcepostgrescluster" >}}) section of the custom resource.
+There are several attributes on the custom resource that are important to understand as part of the restore process. All of these attributes are grouped together in the [`spec.dataSource.ivorycluster`]({{< relref "/references/crd#ivoryclusterspecdatasourceivorycluster" >}}) section of the custom resource.
 
 Please review the table below to understand how each of these attributes work in the context of setting up a restore operation.
 
-- `spec.dataSource.postgresCluster.clusterName`: The name of the cluster that you are restoring from. This corresponds to the `metadata.name` attribute on a different `postgrescluster` custom resource.
-- `spec.dataSource.postgresCluster.clusterNamespace`: The namespace of the cluster that you are restoring from. Used when the cluster exists in a different namespace.
-- `spec.dataSource.postgresCluster.repoName`: The name of the pgBackRest repository from the `spec.dataSource.postgresCluster.clusterName` to use for the restore. Can be one of `repo1`, `repo2`, `repo3`, or `repo4`. The repository must exist in the other cluster.
-- `spec.dataSource.postgresCluster.options`: Any additional [pgBackRest restore options](https://pgbackrest.org/command.html#command-restore) or general options that IVYO allows. For example, you may want to set `--process-max` to help improve performance on larger databases; but you will not be able to set`--target-action`, since that option is currently disallowed. (IVYO always sets it to `promote` if a `--target` is present, and otherwise leaves it blank.)
-- `spec.dataSource.postgresCluster.resources`: Setting [resource limits and requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) of the restore job can ensure that it runs efficiently.
-- `spec.dataSource.postgresCluster.affinity`: Custom [Kubernetes affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) rules constrain the restore job so that it only runs on certain nodes.
-- `spec.dataSource.postgresCluster.tolerations`: Custom [Kubernetes tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) allow the restore job to run on [tainted](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) nodes.
+- `spec.dataSource.ivorycluster.clusterName`: The name of the cluster that you are restoring from. This corresponds to the `metadata.name` attribute on a different `ivorycluster` custom resource.
+- `spec.dataSource.ivorycluster.clusterNamespace`: The namespace of the cluster that you are restoring from. Used when the cluster exists in a different namespace.
+- `spec.dataSource.ivorycluster.repoName`: The name of the pgBackRest repository from the `spec.dataSource.ivorycluster.clusterName` to use for the restore. Can be one of `repo1`, `repo2`, `repo3`, or `repo4`. The repository must exist in the other cluster.
+- `spec.dataSource.ivorycluster.options`: Any additional [pgBackRest restore options](https://pgbackrest.org/command.html#command-restore) or general options that IVYO allows. For example, you may want to set `--process-max` to help improve performance on larger databases; but you will not be able to set`--target-action`, since that option is currently disallowed. (IVYO always sets it to `promote` if a `--target` is present, and otherwise leaves it blank.)
+- `spec.dataSource.ivorycluster.resources`: Setting [resource limits and requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) of the restore job can ensure that it runs efficiently.
+- `spec.dataSource.ivorycluster.affinity`: Custom [Kubernetes affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) rules constrain the restore job so that it only runs on certain nodes.
+- `spec.dataSource.ivorycluster.tolerations`: Custom [Kubernetes tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) allow the restore job to run on [tainted](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) nodes.
 
 Let's walk through some examples for how we can clone and restore our databases.
 
@@ -45,13 +45,13 @@ Let's create a clone of our [`hippo`]({{< relref "./create-cluster.md" >}}) clus
 Let's call our new cluster `elephant`. We can create a clone of the `hippo` cluster using a manifest like this:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: elephant
 spec:
   dataSource:
-    postgresCluster:
+    ivorycluster:
       clusterName: hippo
       repoName: repo1
   image: {{< param imageCrunchyPostgres >}}
@@ -82,7 +82,7 @@ Note this section of the spec:
 ```
 spec:
   dataSource:
-    postgresCluster:
+    ivorycluster:
       clusterName: hippo
       repoName: repo1
 ```
@@ -99,7 +99,7 @@ to revert your database back to a state before a change occurred. Fortunately, I
 You can set up a PITR using the [restore](https://pgbackrest.org/command.html#command-restore)
 command of [pgBackRest](https://www.pgbackrest.org), the backup management tool that powers
 the disaster recovery capabilities of IVYO. You will need to set a few options on
-`spec.dataSource.postgresCluster.options` to perform a PITR. These options include:
+`spec.dataSource.ivorycluster.options` to perform a PITR. These options include:
 
 - `--type=time`: This tells pgBackRest to perform a PITR.
 - `--target`: Where to perform the PITR to. An example recovery target is `2021-06-09 14:15:11-04`.
@@ -116,13 +116,13 @@ A few quick notes before we begin:
 With that in mind, let's use the `elephant` example above. Let's say we want to perform a point-in-time-recovery (PITR) to `2021-06-09 14:15:11-04`, we can use the following manifest:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: elephant
 spec:
   dataSource:
-    postgresCluster:
+    ivorycluster:
       clusterName: hippo
       repoName: repo1
       options:
@@ -156,7 +156,7 @@ The section to pay attention to is this:
 ```
 spec:
   dataSource:
-    postgresCluster:
+    ivorycluster:
       clusterName: hippo
       repoName: repo1
       options:
@@ -206,11 +206,11 @@ spec:
         - --target="2021-06-09 14:15:11-04"
 ```
 
-And to trigger the restore, you will then annotate the PostgresCluster as follows:
+And to trigger the restore, you will then annotate the ivorycluster as follows:
 
 ```
-kubectl annotate -n ivory-operator postgrescluster hippo --overwrite \
-  ivory-operator.crunchydata.com/pgbackrest-restore=id1
+kubectl annotate -n ivory-operator ivorycluster hippo --overwrite \
+  ivory-operator.ivorysql.org/pgbackrest-restore=id1
 ```
 
 And once the restore is complete, in-place restores can be disabled:
@@ -265,7 +265,7 @@ where `--db-include=hippo` would restore only the contents of the `hippo` databa
 ## Standby Cluster
 
 Advanced high-availability and disaster recovery strategies involve spreading your database clusters
-across data centers to help maximize uptime. IVYO provides ways to deploy postgresclusters that can
+across data centers to help maximize uptime. IVYO provides ways to deploy ivoryclusters that can
 span multiple Kubernetes clusters using an external storage system or IvorySQL streaming replication.
 The [disaster recovery architecture]({{< relref "architecture/disaster-recovery.md" >}}) documentation
 provides a high-level overview of standby clusters with IVYO can be found in the [disaster recovery
@@ -283,12 +283,12 @@ and IVYO instances with the correct storage and networking configurations.
 
 A repo-based standby will recover from WAL files a pgBackRest repo stored in external storage. The
 primary cluster should be created with a cloud-based [backup configuration]({{< relref "tutorial/backups.md" >}}).
-The following manifest defines a Postgrescluster with `standby.enabled` set to true and `repoName`
+The following manifest defines a ivorycluster with `standby.enabled` set to true and `repoName`
 configured to point to the `s3` repo configured in the primary:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo-standby
 spec:
@@ -320,8 +320,8 @@ and `port` that point to the primary cluster. We have also defined `customTLSSec
 For this type of standby, you must use [custom TLS]({{< relref "tutorial/customize-cluster.md" >}}#customize-tls):
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo-standby
 spec:
@@ -353,8 +353,8 @@ streaming replication falls behind. In this manifest, we have enabled the settin
 examples:
 
 ```
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo-standby
 spec:
@@ -407,15 +407,15 @@ instance and the cluster begins accepting writes.
 
 You can clone a Ivory cluster from backups that are stored in AWS S3 (or a storage system
 that uses the S3 protocol), GCS, or Azure Blob Storage without needing an active Ivory cluster!
-The method to do so is similar to how you clone from an existing PostgresCluster. This is useful
+The method to do so is similar to how you clone from an existing ivorycluster. This is useful
 if you want to have a data set for people to use but keep it compressed on cheaper storage.
 
 For the purposes of this example, let's say that you created a Ivory cluster named `hippo` that
 has its backups stored in S3 that looks similar to this:
 
 ```yaml
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: hippo
 spec:
@@ -458,8 +458,8 @@ Assuming `hippo` is created in the `ivory-operator` namespace, you can trigger a
 with the following command:
 
 ```shell
-kubectl annotate -n ivory-operator postgrescluster hippo --overwrite \
-  ivory-operator.crunchydata.com/pgbackrest-backup="$( date '+%F_%H:%M:%S' )"
+kubectl annotate -n ivory-operator ivorycluster hippo --overwrite \
+  ivory-operator.ivorysql.org/pgbackrest-backup="$( date '+%F_%H:%M:%S' )"
 ```
 
 Wait for the backup to complete. Once this is done, you can delete the Ivory cluster.
@@ -467,8 +467,8 @@ Wait for the backup to complete. Once this is done, you can delete the Ivory clu
 Now, let's clone the data from the `hippo` backup into a new cluster called `elephant`. You can use a manifest similar to this:
 
 ```yaml
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: elephant
 spec:
@@ -512,8 +512,8 @@ spec:
 ```
 
 There are a few things to note in this manifest. First, note that the `spec.dataSource.pgbackrest`
-object in our new PostgresCluster is very similar but slightly different from the old
-PostgresCluster's `spec.backups.pgbackrest` object. The key differences are:
+object in our new ivorycluster is very similar but slightly different from the old
+ivorycluster's `spec.backups.pgbackrest` object. The key differences are:
 
 1. No image is necessary when restoring from a cloud-based data source
 2. `stanza` is a required field when restoring from a cloud-based data source
@@ -526,8 +526,8 @@ Note also the similarities:
 2. The `repo` object is the same
 3. The `global` object is the same
 
-This is because the new restore pod for the `elephant` PostgresCluster will need to reuse the
-configuration and credentials that were originally used in setting up the `hippo` PostgresCluster.
+This is because the new restore pod for the `elephant` ivorycluster will need to reuse the
+configuration and credentials that were originally used in setting up the `hippo` ivorycluster.
 
 In this example, we are creating a new cluster which is also backing up to the same S3 bucket;
 only the `spec.backups.pgbackrest.global` field has changed to point to a different path. This
@@ -538,7 +538,7 @@ appropriately preserved.
 Deploy this manifest to create the `elephant` Ivory cluster. Observe that it comes up and running:
 
 ```
-kubectl -n ivory-operator describe postgrescluster elephant
+kubectl -n ivory-operator describe ivorycluster elephant
 ```
 
 When it is ready, you will see that the number of expected instances matches the number of ready
@@ -552,16 +552,16 @@ Instances:
   Updated Replicas:   1
 ```
 
-The previous example shows how to use an existing S3 repository to pre-populate a PostgresCluster
-while using a new S3 repository for backing up. But PostgresClusters that use cloud-based data
+The previous example shows how to use an existing S3 repository to pre-populate a ivorycluster
+while using a new S3 repository for backing up. But ivoryclusters that use cloud-based data
 sources can also use local repositories.
 
-For example, assuming a PostgresCluster called `rhino` that was meant to pre-populate from the
-original `hippo` PostgresCluster, the manifest would look like this:
+For example, assuming a ivorycluster called `rhino` that was meant to pre-populate from the
+original `hippo` ivorycluster, the manifest would look like this:
 
 ```yaml
-apiVersion: ivory-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: ivory-operator.ivorysql.org/v1beta1
+kind: ivorycluster
 metadata:
   name: rhino
 spec:
