@@ -19,7 +19,7 @@ spec:
         - name: CRUNCHY_DEBUG
           value: "true"
         - name: RELATED_IMAGE_IVORY_14
-          value: "hub.docker.com/r/balinor2017/highgo-ivory:0.1"
+          value: "hub.docker.com//balinor2017/highgo-ivory:0.1"
         - name: RELATED_IMAGE_IVORY_14_GIS_3.1
           value: "registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:ubi8-14.7-3.1-0"
         - name: RELATED_IMAGE_IVORY_14_GIS_3.2
@@ -27,7 +27,7 @@ spec:
         - name: RELATED_IMAGE_IVORY_14_GIS_3.3
           value: "registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:ubi8-14.7-3.3-0"
         - name: RELATED_IMAGE_IVORY_15
-          value: "hub.docker.com/r/balinor2017/highgo-ivory:0.1"
+          value: "hub.docker.com//balinor2017/highgo-ivory:0.1"
         - name: RELATED_IMAGE_IVORY_15_GIS_3.3
           value: "registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:ubi8-15.2-3.3-0"
         - name: RELATED_IMAGE_PGADMIN

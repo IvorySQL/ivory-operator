@@ -3,7 +3,7 @@ kind: PostgresCluster
 metadata:
   name: hippo
 spec:
-  image: hub.docker.com/r/balinor2017/highgo-ivory:0.1
+  image: hub.docker.com//balinor2017/highgo-ivory:0.1
   postgresVersion: 15
   instances:
     - name: instance1
