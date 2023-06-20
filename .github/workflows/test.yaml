@@ -83,7 +83,6 @@ jobs:
           retention-days: 1
 
   kuttl-k3d:
-    if: "${{ github.repository == 'CrunchyData/postgres-operator' }}"
     runs-on: ubuntu-20.04
     needs: [go-test]
     strategy:
