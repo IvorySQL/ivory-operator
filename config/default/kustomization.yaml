@@ -12,4 +12,4 @@ bases:
 images:
 - name: postgres-operator
   newName: docker.io/balinor2017/ivory-operator
-  newTag: 0.1
+  newTag: v0.1
