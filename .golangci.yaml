@@ -21,7 +21,6 @@ linters:
 
 linters-settings:
   depguard:
-    include-go-root: true
     packages-with-error-message:
       - io/ioutil: >
           Use the "io" and "os" packages instead.
@@ -73,3 +72,4 @@ run:
     - envtest
   skip-dirs:
     - pkg/generated
+    - cmd/
