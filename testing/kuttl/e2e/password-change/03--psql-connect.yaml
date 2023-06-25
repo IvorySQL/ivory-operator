@@ -26,7 +26,7 @@ spec:
           # Hardcoding the password here to be equal to what we changed the password to in 
           # ./02-secret.yaml
           # The ./02-errors.yaml checks that the secret is not in the state that we set it to
-          # in the ./02-secret.yaml file, i.e., the secret has been reconciled by PGO
+          # in the ./02-secret.yaml file, i.e., the secret has been reconciled by IVYO
           - name: PGPASSWORD
             value: datalake
           

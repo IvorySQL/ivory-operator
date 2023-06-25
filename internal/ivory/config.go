@@ -360,7 +360,7 @@ func startupCommand(
 		`safelink "${pgwal_directory}" "${postgres_data_directory}/pg_wal"`,
 		`results 'wal directory' "$(realpath "${postgres_data_directory}/pg_wal")"`,
 
-		// Early versions of PGO create replicas with a recovery signal file.
+		// Early versions of IVYO create replicas with a recovery signal file.
 		// Patroni also creates a standby signal file before starting Postgres,
 		// causing Postgres to remove only one, the standby. Remove the extra
 		// signal file now, if it exists, and let Patroni manage the standby

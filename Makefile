@@ -1,18 +1,18 @@
-PGO_IMAGE_NAME ?= postgres-operator
-PGO_IMAGE_MAINTAINER ?= Crunchy Data
-PGO_IMAGE_SUMMARY ?= Crunchy PostgreSQL Operator
-PGO_IMAGE_DESCRIPTION ?= $(PGO_IMAGE_SUMMARY)
-PGO_IMAGE_URL ?= https://www.crunchydata.com/products/crunchy-postgresql-for-kubernetes
-PGO_IMAGE_PREFIX ?= localhost
+IVYO_IMAGE_NAME ?= postgres-operator
+IVYO_IMAGE_MAINTAINER ?= Crunchy Data
+IVYO_IMAGE_SUMMARY ?= Crunchy PostgreSQL Operator
+IVYO_IMAGE_DESCRIPTION ?= $(IVYO_IMAGE_SUMMARY)
+IVYO_IMAGE_URL ?= https://www.crunchydata.com/products/crunchy-postgresql-for-kubernetes
+IVYO_IMAGE_PREFIX ?= localhost
 
 CRUNCHY_POSTGRES_EXPORTER_IMAGE_NAME ?= crunchy-postgres-exporter
-CRUNCHY_POSTGRES_EXPORTER_MAINTAINER ?= $(PGO_IMAGE_MAINTAINER)
+CRUNCHY_POSTGRES_EXPORTER_MAINTAINER ?= $(IVYO_IMAGE_MAINTAINER)
 CRUNCHY_POSTGRES_EXPORTER_SUMMARY ?= Metrics exporter for PostgreSQL
 CRUNCHY_POSTGRES_EXPORTER_DESCRIPTION ?= \
 	When run with the crunchy-postgres family of containers, crunchy-postgres-exporter reads the PostgreSQL data directory \
 	and has a SQL interface to a database to allow for metrics collection.
 CRUNCHY_POSTGRES_EXPORTER_URL ?= https://www.crunchydata.com/products/crunchy-postgresql-for-kubernetes
-CRUNCHY_POSTGRES_EXPORTER_IMAGE_PREFIX ?= $(PGO_IMAGE_PREFIX)
+CRUNCHY_POSTGRES_EXPORTER_IMAGE_PREFIX ?= $(IVYO_IMAGE_PREFIX)
 CRUNCHY_POSTGRES_EXPORTER_PG_VERSION ?= 15
 CRUNCHY_POSTGRES_EXPORTER_PG_FULL_VERSION ?= 15.2
 
@@ -56,7 +56,7 @@ help: ## Display this help.
 
 .PHONY: all
 all: ## Build all images
-all: build-postgres-operator-image
+all: build-ivory-operator-image
 all: build-crunchy-postgres-exporter-image
 
 .PHONY: setup
@@ -133,7 +133,7 @@ undeploy: ## Undeploy the PostgreSQL Operator
 .PHONY: deploy-dev
 deploy-dev: ## Deploy the PostgreSQL Operator locally
 deploy-dev: IVYO_FEATURE_GATES ?= "TablespaceVolumes=true"
-deploy-dev: build-postgres-operator
+deploy-dev: build-ivory-operator
 deploy-dev: createnamespaces
 	kubectl apply --server-side -k ./config/dev
 	hack/create-kubeconfig.sh ivory-operator pgo
@@ -151,9 +151,9 @@ deploy-dev: createnamespaces
 		bin/postgres-operator
 
 ##@ Build - Binary
-.PHONY: build-postgres-operator
-build-postgres-operator: ## Build the postgres-operator binary
-	$(GO_BUILD) -ldflags '-X "main.versionString=$(PGO_VERSION)"' \
+.PHONY: build-ivory-operator
+build-ivory-operator: ## Build the postgres-operator binary
+	$(GO_BUILD) -ldflags '-X "main.versionString=$(IVYO_VERSION)"' \
 		-o bin/postgres-operator ./cmd/ivory-operator
 
 ##@ Build - Images
@@ -189,47 +189,47 @@ build-crunchy-postgres-exporter-image: build/crunchy-postgres-exporter/Dockerfil
 		--annotation org.opencontainers.image.revision='$(CRUNCHY_POSTGRES_EXPORTER_IMAGE_REVISION)' \
 		--annotation org.opencontainers.image.title='$(CRUNCHY_POSTGRES_EXPORTER_SUMMARY)' \
 		--annotation org.opencontainers.image.url='$(CRUNCHY_POSTGRES_EXPORTER_URL)' \
-		$(if $(PGO_VERSION),$(strip \
-			--label release='$(PGO_VERSION)' \
-			--label version='$(PGO_VERSION)' \
-			--annotation org.opencontainers.image.version='$(PGO_VERSION)' \
+		$(if $(IVYO_VERSION),$(strip \
+			--label release='$(IVYO_VERSION)' \
+			--label version='$(IVYO_VERSION)' \
+			--annotation org.opencontainers.image.version='$(IVYO_VERSION)' \
 		)) \
 		--file $< --format docker --layers .
 
-.PHONY: build-postgres-operator-image
-build-postgres-operator-image: ## Build the postgres-operator image
-build-postgres-operator-image: PGO_IMAGE_REVISION := $(shell git rev-parse HEAD)
-build-postgres-operator-image: PGO_IMAGE_TIMESTAMP := $(shell date -u +%FT%TZ)
-build-postgres-operator-image: build-postgres-operator
-build-postgres-operator-image: build/postgres-operator/Dockerfile
+.PHONY: build-ivory-operator-image
+build-ivory-operator-image: ## Build the postgres-operator image
+build-ivory-operator-image: IVYO_IMAGE_REVISION := $(shell git rev-parse HEAD)
+build-ivory-operator-image: IVYO_IMAGE_TIMESTAMP := $(shell date -u +%FT%TZ)
+build-ivory-operator-image: build-ivory-operator
+build-ivory-operator-image: build/postgres-operator/Dockerfile
 	$(if $(shell (echo 'buildah version 1.24'; $(word 1,$(BUILDAH_BUILD)) --version) | sort -Vc 2>&1), \
 		$(warning WARNING: old buildah does not invalidate its cache for changed labels: \
 			https://github.com/containers/buildah/issues/3517))
 	$(if $(IMAGE_TAG),,	$(error missing IMAGE_TAG))
 	$(BUILDAH_BUILD) \
-		--tag $(BUILDAH_TRANSPORT)$(PGO_IMAGE_PREFIX)/$(PGO_IMAGE_NAME):$(IMAGE_TAG) \
-		--label name='$(PGO_IMAGE_NAME)' \
-		--label build-date='$(PGO_IMAGE_TIMESTAMP)' \
-		--label description='$(PGO_IMAGE_DESCRIPTION)' \
-		--label maintainer='$(PGO_IMAGE_MAINTAINER)' \
-		--label summary='$(PGO_IMAGE_SUMMARY)' \
-		--label url='$(PGO_IMAGE_URL)' \
-		--label vcs-ref='$(PGO_IMAGE_REVISION)' \
-		--label vendor='$(PGO_IMAGE_MAINTAINER)' \
-		--label io.k8s.display-name='$(PGO_IMAGE_NAME)' \
-		--label io.k8s.description='$(PGO_IMAGE_DESCRIPTION)' \
+		--tag $(BUILDAH_TRANSPORT)$(IVYO_IMAGE_PREFIX)/$(IVYO_IMAGE_NAME):$(IMAGE_TAG) \
+		--label name='$(IVYO_IMAGE_NAME)' \
+		--label build-date='$(IVYO_IMAGE_TIMESTAMP)' \
+		--label description='$(IVYO_IMAGE_DESCRIPTION)' \
+		--label maintainer='$(IVYO_IMAGE_MAINTAINER)' \
+		--label summary='$(IVYO_IMAGE_SUMMARY)' \
+		--label url='$(IVYO_IMAGE_URL)' \
+		--label vcs-ref='$(IVYO_IMAGE_REVISION)' \
+		--label vendor='$(IVYO_IMAGE_MAINTAINER)' \
+		--label io.k8s.display-name='$(IVYO_IMAGE_NAME)' \
+		--label io.k8s.description='$(IVYO_IMAGE_DESCRIPTION)' \
 		--label io.openshift.tags="postgresql,postgres,sql,nosql,crunchy" \
-		--annotation org.opencontainers.image.authors='$(PGO_IMAGE_MAINTAINER)' \
-		--annotation org.opencontainers.image.vendor='$(PGO_IMAGE_MAINTAINER)' \
-		--annotation org.opencontainers.image.created='$(PGO_IMAGE_TIMESTAMP)' \
-		--annotation org.opencontainers.image.description='$(PGO_IMAGE_DESCRIPTION)' \
-		--annotation org.opencontainers.image.revision='$(PGO_IMAGE_REVISION)' \
-		--annotation org.opencontainers.image.title='$(PGO_IMAGE_SUMMARY)' \
-		--annotation org.opencontainers.image.url='$(PGO_IMAGE_URL)' \
-		$(if $(PGO_VERSION),$(strip \
-			--label release='$(PGO_VERSION)' \
-			--label version='$(PGO_VERSION)' \
-			--annotation org.opencontainers.image.version='$(PGO_VERSION)' \
+		--annotation org.opencontainers.image.authors='$(IVYO_IMAGE_MAINTAINER)' \
+		--annotation org.opencontainers.image.vendor='$(IVYO_IMAGE_MAINTAINER)' \
+		--annotation org.opencontainers.image.created='$(IVYO_IMAGE_TIMESTAMP)' \
+		--annotation org.opencontainers.image.description='$(IVYO_IMAGE_DESCRIPTION)' \
+		--annotation org.opencontainers.image.revision='$(IVYO_IMAGE_REVISION)' \
+		--annotation org.opencontainers.image.title='$(IVYO_IMAGE_SUMMARY)' \
+		--annotation org.opencontainers.image.url='$(IVYO_IMAGE_URL)' \
+		$(if $(IVYO_VERSION),$(strip \
+			--label release='$(IVYO_VERSION)' \
+			--label version='$(IVYO_VERSION)' \
+			--annotation org.opencontainers.image.version='$(IVYO_VERSION)' \
 		)) \
 		--file $< --format docker --layers .
 
@@ -249,10 +249,10 @@ check-envtest:
 	@$(ENVTEST_USE) --print=overview && echo
 	source <($(ENVTEST_USE) --print=env) && IVYO_NAMESPACE="ivory-operator" $(GO_TEST) -count=1 -cover -tags=envtest ./...
 
-# The "PGO_TEST_TIMEOUT_SCALE" environment variable (default: 1) can be set to a
+# The "IVYO_TEST_TIMEOUT_SCALE" environment variable (default: 1) can be set to a
 # positive number that extends test timeouts. The following runs tests with 
 # timeouts that are 20% longer than normal:
-# make check-envtest-existing PGO_TEST_TIMEOUT_SCALE=1.2
+# make check-envtest-existing IVYO_TEST_TIMEOUT_SCALE=1.2
 .PHONY: check-envtest-existing
 check-envtest-existing: ## Run check using envtest and an existing kube api
 check-envtest-existing: createnamespaces
@@ -350,26 +350,26 @@ license: licenses
 licenses: ## Aggregate license files
 	./bin/license_aggregator.sh ./cmd/...
 
-.PHONY: release-postgres-operator-image release-postgres-operator-image-labels
-release-postgres-operator-image: ## Build the postgres-operator image and all its prerequisites
-release-postgres-operator-image: release-postgres-operator-image-labels
-release-postgres-operator-image: licenses
-release-postgres-operator-image: build-postgres-operator-image
-release-postgres-operator-image-labels:
-	$(if $(PGO_IMAGE_DESCRIPTION),,	$(error missing PGO_IMAGE_DESCRIPTION))
-	$(if $(PGO_IMAGE_MAINTAINER),, 	$(error missing PGO_IMAGE_MAINTAINER))
-	$(if $(PGO_IMAGE_NAME),,       	$(error missing PGO_IMAGE_NAME))
-	$(if $(PGO_IMAGE_SUMMARY),,    	$(error missing PGO_IMAGE_SUMMARY))
-	$(if $(PGO_VERSION),,			$(error missing PGO_VERSION))
+.PHONY: release-ivory-operator-image release-ivory-operator-image-labels
+release-ivory-operator-image: ## Build the postgres-operator image and all its prerequisites
+release-ivory-operator-image: release-ivory-operator-image-labels
+release-ivory-operator-image: licenses
+release-ivory-operator-image: build-ivory-operator-image
+release-ivory-operator-image-labels:
+	$(if $(IVYO_IMAGE_DESCRIPTION),,	$(error missing IVYO_IMAGE_DESCRIPTION))
+	$(if $(IVYO_IMAGE_MAINTAINER),, 	$(error missing IVYO_IMAGE_MAINTAINER))
+	$(if $(IVYO_IMAGE_NAME),,       	$(error missing IVYO_IMAGE_NAME))
+	$(if $(IVYO_IMAGE_SUMMARY),,    	$(error missing IVYO_IMAGE_SUMMARY))
+	$(if $(IVYO_VERSION),,			$(error missing IVYO_VERSION))
 
-.PHONY: release-crunchy-postgres-exporter-image release-crunchy-postgres-exporter-image-labels
-release-crunchy-postgres-exporter-image: ## Build the postgres-operator image and all its prerequisites
-release-crunchy-postgres-exporter-image: release-crunchy-postgres-exporter-image-labels
-release-crunchy-postgres-exporter-image: licenses
-release-crunchy-postgres-exporter-image: build-postgres-operator-image
-release-crunchy-postgres-exporter-image-labels:
-	$(if $(PGO_IMAGE_DESCRIPTION),,	$(error missing PGO_IMAGE_DESCRIPTION))
-	$(if $(PGO_IMAGE_MAINTAINER),, 	$(error missing PGO_IMAGE_MAINTAINER))
-	$(if $(PGO_IMAGE_NAME),,       	$(error missing PGO_IMAGE_NAME))
-	$(if $(PGO_IMAGE_SUMMARY),,    	$(error missing PGO_IMAGE_SUMMARY))
-	$(if $(PGO_VERSION),,			$(error missing PGO_VERSION))
+.PHONY: release-highgo-ivory-exporter-image release-highgo-ivory-exporter-image-labels
+release-highgo-ivory-exporter-image: ## Build the postgres-operator image and all its prerequisites
+release-highgo-ivory-exporter-image: release-highgo-ivory-exporter-image-labels
+release-highgo-ivory-exporter-image: licenses
+release-highgo-ivory-exporter-image: build-ivory-operator-image
+release-highgo-ivory-exporter-image-labels:
+	$(if $(IVYO_IMAGE_DESCRIPTION),,	$(error missing IVYO_IMAGE_DESCRIPTION))
+	$(if $(IVYO_IMAGE_MAINTAINER),, 	$(error missing IVYO_IMAGE_MAINTAINER))
+	$(if $(IVYO_IMAGE_NAME),,       	$(error missing IVYO_IMAGE_NAME))
+	$(if $(IVYO_IMAGE_SUMMARY),,    	$(error missing IVYO_IMAGE_SUMMARY))
+	$(if $(IVYO_VERSION),,			$(error missing IVYO_VERSION))

@@ -9,5 +9,5 @@ spec:
         - name: operator
           env:
             # https://docs.openshift.com/container-platform/4.7/operators/understanding/olm/olm-understanding-operatorgroups.html
-            - name: PGO_TARGET_NAMESPACE
+            - name: IVYO_TARGET_NAMESPACE
               valueFrom: { fieldRef: { fieldPath: "metadata.annotations['olm.targetNamespaces']" } }

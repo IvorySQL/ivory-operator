@@ -18,7 +18,7 @@ metadata:
   name: disable-service-links
   annotations:
     policies.kyverno.io/title: Disable Injection of Service Environment Variables
-    policies.kyverno.io/category: PGO
+    policies.kyverno.io/category: IVYO
     policies.kyverno.io/severity: high
     policies.kyverno.io/subject: Pod
     policies.kyverno.io/description: >-

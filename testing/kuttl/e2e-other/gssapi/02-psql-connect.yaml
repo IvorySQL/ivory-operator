@@ -15,9 +15,9 @@ spec:
         - -c
         - --
         - |-
-          psql -c 'create user "krb5hippo@PGO.CRUNCHYDATA.COM";'
-          kinit -k -t /krb5-conf/krb5.keytab krb5hippo@PGO.CRUNCHYDATA.COM
-          psql -U krb5hippo@PGO.CRUNCHYDATA.COM -h gssapi-primary.$(NAMESPACE).svc.cluster.local -d postgres \
+          psql -c 'create user "krb5hippo@IVYO.CRUNCHYDATA.COM";'
+          kinit -k -t /krb5-conf/krb5.keytab krb5hippo@IVYO.CRUNCHYDATA.COM
+          psql -U krb5hippo@IVYO.CRUNCHYDATA.COM -h gssapi-primary.$(NAMESPACE).svc.cluster.local -d postgres \
             -c 'select version();'
         env:
         - name: NAMESPACE

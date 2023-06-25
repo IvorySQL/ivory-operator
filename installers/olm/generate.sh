@@ -144,7 +144,7 @@ yq --yaml-roundtrip < bundle.csv.yaml > "${bundle_directory}/manifests/${file_na
 	--argjson rules "$(yq <<< "${operator_roles}" 'first | .rules')" \
 	--argjson crds "${crd_descriptions}" \
 	--arg examples "${crd_examples}" \
-	--arg version "${PGO_VERSION}" \
+	--arg version "${IVYO_VERSION}" \
 	--arg replaces "${REPLACES_VERSION}" \
 	--arg description "$(< description.md)" \
 	--arg icon "$(base64 ../seal.svg | tr -d '\n')" \
