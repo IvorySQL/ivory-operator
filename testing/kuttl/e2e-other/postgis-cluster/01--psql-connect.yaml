@@ -6,7 +6,7 @@ spec:
   backoffLimit: 6
   template:
     metadata:
-      labels: { postgres-operator-test: kuttl }
+      labels: { ivory-operator-test: kuttl }
     spec:
       restartPolicy: Never
       containers:

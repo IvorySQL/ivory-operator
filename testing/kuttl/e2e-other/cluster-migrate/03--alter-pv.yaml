@@ -20,4 +20,4 @@ commands:
 
       kubectl patch pv "${VOLUME_NAME}" -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
 
-      kubectl label pv "${VOLUME_NAME}" postgres-operator-test=kuttl app.kubernetes.io/name=postgresql app.kubernetes.io/instance=non-crunchy-cluster test-namespace="${NAMESPACE}"
+      kubectl label pv "${VOLUME_NAME}" ivory-operator-test=kuttl app.kubernetes.io/name=postgresql app.kubernetes.io/instance=non-crunchy-cluster test-namespace="${NAMESPACE}"

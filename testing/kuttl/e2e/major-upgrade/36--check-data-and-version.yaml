@@ -4,12 +4,12 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: major-upgrade-after
-  labels: { postgres-operator-test: kuttl }
+  labels: { ivory-operator-test: kuttl }
 spec:
   backoffLimit: 6
   template:
     metadata:
-      labels: { postgres-operator-test: kuttl }
+      labels: { ivory-operator-test: kuttl }
     spec:
       restartPolicy: Never
       containers:
@@ -51,12 +51,12 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: major-upgrade-after-replica
-  labels: { postgres-operator-test: kuttl }
+  labels: { ivory-operator-test: kuttl }
 spec:
   backoffLimit: 3
   template:
     metadata:
-      labels: { postgres-operator-test: kuttl }
+      labels: { ivory-operator-test: kuttl }
     spec:
       restartPolicy: Never
       containers:

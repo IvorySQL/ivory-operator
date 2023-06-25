@@ -5,7 +5,7 @@ apiVersion: ivory-operator.highgo.com/v1beta1
 kind: IvoryCluster
 metadata:
   name: original
-  labels: { postgres-operator-test: kuttl }
+  labels: { ivory-operator-test: kuttl }
 spec:
   postgresVersion: ${KUTTL_PG_VERSION}
   patroni:

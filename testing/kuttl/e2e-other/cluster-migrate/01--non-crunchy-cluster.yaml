@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: non-crunchy-cluster
   labels:
-    postgres-operator-test: kuttl
+    ivory-operator-test: kuttl
     app.kubernetes.io/name: postgresql
     app.kubernetes.io/instance: non-crunchy-cluster
 type: Opaque
@@ -15,7 +15,7 @@ kind: Service
 metadata:
   name: non-crunchy-cluster-hl
   labels:
-    postgres-operator-test: kuttl
+    ivory-operator-test: kuttl
     app.kubernetes.io/name: postgresql
     app.kubernetes.io/instance: non-crunchy-cluster
     app.kubernetes.io/component: primary
@@ -38,7 +38,7 @@ kind: Service
 metadata:
   name: non-crunchy-cluster
   labels:
-    postgres-operator-test: kuttl
+    ivory-operator-test: kuttl
     app.kubernetes.io/name: postgresql
     app.kubernetes.io/instance: non-crunchy-cluster
     app.kubernetes.io/component: primary
@@ -60,7 +60,7 @@ kind: StatefulSet
 metadata:
   name: non-crunchy-cluster
   labels:
-    postgres-operator-test: kuttl
+    ivory-operator-test: kuttl
     app.kubernetes.io/name: postgresql
     app.kubernetes.io/instance: non-crunchy-cluster
     app.kubernetes.io/component: primary
@@ -72,7 +72,7 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      postgres-operator-test: kuttl
+      ivory-operator-test: kuttl
       app.kubernetes.io/name: postgresql
       app.kubernetes.io/instance: non-crunchy-cluster
       app.kubernetes.io/component: primary
@@ -80,7 +80,7 @@ spec:
     metadata:
       name: non-crunchy-cluster
       labels:
-        postgres-operator-test: kuttl
+        ivory-operator-test: kuttl
         app.kubernetes.io/name: postgresql
         app.kubernetes.io/instance: non-crunchy-cluster
         app.kubernetes.io/component: primary
@@ -92,7 +92,7 @@ spec:
             - podAffinityTerm:
                 labelSelector:
                   matchLabels:
-                    postgres-operator-test: kuttl
+                    ivory-operator-test: kuttl
                     app.kubernetes.io/name: postgresql
                     app.kubernetes.io/instance: non-crunchy-cluster
                     app.kubernetes.io/component: primary

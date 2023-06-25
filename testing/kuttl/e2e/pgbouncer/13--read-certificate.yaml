@@ -4,12 +4,12 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: read-cert-after
-  labels: { postgres-operator-test: kuttl }
+  labels: { ivory-operator-test: kuttl }
 spec:
   backoffLimit: 1
   template:
     metadata:
-      labels: { postgres-operator-test: kuttl }
+      labels: { ivory-operator-test: kuttl }
     spec:
       restartPolicy: Never
       containers:
