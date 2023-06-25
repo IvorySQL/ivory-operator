@@ -1,7 +1,7 @@
 namespace: ivory-operator
 
 commonLabels:
-  # Note: this label differs from the label set in postgres-operator-examples
+  # Note: this label differs from the label set in ivory-operator-examples
   ivory-operator.highgo.com/control-plane: ivory-operator
 
 bases:
@@ -10,6 +10,6 @@ bases:
 - ../manager
 
 images:
-- name: postgres-operator
+- name: ivory-operator
   newName: docker.io/balinor2017/ivory-operator
   newTag: v0.1

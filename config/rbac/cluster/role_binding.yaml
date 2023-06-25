@@ -9,4 +9,4 @@ roleRef:
   name: ivory-operator
 subjects:
 - kind: ServiceAccount
-  name: pgo
+  name: ivyo

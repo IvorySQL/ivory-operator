@@ -6,7 +6,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pgo
+  name: ivyo
 spec:
   template:
     spec:

@@ -23,4 +23,4 @@ status:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: pgo-root-cacert
+  name: ivyo-root-cacert

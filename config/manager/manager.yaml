@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pgo
+  name: ivyo
 spec:
   replicas: 1
   strategy: { type: Recreate }
@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
       - name: operator
-        image: postgres-operator
+        image: ivory-operator
         env:
         - name: IVYO_NAMESPACE
           valueFrom:
@@ -45,4 +45,4 @@ spec:
           capabilities: { drop: [ALL] }
           readOnlyRootFilesystem: true
           runAsNonRoot: true
-      serviceAccountName: pgo
+      serviceAccountName: ivyo
