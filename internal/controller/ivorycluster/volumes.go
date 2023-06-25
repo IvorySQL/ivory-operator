@@ -607,7 +607,7 @@ func (r *Reconciler) reconcileMoveWALDir(ctx context.Context,
 				AutomountServiceAccountToken: initialize.Bool(false),
 				EnableServiceLinks:           initialize.Bool(false),
 				Volumes: []corev1.Volume{{
-					Name: "ivory-wal",
+					Name: "postgres-wal",
 					VolumeSource: corev1.VolumeSource{
 						PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{
 							ClaimName: cluster.Spec.DataSource.Volumes.

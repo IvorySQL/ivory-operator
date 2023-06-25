@@ -73,14 +73,14 @@ safelink() (
 	downwardAPIPath = "/etc/database-containerinfo"
 
 	// SocketDirectory is where to bind and connect to UNIX sockets.
-	SocketDirectory = "/tmp/ivory"
+	SocketDirectory = "/tmp/postgres"
 
 	// ReplicationUser is the IvorySQL role that will be created by Patroni
 	// for streaming replication and for `pg_rewind`.
 	ReplicationUser = "_highgorepl"
 
 	// configMountPath is where to mount additional config files
-	configMountPath = "/etc/ivory"
+	configMountPath = "/etc/postgres"
 )
 
 // ConfigDirectory returns the absolute path to $IVYDATA for cluster.

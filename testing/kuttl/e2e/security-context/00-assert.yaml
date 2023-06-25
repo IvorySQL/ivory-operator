@@ -79,7 +79,7 @@ spec:
       readOnlyRootFilesystem: true
       runAsNonRoot: true
   initContainers:
-  - name: postgres-startup
+  - name: ivory-startup
     securityContext:
       allowPrivilegeEscalation: false
       privileged: false
