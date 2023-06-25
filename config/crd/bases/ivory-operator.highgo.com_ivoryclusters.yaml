@@ -10455,7 +10455,7 @@ spec:
                   to the IvoryCluster spec.
                 type: boolean
               port:
-                default: 5432
+                default: 5866
                 description: The port on which IvorySQL should listen.
                 format: int32
                 minimum: 1024
@@ -13009,7 +13009,7 @@ spec:
                           than one.
                         x-kubernetes-int-or-string: true
                       port:
-                        default: 5432
+                        default: 5866
                         description: Port on which PgBouncer should listen for client
                           connections. Changing this value causes PgBouncer to restart.
                         format: int32
