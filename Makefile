@@ -1,4 +1,4 @@
-IVYO_IMAGE_NAME ?= postgres-operator
+IVYO_IMAGE_NAME ?= ivory-operator
 IVYO_IMAGE_MAINTAINER ?= Crunchy Data
 IVYO_IMAGE_SUMMARY ?= Crunchy PostgreSQL Operator
 IVYO_IMAGE_DESCRIPTION ?= $(IVYO_IMAGE_SUMMARY)
@@ -78,7 +78,7 @@ get-postgres-exporter:
 .PHONY: clean
 clean: ## Clean resources
 clean: clean-deprecated
-	rm -f bin/postgres-operator
+	rm -f bin/ivory-operator
 	rm -f config/rbac/role.yaml
 	[ ! -d testing/kuttl/e2e-generated ] || rm -r testing/kuttl/e2e-generated
 	[ ! -d testing/kuttl/e2e-generated-other ] || rm -r testing/kuttl/e2e-generated-other
@@ -95,15 +95,15 @@ clean-deprecated: ## Clean deprecated resources
 	@# packages used to be downloaded into the vendor directory
 	[ ! -d vendor ] || rm -r vendor
 	@# executables used to be compiled into the $GOBIN directory
-	[ ! -n '$(GOBIN)' ] || rm -f $(GOBIN)/postgres-operator $(GOBIN)/apiserver $(GOBIN)/*pgo
+	[ ! -n '$(GOBIN)' ] || rm -f $(GOBIN)/ivory-operator $(GOBIN)/apiserver $(GOBIN)/*pgo
 	@# executables used to be in subdirectories
 	[ ! -d bin/pgo-rmdata ] || rm -r bin/pgo-rmdata
 	[ ! -d bin/pgo-backrest ] || rm -r bin/pgo-backrest
 	[ ! -d bin/pgo-scheduler ] || rm -r bin/pgo-scheduler
-	[ ! -d bin/postgres-operator ] || rm -r bin/postgres-operator
+	[ ! -d bin/ivory-operator ] || rm -r bin/ivory-operator
 	@# keys used to be generated before install
 	[ ! -d conf/pgo-backrest-repo ] || rm -r conf/pgo-backrest-repo
-	[ ! -d conf/postgres-operator ] || rm -r conf/postgres-operator
+	[ ! -d conf/ivory-operator ] || rm -r conf/ivory-operator
 
 ##@ Deployment
 .PHONY: createnamespaces
@@ -148,13 +148,13 @@ deploy-dev: createnamespaces
 				/RELATED_IMAGE_/ { N; s,.*\(RELATED_[^[:space:]]*\).*value:[[:space:]]*\([^[:space:]]*\),\1="\2",; p; }; \
 			}') \
 		$(foreach v,$(filter RELATED_IMAGE_%,$(.VARIABLES)),$(v)="$($(v))") \
-		bin/postgres-operator
+		bin/ivory-operator
 
 ##@ Build - Binary
 .PHONY: build-ivory-operator
-build-ivory-operator: ## Build the postgres-operator binary
+build-ivory-operator: ## Build the ivory-operator binary
 	$(GO_BUILD) -ldflags '-X "main.versionString=$(IVYO_VERSION)"' \
-		-o bin/postgres-operator ./cmd/ivory-operator
+		-o bin/ivory-operator ./cmd/ivory-operator
 
 ##@ Build - Images
 .PHONY: build-crunchy-postgres-exporter-image
@@ -197,11 +197,11 @@ build-crunchy-postgres-exporter-image: build/crunchy-postgres-exporter/Dockerfil
 		--file $< --format docker --layers .
 
 .PHONY: build-ivory-operator-image
-build-ivory-operator-image: ## Build the postgres-operator image
+build-ivory-operator-image: ## Build the ivory-operator image
 build-ivory-operator-image: IVYO_IMAGE_REVISION := $(shell git rev-parse HEAD)
 build-ivory-operator-image: IVYO_IMAGE_TIMESTAMP := $(shell date -u +%FT%TZ)
 build-ivory-operator-image: build-ivory-operator
-build-ivory-operator-image: build/postgres-operator/Dockerfile
+build-ivory-operator-image: build/ivory-operator/Dockerfile
 	$(if $(shell (echo 'buildah version 1.24'; $(word 1,$(BUILDAH_BUILD)) --version) | sort -Vc 2>&1), \
 		$(warning WARNING: old buildah does not invalidate its cache for changed labels: \
 			https://github.com/containers/buildah/issues/3517))
@@ -351,7 +351,7 @@ licenses: ## Aggregate license files
 	./bin/license_aggregator.sh ./cmd/...
 
 .PHONY: release-ivory-operator-image release-ivory-operator-image-labels
-release-ivory-operator-image: ## Build the postgres-operator image and all its prerequisites
+release-ivory-operator-image: ## Build the ivory-operator image and all its prerequisites
 release-ivory-operator-image: release-ivory-operator-image-labels
 release-ivory-operator-image: licenses
 release-ivory-operator-image: build-ivory-operator-image
@@ -363,7 +363,7 @@ release-ivory-operator-image-labels:
 	$(if $(IVYO_VERSION),,			$(error missing IVYO_VERSION))
 
 .PHONY: release-highgo-ivory-exporter-image release-highgo-ivory-exporter-image-labels
-release-highgo-ivory-exporter-image: ## Build the postgres-operator image and all its prerequisites
+release-highgo-ivory-exporter-image: ## Build the ivory-operator image and all its prerequisites
 release-highgo-ivory-exporter-image: release-highgo-ivory-exporter-image-labels
 release-highgo-ivory-exporter-image: licenses
 release-highgo-ivory-exporter-image: build-ivory-operator-image
