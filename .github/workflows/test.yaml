@@ -48,7 +48,7 @@ jobs:
           retention-days: 1
 
   kubernetes-k3d:
-    if: "${{ github.repository == 'CrunchyData/postgres-operator' }}"
+    if: "${{ github.repository == 'IvorySQL/ivory-operator' }}"
     runs-on: ubuntu-20.04
     needs: [go-test]
     strategy:
