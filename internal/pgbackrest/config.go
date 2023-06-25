@@ -227,7 +227,7 @@ read -r max_lock <<< "${control##*max_locks_per_xact setting:}"
 read -r max_ptxn <<< "${control##*max_prepared_xacts setting:}"
 read -r max_work <<< "${control##*max_worker_processes setting:}"
 echo > /tmp/pg_hba.restore.conf 'local all "ivorysql" peer'
-cat > /tmp/ivory.restore.conf <<EOF
+cat > /tmp/postgres.restore.conf <<EOF
 archive_command = 'false'
 archive_mode = 'on'
 hba_file = '/tmp/pg_hba.restore.conf'
@@ -239,10 +239,10 @@ unix_socket_directories = '/tmp'
 EOF
 if [ "$(< "${pgdata}/PG_VERSION")" -ge 12 ]; then
 read -r max_wals <<< "${control##*max_wal_senders setting:}"
-echo >> /tmp/ivory.restore.conf "max_wal_senders = '${max_wals}'"
+echo >> /tmp/postgres.restore.conf "max_wal_senders = '${max_wals}'"
 fi
 
-pg_ctl start --silent --timeout=31536000 --wait --options='--config-file=/tmp/ivory.restore.conf'
+pg_ctl start --silent --timeout=31536000 --wait --options='--config-file=/tmp/postgres.restore.conf'
 fi
 
 recovery=$(psql -Atc "SELECT CASE

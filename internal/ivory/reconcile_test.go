@@ -136,11 +136,11 @@ containers:
   - name: PGDATA
     value: /pgdata/pg11
   - name: PGHOST
-    value: /tmp/ivory
+    value: /tmp/postgres
   - name: PGPORT
     value: "5432"
   - name: KRB5_CONFIG
-    value: /etc/ivory/krb5.conf
+    value: /etc/postgres/krb5.conf
   - name: KRB5RCACHEDIR
     value: /tmp
   imagePullPolicy: Always
@@ -268,11 +268,11 @@ initContainers:
   - name: PGDATA
     value: /pgdata/pg11
   - name: PGHOST
-    value: /tmp/ivory
+    value: /tmp/postgres
   - name: PGPORT
     value: "5432"
   - name: KRB5_CONFIG
-    value: /etc/ivory/krb5.conf
+    value: /etc/postgres/krb5.conf
   - name: KRB5RCACHEDIR
     value: /tmp
   imagePullPolicy: Always
@@ -480,7 +480,7 @@ volumes:
 - mountPath: /etc/database-containerinfo
   name: database-containerinfo
   readOnly: true
-- mountPath: /etc/ivory
+- mountPath: /etc/postgres
   name: ivory-config
   readOnly: true`), "expected WAL and downwardAPI mounts in %q container", pod.Containers[0].Name)
 

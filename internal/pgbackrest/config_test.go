@@ -123,7 +123,7 @@ pg1-host-key-file = /etc/pgbackrest/conf.d/~ivory-operator/client-tls.key
 pg1-host-type = tls
 pg1-path = /pgdata/pg12
 pg1-port = 2345
-pg1-socket-path = /tmp/ivory
+pg1-socket-path = /tmp/postgres
 		`, "\t\n")+"\n")
 
 		assert.Equal(t, configmap.Data["pgbackrest_instance.conf"], strings.Trim(`
@@ -155,7 +155,7 @@ repo4-type = s3
 [db]
 pg1-path = /pgdata/pg12
 pg1-port = 2345
-pg1-socket-path = /tmp/ivory
+pg1-socket-path = /tmp/postgres
 		`, "\t\n")+"\n")
 	})
 
