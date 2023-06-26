@@ -136,7 +136,7 @@ containers:
   - /etc/pgbouncer/~ivory-operator.ini
   name: pgbouncer
   ports:
-  - containerPort: 5432
+  - containerPort: 5866
     name: pgbouncer
     protocol: TCP
   resources: {}
@@ -244,7 +244,7 @@ containers:
   imagePullPolicy: Always
   name: pgbouncer
   ports:
-  - containerPort: 5432
+  - containerPort: 5866
     name: pgbouncer
     protocol: TCP
   resources:
@@ -350,7 +350,7 @@ containers:
   imagePullPolicy: Always
   name: pgbouncer
   ports:
-  - containerPort: 5432
+  - containerPort: 5866
     name: pgbouncer
     protocol: TCP
   resources:

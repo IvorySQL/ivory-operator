@@ -20,7 +20,7 @@ package ivory
 // - https://www.iana.org/assignments/service-names-port-numbers
 const (
 	// IANAPortNumber is the port assigned to IvorySQL at the IANA.
-	IANAPortNumber = 5432
+	IANAPortNumber = 5866
 
 	// IANAServiceName is the name of the IvorySQL protocol at the IANA.
 	IANAServiceName = "ivorysql"

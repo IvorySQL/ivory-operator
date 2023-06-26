@@ -171,9 +171,9 @@ containers:
     value: |
       []
   - name: PATRONI_POSTGRESQL_CONNECT_ADDRESS
-    value: $(PATRONI_NAME).:5432
+    value: $(PATRONI_NAME).:5866
   - name: PATRONI_POSTGRESQL_LISTEN
-    value: '*:5432'
+    value: '*:5866'
   - name: PATRONI_POSTGRESQL_CONFIG_DIR
     value: /pgdata/pg11
   - name: PATRONI_POSTGRESQL_DATA_DIR

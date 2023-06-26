@@ -138,7 +138,7 @@ containers:
   - name: PGHOST
     value: /tmp/postgres
   - name: PGPORT
-    value: "5432"
+    value: "5866"
   - name: KRB5_CONFIG
     value: /etc/postgres/krb5.conf
   - name: KRB5RCACHEDIR
@@ -146,7 +146,7 @@ containers:
   imagePullPolicy: Always
   name: database
   ports:
-  - containerPort: 5432
+  - containerPort: 5866
     name: ivory
     protocol: TCP
   resources:
@@ -270,7 +270,7 @@ initContainers:
   - name: PGHOST
     value: /tmp/postgres
   - name: PGPORT
-    value: "5432"
+    value: "5866"
   - name: KRB5_CONFIG
     value: /etc/postgres/krb5.conf
   - name: KRB5RCACHEDIR

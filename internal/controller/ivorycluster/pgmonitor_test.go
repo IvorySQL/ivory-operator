@@ -46,7 +46,7 @@ func TestAddPGMonitorExporterToInstancePodSpec(t *testing.T) {
 	image := "test/image:tag"
 
 	cluster := &v1beta1.IvoryCluster{}
-	cluster.Spec.Port = initialize.Int32(5432)
+	cluster.Spec.Port = initialize.Int32(5866)
 	cluster.Spec.Image = image
 	cluster.Spec.ImagePullPolicy = corev1.PullAlways
 

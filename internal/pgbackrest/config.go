@@ -102,7 +102,7 @@ func CreatePGBackRestConfigMapIntent(ivoryCluster *v1beta1.IvoryCluster,
 
 	addDedicatedHost := DedicatedRepoHostEnabled(ivoryCluster)
 	pgdataDir := ivory.DataDirectory(ivoryCluster)
-	// Port will always be populated, since the API will set a default of 5432 if not provided
+	// Port will always be populated, since the API will set a default of 5866 if not provided
 	pgPort := *ivoryCluster.Spec.Port
 	cm.Data[CMInstanceKey] = iniGeneratedWarning +
 		populatePGInstanceConfigurationMap(
