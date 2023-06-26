@@ -96,7 +96,7 @@ type PGBouncerPodSpec struct {
 	// Port on which PgBouncer should listen for client connections. Changing
 	// this value causes PgBouncer to restart.
 	// +optional
-	// +kubebuilder:default=5866
+	// +kubebuilder:default=5432
 	// +kubebuilder:validation:Minimum=1024
 	Port *int32 `json:"port,omitempty"`
 
@@ -151,12 +151,12 @@ type PGBouncerSidecars struct {
 	PGBouncerConfig *Sidecar `json:"pgbouncerConfig,omitempty"`
 }
 
-// Default returns the default port for PgBouncer (5866) if a port is not
+// Default returns the default port for PgBouncer (5432) if a port is not
 // explicitly set
 func (s *PGBouncerPodSpec) Default() {
 	if s.Port == nil {
 		s.Port = new(int32)
-		*s.Port = 5866
+		*s.Port = 5432
 	}
 
 	if s.Replicas == nil {

@@ -12,6 +12,6 @@ patches:
 - path: manager-target.yaml
 
 images:
-- name: postgres-operator
+- name: ivory-operator
   newName: docker.io/balinor2017/ivory-operator
   newTag: v0.1

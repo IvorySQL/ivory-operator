@@ -59,7 +59,7 @@ spec:
     leaderLeaseDurationSeconds: 30
     port: 8008
     syncPeriodSeconds: 10
-  port: 5866
+  port: 5432
   postgresVersion: 0
 status:
   monitoring: {}
@@ -97,7 +97,7 @@ spec:
     leaderLeaseDurationSeconds: 30
     port: 8008
     syncPeriodSeconds: 10
-  port: 5866
+  port: 5432
   postgresVersion: 0
 status:
   monitoring: {}
@@ -128,7 +128,7 @@ status:
 		assert.DeepEqual(t, string(b), strings.TrimSpace(`
 pgBouncer:
   config: {}
-  port: 5866
+  port: 5432
   replicas: 1
   resources: {}
 		`)+"\n")

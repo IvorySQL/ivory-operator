@@ -1,8 +1,0 @@
----
-# Shutdown the cluster -- but without the annotation.
-apiVersion: ivory-operator.highgo.com/v1beta1
-kind: IvoryCluster
-metadata:
-  name: major-upgrade
-spec:
-  shutdown: true

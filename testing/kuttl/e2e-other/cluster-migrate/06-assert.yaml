@@ -14,7 +14,7 @@ kind: Pod
 metadata:
   labels:
     ivory-operator.highgo.com/cluster: cluster-migrate
-    ivory-operator.highgo.com/data: postgres
+    ivory-operator.highgo.com/data: ivory
     ivory-operator.highgo.com/instance-set: instance1
     ivory-operator.highgo.com/role: master
 status:

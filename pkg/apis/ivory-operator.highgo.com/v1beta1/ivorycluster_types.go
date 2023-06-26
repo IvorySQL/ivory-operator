@@ -116,7 +116,7 @@ type IvoryClusterSpec struct {
 
 	// The port on which IvorySQL should listen.
 	// +optional
-	// +kubebuilder:default=5866
+	// +kubebuilder:default=5432
 	// +kubebuilder:validation:Minimum=1024
 	Port *int32 `json:"port,omitempty"`
 
@@ -301,7 +301,7 @@ func (s *IvoryClusterSpec) Default() {
 
 	if s.Port == nil {
 		s.Port = new(int32)
-		*s.Port = 5866
+		*s.Port = 5432
 	}
 
 	if s.Proxy != nil {

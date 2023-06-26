@@ -611,7 +611,7 @@ func TestDynamicConfiguration(t *testing.T) {
 					Standby: &v1beta1.IvoryStandbySpec{
 						Enabled: true,
 						Host:    "0.0.0.0",
-						Port:    initialize.Int32(5866),
+						Port:    initialize.Int32(5432),
 					},
 				},
 			},
@@ -642,7 +642,7 @@ func TestDynamicConfiguration(t *testing.T) {
 				"standby_cluster": map[string]interface{}{
 					"create_replica_methods": []string{"basebackup"},
 					"host":                   "0.0.0.0",
-					"port":                   int32(5866),
+					"port":                   int32(5432),
 					"unrelated":              "input",
 				},
 			},
@@ -654,7 +654,7 @@ func TestDynamicConfiguration(t *testing.T) {
 					Standby: &v1beta1.IvoryStandbySpec{
 						Enabled:  true,
 						Host:     "0.0.0.0",
-						Port:     initialize.Int32(5866),
+						Port:     initialize.Int32(5432),
 						RepoName: "repo",
 					},
 				},
@@ -686,7 +686,7 @@ func TestDynamicConfiguration(t *testing.T) {
 				"standby_cluster": map[string]interface{}{
 					"create_replica_methods": []string{"pgbackrest", "basebackup"},
 					"host":                   "0.0.0.0",
-					"port":                   int32(5866),
+					"port":                   int32(5432),
 					"restore_command":        "mandatory",
 					"unrelated":              "input",
 				},
@@ -775,9 +775,9 @@ func TestInstanceEnvironment(t *testing.T) {
   value: |
     []
 - name: PATRONI_POSTGRESQL_CONNECT_ADDRESS
-  value: $(PATRONI_NAME).pod-dns:5866
+  value: $(PATRONI_NAME).pod-dns:5432
 - name: PATRONI_POSTGRESQL_LISTEN
-  value: '*:5866'
+  value: '*:5432'
 - name: PATRONI_POSTGRESQL_CONFIG_DIR
   value: /pgdata/pg12
 - name: PATRONI_POSTGRESQL_DATA_DIR
@@ -817,9 +817,9 @@ func TestInstanceEnvironment(t *testing.T) {
       port: 9999
       protocol: TCP
 - name: PATRONI_POSTGRESQL_CONNECT_ADDRESS
-  value: $(PATRONI_NAME).pod-dns:5866
+  value: $(PATRONI_NAME).pod-dns:5432
 - name: PATRONI_POSTGRESQL_LISTEN
-  value: '*:5866'
+  value: '*:5432'
 - name: PATRONI_POSTGRESQL_CONFIG_DIR
   value: /pgdata/pg12
 - name: PATRONI_POSTGRESQL_DATA_DIR

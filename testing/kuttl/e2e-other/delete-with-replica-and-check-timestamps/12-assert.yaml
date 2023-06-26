@@ -5,7 +5,7 @@ kind: Pod
 metadata:
   labels:
     ivory-operator.highgo.com/cluster: delete-switchover-with-timestamp
-    ivory-operator.highgo.com/data: postgres
+    ivory-operator.highgo.com/data: ivory
     ivory-operator.highgo.com/role: master
     testing/role-before: replica
 ---
@@ -15,7 +15,7 @@ kind: Pod
 metadata:
   labels:
     ivory-operator.highgo.com/cluster: delete-switchover-with-timestamp
-    ivory-operator.highgo.com/data: postgres
+    ivory-operator.highgo.com/data: ivory
     ivory-operator.highgo.com/role: replica
     testing/role-before: master
 ---

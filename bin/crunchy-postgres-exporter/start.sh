@@ -54,7 +54,7 @@ set_default_pg_exporter_env() {
 
     if [[ ! -v EXPORTER_PG_PORT ]]
     then
-        export EXPORTER_PG_PORT="5866"
+        export EXPORTER_PG_PORT="5432"
         default_exporter_env_vars+=("EXPORTER_PG_PORT=${EXPORTER_PG_PORT}")
     fi
 

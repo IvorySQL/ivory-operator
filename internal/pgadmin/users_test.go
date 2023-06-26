@@ -41,7 +41,7 @@ func TestWriteUsersInPGAdmin(t *testing.T) {
 			Namespace: "testnamespace",
 		},
 		Spec: v1beta1.IvoryClusterSpec{
-			Port: initialize.Int32(5866),
+			Port: initialize.Int32(5432),
 		},
 	}
 
@@ -162,7 +162,7 @@ with create_app().app_context():
 `,
 				"testcluster",
 				"testcluster-primary.testnamespace.svc",
-				"5866",
+				"5432",
 			})
 			return expected
 		}

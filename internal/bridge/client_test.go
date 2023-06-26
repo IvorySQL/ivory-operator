@@ -49,7 +49,7 @@ func TestClientURL(t *testing.T) {
 	assert.Equal(t, defaultAPI, NewClient("/path", "").BaseURL.String())
 	assert.Equal(t, defaultAPI, NewClient("http://:9999", "").BaseURL.String())
 	assert.Equal(t, defaultAPI, NewClient("ivory://localhost", "").BaseURL.String())
-	assert.Equal(t, defaultAPI, NewClient("ivory://localhost:5866", "").BaseURL.String())
+	assert.Equal(t, defaultAPI, NewClient("ivory://localhost:5432", "").BaseURL.String())
 
 	assert.Equal(t,
 		"http://localhost:12345", NewClient("http://localhost:12345", "").BaseURL.String())

@@ -29,7 +29,7 @@ commands:
         REPLICA=$(kubectl get pods --namespace "${NAMESPACE}" \
           --selector='
             ivory-operator.highgo.com/cluster=original,
-            ivory-operator.highgo.com/data=postgres,
+            ivory-operator.highgo.com/data=ivory,
             ivory-operator.highgo.com/role!=master' \
           --output=jsonpath={.items..metadata.name})
 

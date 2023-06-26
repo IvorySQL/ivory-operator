@@ -17,6 +17,7 @@ package runtime
 
 import (
 	"context"
+	"fmt"
 	"testing"
 	"time"
 
@@ -77,7 +78,7 @@ func TestTicker(t *testing.T) {
 		// Start the ticker and wait for the deadline to pass.
 		assert.NilError(t, ticker.Start(ctx, th, tq, pTrue, pLength))
 		<-ctx.Done()
-
+		fmt.Println(called)
 		assert.Equal(t, len(called), 3)
 		assert.Equal(t, called[0], expected)
 		assert.Equal(t, called[1], expected)
