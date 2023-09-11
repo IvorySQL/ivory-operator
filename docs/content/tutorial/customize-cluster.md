@@ -170,7 +170,7 @@ spec:
 Note: Although the custom TLS and custom replication TLS Secrets share the same `ca.crt`, they do not share the same `tls.crt`:
 
 * Your `spec.customTLSSecret` TLS certificate should have a Common Name (CN) setting that matches the primary Service name. This is the name of the cluster suffixed with `-primary`. For example, for our `hippo` cluster this would be `hippo-primary`.
-* Your `spec.customReplicationTLSSecret` TLS certificate should have a Common Name (CN) setting that matches `_crunchyrepl`, which is the preset replication user.
+* Your `spec.customReplicationTLSSecret` TLS certificate should have a Common Name (CN) setting that matches `_ivoryrepl`, which is the preset replication user.
 
 As with the other changes, you can roll out the TLS customizations with `kubectl apply`.
 

@@ -76,13 +76,13 @@ postgresql:
       sslkey: /tmp/replication/tls.key
       sslmode: verify-ca
       sslrootcert: /tmp/replication/ca.crt
-      username: _crunchyrepl
+      username: _ivoryrepl
     rewind:
       sslcert: /tmp/replication/tls.crt
       sslkey: /tmp/replication/tls.key
       sslmode: verify-ca
       sslrootcert: /tmp/replication/ca.crt
-      username: _crunchyrepl
+      username: _ivoryrepl
   database: ivorysql
 restapi:
   cafile: /etc/patroni/~ivory-operator/patroni.ca-roots
@@ -135,13 +135,13 @@ postgresql:
       sslkey: /tmp/replication/tls.key
       sslmode: verify-ca
       sslrootcert: /tmp/replication/ca.crt
-      username: _crunchyrepl
+      username: _ivoryrepl
     rewind:
       sslcert: /tmp/replication/tls.crt
       sslkey: /tmp/replication/tls.key
       sslmode: verify-ca
       sslrootcert: /tmp/replication/ca.crt
-      username: _crunchyrepl
+      username: _ivoryrepl
   database: ivorysql
 restapi:
   cafile: /etc/patroni/~ivory-operator/patroni.ca-roots
