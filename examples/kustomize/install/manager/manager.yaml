@@ -27,9 +27,9 @@ spec:
         - name: IVORY_DEBUG
           value: "true"
         - name: RELATED_IMAGE_IVORY_2
-          value: "docker.io/ivorysql/ivorysql:0.1"
+          value: "docker.io/ivorysql/ivorysql:ubi8-2.2-1.1-1"
         - name: RELATED_IMAGE_PGBACKREST
-          value: "docker.io/ivorysql/pgbackrest:0.1"
+          value: "docker.io/ivorysql/pgbackrest:ubi8-2.45-1.1-1"
 
         securityContext:
           allowPrivilegeEscalation: false

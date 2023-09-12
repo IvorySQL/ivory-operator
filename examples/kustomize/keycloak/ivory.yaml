@@ -3,7 +3,7 @@ kind: IvoryCluster
 metadata:
   name: keycloakdb
 spec:
-  image: docker.io/ivorysql/ivorysql:0.1
+  image: docker.io/ivorysql/ivorysql:ubi8-2.2-1.1-1
   postgresVersion: 15
   instances:
     - replicas: 2
@@ -25,7 +25,7 @@ spec:
                   ivory-operator.ivorysql.org/instance-set: "00"
   backups:
     pgbackrest:
-      image: docker.io/ivorysql/pgbackrest:0.1
+      image: docker.io/ivorysql/pgbackrest:ubi8-2.45-1.1-1
       repos:
       - name: repo1
         volume:

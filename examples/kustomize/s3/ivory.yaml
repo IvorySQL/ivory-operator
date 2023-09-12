@@ -3,7 +3,7 @@ kind: IvoryCluster
 metadata:
   name: hippo-s3
 spec:
-  image: docker.io/ivorysql/ivorysql:0.1
+  image: docker.io/ivorysql/ivorysql:ubi8-2.2-1.1-1
   postgresVersion: 15
   instances:
     - dataVolumeClaimSpec:
@@ -14,7 +14,7 @@ spec:
             storage: 1Gi
   backups:
     pgbackrest:
-      image: docker.io/ivorysql/pgbackrest:0.1
+      image: docker.io/ivorysql/pgbackrest:ubi8-2.45-1.1-1
       configuration:
       - secret:
           name: ivyo-s3-creds

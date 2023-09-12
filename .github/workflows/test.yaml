@@ -65,9 +65,9 @@ jobs:
         with:
           k3s-channel: "${{ matrix.kubernetes }}"
           prefetch-images: |
-            docker.io/ivorysql/pgbackrest:1.1
-            docker.io/ivorysql/pgbouncer:1.1
-            docker.io/ivorysql/ivorysql:1.1
+            docker.io/ivorysql/pgbackrest:ubi8-2.45-1.1-1
+            docker.io/ivorysql/pgbouncer:ubi8-1.18.0-1.1-1
+            docker.io/ivorysql/ivorysql:ubi8-2.2-1.1-1
 
       - run: make createnamespaces check-envtest-existing
         env:
@@ -99,12 +99,12 @@ jobs:
         with:
           k3s-channel: "${{ matrix.kubernetes }}"
           prefetch-images: |
-            docker.io/ivorysql/pgadmin:1.2
-            docker.io/ivorysql/pgbackrest:1.1
-            docker.io/ivorysql/pgbouncer:1.1
-            docker.io/ivorysql/postgres-exporter:1.1
-            docker.io/ivorysql/ivorysql:1.1
-            registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:ubi8-15.2-3.3-0
+            docker.io/ivorysql/pgadmin:ubi8-7.4-1.1-1
+            docker.io/ivorysql/pgbackrest:ubi8-2.45-1.1-1
+            docker.io/ivorysql/pgbouncer:ubi8-1.18.0-1.1-1
+            docker.io/ivorysql/postgres-exporter:ubi8-0.13.2-1.1-1
+            docker.io/ivorysql/ivorysql:ubi8-2.2-1.1-1
+            docker.io/ivorysql/ivorysql-postgis:ubi8-3.2-1.1-1
             registry.developers.crunchydata.com/crunchydata/crunchy-upgrade:ubi8-5.3.1-0
       - run: go mod download
       - name: Build executable
@@ -119,14 +119,15 @@ jobs:
           docker run --detach --network host --read-only \
             --volume "$(pwd):/mnt" --workdir '/mnt' --env 'PATH=/mnt/bin' \
             --env 'KUBECONFIG=hack/.kube/ivory-operator/ivyo' \
-            --env 'RELATED_IMAGE_PGADMIN=docker.io/ivorysql/pgadmin:1.2' \
-            --env 'RELATED_IMAGE_PGBACKREST=docker.io/ivorysql/pgbackrest:1.1' \
-            --env 'RELATED_IMAGE_PGBOUNCER=docker.io/ivorysql/pgbouncer:1.1' \
-            --env 'RELATED_IMAGE_PGEXPORTER=docker.io/ivorysql/postgres-exporter:1.1' \
+            --env 'RELATED_IMAGE_PGADMIN=docker.io/ivorysql/pgadmin:ubi8-7.4-1.1-1' \
+            --env 'RELATED_IMAGE_PGBACKREST=docker.io/ivorysql/pgbackrest:ubi8-2.45-1.1-1' \
+            --env 'RELATED_IMAGE_PGBOUNCER=docker.io/ivorysql/pgbouncer:ubi8-1.18.0-1.1-1' \
+            --env 'RELATED_IMAGE_PGEXPORTER=docker.io/ivorysql/postgres-exporter:ubi8-0.13.2-1.1-1' \
             --env 'RELATED_IMAGE_PGUPGRADE=registry.developers.crunchydata.com/crunchydata/crunchy-upgrade:ubi8-5.3.1-0' \
-            --env 'RELATED_IMAGE_IVORY_14=docker.io/ivorysql/ivorysql:1.1' \
-            --env 'RELATED_IMAGE_IVORY_15=docker.io/ivorysql/ivorysql:1.1' \
+            --env 'RELATED_IMAGE_IVORY_14=docker.io/ivorysql/ivorysql:ubi8-2.2-1.1-1' \
+            --env 'RELATED_IMAGE_IVORY_15=docker.io/ivorysql/ivorysql:ubi8-2.2-1.1-1' \
             --env 'RELATED_IMAGE_POSTGRES_14_GIS_3.1=registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:ubi8-14.8-3.1-2' \
+            --env 'RELATED_IMAGE_IVORYSQL_2_GIS_3.2=docker.io/ivorysql/ivorysql-postgis:ubi8-3.2-1.1-1' \
             --env 'RELATED_IMAGE_POSTGRES_15_GIS_3.3=registry.developers.crunchydata.com/crunchydata/crunchy-postgres-gis:ubi8-15.2-3.3-0' \
             --env 'IVYO_FEATURE_GATES=TablespaceVolumes=true' \
             --name 'ivory-operator' ubuntu \
@@ -142,7 +143,7 @@ jobs:
           KUTTL_PG_UPGRADE_TO_VERSION: '15'
           KUTTL_PG_VERSION: '15'
           KUTTL_POSTGIS_VERSION: '3.1'
-          KUTTL_IVORY_IMAGE: 'docker.io/ivorysql/ivorysql:1.1'
+          KUTTL_IVORY_IMAGE: 'docker.io/ivorysql/ivorysql:ubi8-2.2-1.1-1'
       - run: |
           make check-kuttl && exit
           failed=$?
