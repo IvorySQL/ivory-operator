@@ -1,9 +1,4 @@
----
-title: "Overview"
-date:
-draft: false
-weight: 100
----
+# Overview
 
 The goal of IVYO, the Ivory Operator from Highgo is to provide a means to quickly get
 your applications up and running on Ivory for both development and
@@ -22,7 +17,7 @@ to create several
 [custom resource definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions)
 that allow for the management of IvorySQL clusters.
 
-The main custom resource definition is ivoryclusters.ivory-operator.ivorysql.org. This allows you to control all the information about a Ivory cluster, including:
+The main custom resource definition is ivoryclusters.ivory-operator.ivorysql.org. This allows you to control all the information about an Ivory cluster, including:
 
 - General information
 - Resource allocation
@@ -44,8 +39,8 @@ well as the Custom Resources that come with the IvorySQL Operator (Pgcluster,
 Pgtask)
 
 The main purpose of IVYO is to create and update information
-around the structure of a Ivory Cluster, and to relay information about the
-overall status and health of a IvorySQL cluster. The goal is to also simplify
+around the structure of an Ivory Cluster, and to relay information about the
+overall status and health of an IvorySQL cluster. The goal is to also simplify
 this process as much as possible for users.
 
 The Ivory Operator handles setting up all of the various StatefulSets, Deployments, Services and other Kubernetes objects.

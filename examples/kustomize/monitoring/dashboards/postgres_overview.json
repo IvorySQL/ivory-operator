@@ -62,7 +62,7 @@
             {
               "targetBlank": true,
               "title": "Cluster Details",
-              "url": "d/fMip0cuMk/postgresqldetails?$__all_variables"
+              "url": "d/fMip0cuMk/ivorysqldetails?$__all_variables"
             },
             {
               "targetBlank": true,
@@ -82,7 +82,7 @@
             {
               "targetBlank": true,
               "title": "Service Health",
-              "url": "d/dhG1wgsMz/postgresql-service-health?$__all_variables"
+              "url": "d/dhG1wgsMz/ivorysql-service-health?$__all_variables"
             }
           ],
           "mappings": [
@@ -231,7 +231,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "PostgreSQL Overview",
+  "title": "IvorySQL Overview",
   "uid": "D2X39SlGk",
   "version": 1
 }

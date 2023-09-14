@@ -1,5 +1,5 @@
 ---
-title: "Customize a Ivory Cluster"
+title: "Customize an Ivory Cluster"
 date:
 draft: false
 weight: 60
@@ -9,8 +9,8 @@ Ivory is known for its ease of customization; IVYO helps you to roll out changes
 
 ## Custom Ivory Configuration
 
-Part of the trick of managing multiple instances in a Ivory cluster is ensuring all of the configuration
-changes are propagated to each of them. This is where IVYO helps: when you make a Ivory configuration
+Part of the trick of managing multiple instances in an Ivory cluster is ensuring all of the configuration
+changes are propagated to each of them. This is where IVYO helps: when you make an Ivory configuration
 change for a cluster, IVYO will apply it to all of the Ivory instances.
 
 For example, in our previous step we added CPU and memory limits of `2.0` and `4Gi` respectively. Let's tweak some of the Ivory settings to better use our new resources. We can do this in the `spec.patroni.dynamicConfiguration` section. Here is an example updated manifest that tweaks several settings:
@@ -102,7 +102,7 @@ There are a few different TLS endpoints that can be customized for IVYO, includi
 * a `spec.customTLSSecret`, used to both identify the cluster and encrypt communications; and
 * a `spec.customReplicationTLSSecret`, used for replication authentication.
 
-To customize the TLS for a Ivory cluster, you will need to create two Secrets in the Namespace of your Ivory cluster. One of these Secrets will be the `customTLSSecret` and the other will be the `customReplicationTLSSecret`. Both secrets contain a TLS key (`tls.key`), TLS certificate (`tls.crt`) and CA certificate (`ca.crt`) to use.
+To customize the TLS for an Ivory cluster, you will need to create two Secrets in the Namespace of your Ivory cluster. One of these Secrets will be the `customTLSSecret` and the other will be the `customReplicationTLSSecret`. Both secrets contain a TLS key (`tls.key`), TLS certificate (`tls.crt`) and CA certificate (`ca.crt`) to use.
 
 Note: If `spec.customTLSSecret` is provided you **must** also provide `spec.customReplicationTLSSecret` and both must contain the same `ca.crt`.
 
@@ -179,7 +179,7 @@ As with the other changes, you can roll out the TLS customizations with `kubectl
 There are several ways to add your own custom Kubernetes [Labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) to your Ivory cluster.
 
 - Cluster: You can apply labels to any IVYO managed object in a cluster by editing the `spec.metadata.labels` section of the custom resource.
-- Ivory: You can apply labels to a Ivory instance set and its objects by editing `spec.instances.metadata.labels`.
+- Ivory: You can apply labels to an Ivory instance set and its objects by editing `spec.instances.metadata.labels`.
 - pgBackRest: You can apply labels to pgBackRest and its objects by editing `ivoryclusters.spec.backups.pgbackrest.metadata.labels`.
 
 ## Annotations
@@ -187,7 +187,7 @@ There are several ways to add your own custom Kubernetes [Labels](https://kubern
 There are several ways to add your own custom Kubernetes [Annotations](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) to your Ivory cluster.
 
 - Cluster: You can apply annotations to any IVYO managed object in a cluster by editing the `spec.metadata.annotations` section of the custom resource.
-- Ivory: You can apply annotations to a Ivory instance set and its objects by editing `spec.instances.metadata.annotations`.
+- Ivory: You can apply annotations to an Ivory instance set and its objects by editing `spec.instances.metadata.annotations`.
 - pgBackRest: You can apply annotations to pgBackRest and its objects by editing `spec.backups.pgbackrest.metadata.annotations`.
 
 ## Pod Priority Classes

@@ -1,9 +1,4 @@
----
-title: "Administrative Tasks"
-date:
-draft: false
-weight: 105
----
+# Administrative Tasks
 
 ## Manually Restarting IvorySQL
 
@@ -20,7 +15,7 @@ Watch your hippo cluster: you will see the rolling update has been triggered and
 
 ## Shutdown
 
-You can shut down a Ivory cluster by setting the `spec.shutdown` attribute to `true`. You can do this by editing the manifest, or, in the case of the `hippo` cluster, executing a command like the below:
+You can shut down an Ivory cluster by setting the `spec.shutdown` attribute to `true`. You can do this by editing the manifest, or, in the case of the `hippo` cluster, executing a command like the below:
 
 ```
 kubectl patch ivorycluster/hippo -n ivory-operator --type merge \
@@ -40,7 +35,7 @@ NAME                             SCHEDULE   SUSPEND   ACTIVE
 cronjob.batch/hippo-repo1-full   @daily     True      0
 ```
 
-To turn a Ivory cluster that is shut down back on, you can set `spec.shutdown` to `false`.
+To turn an Ivory cluster that is shut down back on, you can set `spec.shutdown` to `false`.
 
 ## Pausing Reconciliation and Rollout
 
@@ -58,7 +53,7 @@ reconciliation is resumed. This allows you to fully control when changes to
 the ivorycluster spec are rolled out to the Ivory cluster. While paused,
 no statuses are updated other than the "Progressing" condition.
 
-To resume reconciliation of a Ivory cluster, you can either set `spec.paused`
+To resume reconciliation of an Ivory cluster, you can either set `spec.paused`
 to `false` or remove the setting from your manifest.
 
 ## Rotating TLS Certificates

@@ -1,9 +1,4 @@
----
-title: "High Availability"
-date:
-draft: false
-weight: 110
----
+# High Availability
 
 One of the great things about IvorySQL is its reliability: it is very stable
 and typically "just works." However, there are certain things that can happen in
@@ -22,18 +17,20 @@ hardware upgrade, or other maintenance.
 
 Fortunately, IVYO, the Ivory Operator from Highgo, is prepared for this.
 
+![High Availability](../../static/images/ivorysql-ha-overview.jpg)
+
 The Highgo IvorySQL Operator supports a distributed-consensus based
 high availability (HA) system that keeps its managed IvorySQL clusters up and
 running, even if the IvorySQL Operator disappears. Additionally, it leverages
 Kubernetes specific features such as
 [Pod Anti-Affinity](#how-the-highgo-ivorysql-operator-uses-pod-anti-affinity)
-to limit the surface area that could lead to a IvorySQL cluster becoming
+to limit the surface area that could lead to an IvorySQL cluster becoming
 unavailable. The IvorySQL Operator also supports automatic healing of failed
 primaries and leverages the efficient pgBackRest "delta restore" method, which
 eliminates the need to fully reprovision a failed cluster!
 
 The Highgo IvorySQL Operator also maintains high availability during a
-routine task such as a IvorySQL minor version upgrade.
+routine task such as an IvorySQL minor version upgrade.
 
 For workloads that are sensitive to transaction loss, IVYO supports IvorySQL synchronous replication.
 
@@ -199,7 +196,7 @@ the [high availability tutorial](https://github.com/IvorySQL/ivory-operator/blob
 
 ## Rolling Updates
 
-During the lifecycle of a IvorySQL cluster, there are certain events that may
+During the lifecycle of an IvorySQL cluster, there are certain events that may
 require a planned restart, such as an update to a "restart required" PostgreSQL
 configuration setting (e.g. [`shared_buffers`](https://www.postgresql.org/docs/current/runtime-config-resource.html#GUC-SHARED-BUFFERS))
 or a change to a Kubernetes Pod template (e.g. [changing the memory request](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/resize-cluster.md#customize-cpu-memory)).

@@ -132,8 +132,22 @@ IvorySQL containers deployed with the IvorySQL Operator include the following co
   - [TimescaleDB](https://github.com/timescale/timescaledb) (Apache-licensed community edition)
   - [wal2json](https://github.com/eulerto/wal2json)
 - [pgBackRest](https://pgbackrest.org/)
-- [Patroni](https://patroni.readthedocs.io/)
+- [pgBouncer](http://pgbouncer.github.io/)
+- [pgAdmin 4](https://www.pgadmin.org/)
+- [pgMonitor](https://github.com/CrunchyData/pgmonitor)
+- [Patroni](https://patroni.readthedocs.io/) 
 - [LLVM](https://llvm.org/) (for [JIT compilation](https://www.ivorysql.org/docs/current/jit.html))
+
+In addition to the above, the geospatially enhanced IvorySQL + PostGIS container adds the following components:
+
+- [PostGIS](http://postgis.net/)
+
+[IvorySQL Operator Monitoring](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/monitoring.md) uses the following components:
+
+- [pgMonitor](https://github.com/CrunchyData/pgmonitor)
+- [Prometheus](https://github.com/prometheus/prometheus)
+- [Grafana](https://github.com/grafana/grafana)
+- [Alertmanager](https://github.com/prometheus/alertmanager)
 
 ## Supported Platforms
 
@@ -161,13 +175,13 @@ IvorySQL Operator, please follow this catalog:
 - [Content Cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/connect-cluster.md)
 - [High Availability](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/high-availability.md)
 - [Resize Cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/resize-cluster.md)
-- [Customize Cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/customize-cluster.md)
+- [Customize Cluster](https://github.com/IvorySQL/ivory-operator/bcustomize-cluster.mdlob/master/docs/content/tutorial/)
 - [User Management](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/user-management.md)
 - [Backups](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/backups.md)
 - [Backup Management](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/backup-management.md)
 - [Disaster Recovery and Cloning](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/disaster-recovery.md)
 - [Administrative Tasks](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/administrative-tasks.md)
-- [Delete a Ivory Cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/delete-cluster.md)
+- [Delete an Ivory Cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/delete-cluster.md)
 
 ### Architecture
 - [Overview](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/overview.md)
@@ -175,8 +189,8 @@ IvorySQL Operator, please follow this catalog:
 - [Backups](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/backups.md)
 - [Scheduling](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/scheduling.md)
 - [User Management](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/user-management.md)
-- [Disaster Recovery](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/disaster-recovery.md)
-
+- [Disaster Recovery](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/disaster-recovery.md)
+- [pgAdmin4](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/pgAdmin4.md)
 # Contributing to the Project
 
 Want to contribute to the IvorySQL Operator project? Great! We've put together

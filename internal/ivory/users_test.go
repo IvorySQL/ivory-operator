@@ -148,7 +148,7 @@ COMMIT;`))
 			assert.NilError(t, err)
 			assert.Assert(t, cmp.Contains(string(b), `
 \copy input (data) from stdin with (format text)
-{"databases":["ivory"],"options":"LOGIN SUPERUSER","username":"ivory","verifier":"allowed"}
+{"databases":["ivorysql"],"options":"LOGIN SUPERUSER","username":"ivorysql","verifier":"allowed"}
 \.
 `))
 			return nil
@@ -157,13 +157,13 @@ COMMIT;`))
 		assert.NilError(t, WriteUsersInIvorySQL(ctx, exec,
 			[]v1beta1.IvoryUserSpec{
 				{
-					Name:      "ivory",
+					Name:      "ivorysql",
 					Databases: []v1beta1.IvoryIdentifier{"all", "ignored"},
 					Options:   "NOLOGIN CONNECTION LIMIT 0",
 				},
 			},
 			map[string]string{
-				"ivory": "allowed",
+				"ivorysql": "allowed",
 			},
 		))
 		assert.Equal(t, calls, 1)

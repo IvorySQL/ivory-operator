@@ -1,9 +1,4 @@
----
-title: "Backup Management"
-date:
-draft: false
-weight: 82
----
+# Backup Management
 
 In the [previous section](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/backups.md), we looked at a brief overview of the full disaster recovery feature set that IVYO provides and explored how to [configure backups for our Ivory cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/backups.md).
 
