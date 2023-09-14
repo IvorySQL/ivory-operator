@@ -1,11 +1,6 @@
----
-title: "Connect to a Ivory Cluster"
-date:
-draft: false
-weight: 30
----
+# Connect to an Ivory Cluster
 
-It's one thing to [create a Ivory cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/create-cluster.md); it's another thing to connect to it. Let's explore how IVYO makes it possible to connect to a Ivory cluster!
+It's one thing to [create an Ivory cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/create-cluster.md); it's another thing to connect to it. Let's explore how IVYO makes it possible to connect to an Ivory cluster!
 
 ## Background: Services, Secrets, and TLS
 
@@ -52,7 +47,7 @@ and [NodePort value](https://kubernetes.io/docs/concepts/services-networking/ser
 
 You can modify the Services that IVYO manages from the following attributes:
 
-- `spec.service` - this manages the Service for connecting to a Ivory primary.
+- `spec.service` - this manages the Service for connecting to an Ivory primary.
 - `spec.userInterface.pgAdmin.service` - this manages the Service for connecting to the pgAdmin management tool.
 
 For example, say you want to set the Ivory primary to use a `NodePort` service, a specific `nodePort` value, and set
@@ -116,8 +111,8 @@ features of IVYO).
 ## Connect an Application
 
 For this tutorial, we are going to connect [Keycloak](https://www.keycloak.org/), an open source
-identity management application. Keycloak can be deployed on Kubernetes and is backed by a Ivory
-database. We provide an example of deploying Keycloak and a ivorycluster, the manifest below deploys it using our `hippo` cluster that is already running:
+identity management application. Keycloak can be deployed on Kubernetes and is backed by an Ivory
+database. We provide an example of deploying Keycloak andan ivorycluster, the manifest below deploys it using our `hippo` cluster that is already running:
 
 ```
 kubectl apply --filename=- <<EOF

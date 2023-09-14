@@ -643,7 +643,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "PostgreSQL Service Health",
+  "title": "IvorySQL Service Health",
   "uid": "dhG1wgsMz",
   "version": 1
 }

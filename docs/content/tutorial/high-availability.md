@@ -1,9 +1,4 @@
----
-title: "High Availability"
-date:
-draft: false
-weight: 40
----
+# High Availability
 
 Ivory is known for its reliability: it is very stable and typically "just works." However, there are many things that can happen in a distributed environment like Kubernetes that can affect Ivory uptime, including:
 

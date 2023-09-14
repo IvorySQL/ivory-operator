@@ -1,9 +1,4 @@
----
-title: "User Management"
-date:
-draft: false
-weight: 125
----
+# User Management
 
 IVYO manages IvorySQL users that you define in IvoryCluster.spec.users.
 There, you can list their [role attributes](https://www.postgresql.org/docs/current/role-attributes.html) and which databases they can access.
@@ -12,7 +7,7 @@ Below is some information on how the user and database management systems work. 
 
 ## Understanding Default User Management
 
-When you create a Ivory cluster with IVYO and do not specify any additional users or databases, IVYO will do the following:
+When you create an Ivory cluster with IVYO and do not specify any additional users or databases, IVYO will do the following:
 
 - Create a database that matches the name of the Ivory cluster.
 - Create an unprivileged Ivory user with the name of the cluster. This user has access to the database created in the previous step.
@@ -33,7 +28,7 @@ You can see this default behavior in the [connect to a cluster](https://github.c
 As an example, using our `hippo` Ivory cluster, we would see the following created:
 
 - A database named `hippo`.
-- A Ivory user named `hippo`.
+-An Ivory user named `hippo`.
 - A Secret named `hippo-pguser-hippo` that contains the user credentials and connection information.
 
 While the above defaults may work for your application, there are certain cases where you may need to customize your user and databases:
@@ -66,8 +61,8 @@ without special characters, set the `spec.users.password.type` field for that us
 For complete control over a user's password, see the [custom passwords](#custom-passwords) section.
 
 To have IVYO generate a new password, remove the existing `password` field from the user _Secret_.
-For example, on a Ivory cluster named `hippo` in the `ivory-operator` namespace with
-a Ivory user named `hippo`, use the following `kubectl patch` command:
+For example, on an Ivory cluster named `hippo` in the `ivory-operator` namespace with
+an Ivory user named `hippo`, use the following `kubectl patch` command:
 
 ```shell
 kubectl patch secret -n ivory-operator hippo-pguser-hippo -p '{"data":{"password":""}}'
@@ -75,7 +70,7 @@ kubectl patch secret -n ivory-operator hippo-pguser-hippo -p '{"data":{"password
 
 ## Custom Passwords {#custom-passwords}
 
-There are cases where you may want to explicitly provide your own password for a Ivory user.
+There are cases where you may want to explicitly provide your own password for an Ivory user.
 IVYO determines the password from an attribute in the user Secret called `verifier`. This contains
 a hashed copy of your password. When `verifier` changes, IVYO will loa d the contents of the verifier
 into your Ivory cluster. This method allows for the secure transmission of the password into the
@@ -92,7 +87,7 @@ password and verifier are found IVYO will ensure the provided credential is prop
 
 ### Example
 
-For example, let's say we have a Ivory cluster named `hippo` and a Ivory user named `hippo`.
+For example, let's say we have an Ivory cluster named `hippo` and an Ivory user named `hippo`.
 The Secret then would be called `hippo-pguser-hippo`. We want to set the password for `hippo` to
 be `datalake` and we can achieve this with a simple `kubectl patch` command. The below assumes that
 the Secret is stored in the `ivory-operator` namespace:

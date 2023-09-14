@@ -1,9 +1,4 @@
----
-title: "Resize a Ivory Cluster"
-date:
-draft: false
-weight: 50
----
+# Resize a Ivory Cluster
 
 You did it -- the application is a success! Traffic is booming, so much so that you need to add more resources to your Ivory cluster. However, you're worried that any resize operation may cause downtime and create a poor experience for your end users.
 

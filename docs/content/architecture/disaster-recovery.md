@@ -1,9 +1,4 @@
----
-title: "Disaster Recovery"
-date:
-draft: false
-weight: 140
----
+# Disaster Recovery
 
 Advanced high-availability and disaster recovery strategies involve spreading
 your database clusters across multiple data centers to help maximize uptime.
@@ -70,11 +65,14 @@ A repo-based standby will connect to a pgBackRest repo stored in an external sto
 clusters). The standby cluster will receive WAL files from the repo and will apply those to the
 database.
 
+![repo-based-standby](../../static/images/ivory-repo-based-standby.png)
+
 #### Streaming Standby
 
 A streaming standby relies on an authenticated connection to the primary over the network. The
 standby will receive WAL records directly from the primary as they are generated.
 
+![streaming-standby](../../static/images/ivory-streaming-standby.png)
 #### Streaming Standby with an External Repo
 
 You can also configure the operator to create a cluster that takes advantage of both methods. The
@@ -82,6 +80,8 @@ standby cluster will bootstrap from the pgBackRest repo and continue to receive 
 are pushed to the repo. The cluster will also directly connect to primary and receive WAL records
 as they are generated. Using a repo while also streaming ensures that your cluster will still be up
 to date with the pgBackRest repo if streaming falls behind.
+
+![streaming-standby-external-repo](../../static/images/ivory-streaming-standby-external-repo.png)
 
 For creating a standby Ivory cluster with IVYO, please see the [disaster recovery tutorial](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/disaster-recovery.md#standby-cluster)
 

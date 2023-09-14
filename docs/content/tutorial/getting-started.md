@@ -1,10 +1,4 @@
----
-title: "Getting Started"
-date:
-draft: false
-weight: 10
----
-
+# Getting Started
 1. Installed IVYO to the `ivory-operator` namespace. If you are inside your `examples` directory, you can run the `kubectl apply --server-side -k examples/kustomize/install/default` command.
 
 Throughout this tutorial, we will be building on the example provided in the `examples/kustomize/ivory`.

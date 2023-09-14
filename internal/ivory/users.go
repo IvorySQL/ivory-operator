@@ -58,10 +58,10 @@ CREATE TEMPORARY TABLE input (id serial, data json);
 		databases := spec.Databases
 		options := spec.Options
 
-		// The "ivory" user must always be a superuser that can login to
-		// the "ivory" database.
-		if spec.Name == "ivory" {
-			databases = append(databases[:0:0], "ivory")
+		// The "ivorysql" user must always be a superuser that can login to
+		// the "ivorysql" database.
+		if spec.Name == "ivorysql" {
+			databases = append(databases[:0:0], "ivorysql")
 			options = `LOGIN SUPERUSER`
 		}
 

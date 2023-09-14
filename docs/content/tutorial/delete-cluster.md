@@ -1,5 +1,5 @@
 ---
-title: "Delete a Ivory Cluster"
+title: "Deletean Ivory Cluster"
 date:
 draft: false
 weight: 110

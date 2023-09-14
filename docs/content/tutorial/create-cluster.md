@@ -1,13 +1,7 @@
----
-title: "Create a Ivory Cluster"
-date:
-draft: false
-weight: 20
----
+# Create an Ivory Cluster
 
-## Create a Ivory Cluster
-
-Creating a Ivory cluster is pretty simple. Using the example in the `examples/kustomize/ivory` directory, all we have to do is run:
+## Create 
+Creating an Ivory cluster is pretty simple. Using the example in the `examples/kustomize/ivory` directory, all we have to do is run:
 
 ```
 kubectl apply -k examples/kustomize/ivory
@@ -28,7 +22,7 @@ kubectl -n ivory-operator get pods \
 
 ### What Just Happened?
 
-IVYO created a Ivory cluster based on the information provided to it in the Kustomize manifests located in the `examples/kustomize/ivory` directory. Let's better understand what happened by inspecting the `examples/kustomize/ivory/ivory.yaml` file:
+IVYO created an Ivory cluster based on the information provided to it in the Kustomize manifests located in the `examples/kustomize/ivory` directory. Let's better understand what happened by inspecting the `examples/kustomize/ivory/ivory.yaml` file:
 
 ```
 apiVersion: ivory-operator.ivorysql.org/v1beta1
@@ -68,7 +62,7 @@ IVYO knows how many Ivory instances to create through the `spec.instances` secti
 
 A very important piece of your `ivorycluster` custom resource is the `dataVolumeClaimSpec` section. This describes the storage that your Ivory instance will use. It is modeled after the [Persistent Volume Claim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). If you do not provide a `spec.instances.dataVolumeClaimSpec.storageClassName`, then the default storage class in your Kubernetes environment is used.
 
-As part of creating a Ivory cluster, we also specify information about our backup archive. IVYO uses [pgBackRest](https://pgbackrest.org/), an open source backup and restore tool designed to handle terabyte-scale backups. As part of initializing our cluster, we can specify where we want our backups and archives ([write-ahead logs or WAL](https://www.postgresql.org/docs/current/wal-intro.html)) stored. We will talk about this portion of the `ivorycluster` spec in greater depth in the [disaster recovery](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/backups.md) section of this tutorial, and also see how we can store backups in Amazon S3, Google GCS, and Azure Blob Storage.
+As part of creating an Ivory cluster, we also specify information about our backup archive. IVYO uses [pgBackRest](https://pgbackrest.org/), an open source backup and restore tool designed to handle terabyte-scale backups. As part of initializing our cluster, we can specify where we want our backups and archives ([write-ahead logs or WAL](https://www.postgresql.org/docs/current/wal-intro.html)) stored. We will talk about this portion of the `ivorycluster` spec in greater depth in the [disaster recovery](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/backups.md) section of this tutorial, and also see how we can store backups in Amazon S3, Google GCS, and Azure Blob Storage.
 
 ## Troubleshooting
 

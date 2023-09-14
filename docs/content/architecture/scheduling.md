@@ -1,9 +1,4 @@
----
-title: "Scheduling"
-date:
-draft: false
-weight: 120
----
+# Scheduling
 
 Deploying to your Kubernetes cluster may allow for greater reliability than other
 environments, but that's only the case when it's configured correctly. Fortunately,
@@ -18,7 +13,7 @@ to customize your Pod deployment strategy, but useful defaults are already in pl
 for you without any additional configuration required!
 
 IVYO's default scheduling constraints for HA is implemented for the various Pods
- comprising a IvorySQL cluster, specifically to ensure the Operator always
+ comprising an IvorySQL cluster, specifically to ensure the Operator always
  deploys a High-Availability cluster architecture by default.
 
  Using Pod Topology Spread Constraints, the general scheduling guidelines are as
@@ -37,7 +32,7 @@ throughout your Kubernetes cluster to maximize safety.
 ## Customization
 
 While the default scheduling settings are designed to meet the widest variety of
-environments, they can be customized or removed as needed. Assuming a IvoryCluster
+environments, they can be customized or removed as needed. Assumingan IvoryCluster
 named 'hippo', the default Pod Topology Spread Constraints applied on Ivory
 Instance and pgBackRest Repo Host Pods are as follows:
 

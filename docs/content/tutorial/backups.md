@@ -1,9 +1,4 @@
----
-title: "Backup Configuration"
-date:
-draft: false
-weight: 80
----
+# Backup Configuration
 
 An important part of a healthy Ivory cluster is maintaining backups. IVYO optimizes its use of open source [pgBackRest](https://pgbackrest.org/) to be able to support terabyte size databases. What's more, IVYO makes it convenient to perform many common and advanced actions that can occur during the lifecycle of a database, including:
 
@@ -63,7 +58,7 @@ As mentioned above, IVYO, the Ivory Operator from IvorySQL, supports multiple wa
 
 ## Using Kubernetes Volumes
 
-The simplest way to get started storing backups is to use a Kubernetes Volume. This was already configure as part of the [create a Ivory cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/create-cluster.md) example. Let's take a closer look at some of that configuration:
+The simplest way to get started storing backups is to use a Kubernetes Volume. This was already configure as part of the [create an Ivory cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/create-cluster.md) example. Let's take a closer look at some of that configuration:
 
 ```
 - name: repo1
@@ -76,7 +71,7 @@ The simplest way to get started storing backups is to use a Kubernetes Volume. T
           storage: 1Gi
 ```
 
-The one requirement of volume is that you need to fill out the `volumeClaimSpec` attribute. This attribute uses the same format as a [persistent volume claim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) spec! In fact, we performed a similar set up when we [created a Ivory cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/create-cluster.md).
+The one requirement of volume is that you need to fill out the `volumeClaimSpec` attribute. This attribute uses the same format as a [persistent volume claim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) spec! In fact, we performed a similar set up when we [created an Ivory cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/create-cluster.md).
 
 In the above example, we assume that the Kubernetes cluster is using a default storage class. If your cluster does not have a default storage class, or you wish to use a different storage class, you will have to set `spec.backups.pgbackrest.repos.volume.volumeClaimSpec.storageClassName`.
 
@@ -186,7 +181,7 @@ spec:
         repo1-cipher-type: aes-256-cbc
 ```
 
-You can now create a Ivory cluster that has encrypted backups!
+You can now create an Ivory cluster that has encrypted backups!
 
 ### Limitations
 

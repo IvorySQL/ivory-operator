@@ -1,9 +1,4 @@
----
-title: "Backup Management"
-date:
-draft: false
-weight: 120
----
+# Backup Management
 
 When using the IvorySQL Operator, the answer to the question "do you take
 backups of your database" is automatically "yes!"
@@ -25,8 +20,12 @@ allowing them to replay old WAL logs
 - ...and of course, allowing for one to take full, differential, and incremental
 backups and perform full and point-in-time restores
 
+Below is one example of how IVYO manages backups with both a local storage and a Amazon S3 configuration.
+
+![backup](../../static/images/ivorysql-cluster-dr-base.png)
+
 The IvorySQL Operator leverages a pgBackRest repository to facilitate the
-usage of the pgBackRest features in a IvorySQL cluster. When a new IvorySQL
+usage of the pgBackRest features in an IvorySQL cluster. When a new IvorySQL
 cluster is created, it simultaneously creates a pgBackRest repository.
 
 You can store your pgBackRest backups in up to four different locations and using four different storage types:
@@ -76,4 +75,4 @@ your retention requirements. If you are deleting backups to free space, it is
 recommended to delete your oldest backups first.
 {{% /notice %}}
 
-A backup can be deleted by running the [`pgbackrest expire`](https://pgbackrest.org/command.html#command-expire) command directly on the pgBackRest repository Pod or a Ivory instance.
+A backup can be deleted by running the [`pgbackrest expire`](https://pgbackrest.org/command.html#command-expire) command directly on the pgBackRest repository Pod or an Ivory instance.

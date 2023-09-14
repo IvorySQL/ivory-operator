@@ -1,11 +1,11 @@
-The Postgres Operator is an open source project primarily authored and
+The Ivory Operator is an open source project primarily authored and
 maintained by the team at Crunchy Data. All contributions are welcome: the
-Postgres Operator uses the Apache 2.0 license and does not require any
+Ivory Operator uses the Apache 2.0 license and does not require any
 contributor agreement to submit patches.
 
 Our contributors try to follow good software development practices to help
 ensure that the code that we ship to our users is stable. If you wish to
-contribute to the Postgres Operator, be it code or documentation, please follow
+contribute to the Ivory Operator, be it code or documentation, please follow
 the guidelines below.
 
 Thanks! We look forward to your contribution.
