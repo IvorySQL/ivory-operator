@@ -599,4 +599,4 @@ spec:
 
 ## Next Steps
 
-Let’s explore some [administrative tasks](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/disaster-recovery.md) such as manually restarting IvorySQL using IVYO. How do we do that?
+Now we’ve seen how to clone a cluster and perform a point-in-time-recovery, let’s see how we can [monitor](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/monitoring.md) our Ivory cluster to detect and prevent issues from occurring.

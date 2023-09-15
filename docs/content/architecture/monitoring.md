@@ -289,5 +289,5 @@ previous state.
 IvorySQL instance. This could be a sign of data corruption.
 
 You can modify these alerts as you see fit, and add your own alerts as well!
-Please see the [installation instructions]({{< relref "installation/monitoring/_index.md" >}})
+Please see the [tutorial monitoring](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/monitoring.md)
 for general setup of the IvorySQL Operator Monitoring stack.

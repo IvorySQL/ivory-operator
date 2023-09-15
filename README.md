@@ -180,6 +180,8 @@ IvorySQL Operator, please follow this catalog:
 - [Backups](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/backups.md)
 - [Backup Management](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/backup-management.md)
 - [Disaster Recovery and Cloning](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/disaster-recovery.md)
+- [Monitoring](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/monitoring.md)
+- [Connection Pooling](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/connection-pooling.md)
 - [Administrative Tasks](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/administrative-tasks.md)
 - [Delete an Ivory Cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/delete-cluster.md)
 
@@ -189,7 +191,8 @@ IvorySQL Operator, please follow this catalog:
 - [Backups](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/backups.md)
 - [Scheduling](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/scheduling.md)
 - [User Management](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/user-management.md)
-- [Disaster Recovery](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/disaster-recovery.md)
+- [Monitoring](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/user-management.md)
+- [Disaster Recovery](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/monitoring.md)
 - [pgAdmin4](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/pgAdmin4.md)
 # Contributing to the Project
 

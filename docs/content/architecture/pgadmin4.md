@@ -1,9 +1,3 @@
----
-title: "pgAdmin 4"
-date:
-draft: false
-weight: 900
----
 # pgAdmin 4
 
 ![pgAdmin 4 Query](https://github.com/IvorySQL/ivory-operator/blob/master/docs/static/images/pgadmin4-query-editor.png)
