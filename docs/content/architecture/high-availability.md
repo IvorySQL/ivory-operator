@@ -17,7 +17,7 @@ hardware upgrade, or other maintenance.
 
 Fortunately, IVYO, the Ivory Operator from Highgo, is prepared for this.
 
-![High Availability](https://github.com/IvorySQL/ivory-operator/blob/master/docs/static/images/ivorysql-ha-overview.jpg)
+![High Availability](https://github.com/IvorySQL/ivory-operator/blob/master/docs/static/images/ivorysql-ha-overview.png)
 
 The Highgo IvorySQL Operator supports a distributed-consensus based
 high availability (HA) system that keeps its managed IvorySQL clusters up and
