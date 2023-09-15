@@ -6,7 +6,7 @@ weight: 900
 ---
 # pgAdmin 4
 
-![pgAdmin 4 Query](../../static/images/pgadmin4-query-editor.png)
+![pgAdmin 4 Query](https://github.com/IvorySQL/ivory-operator/blob/master/docs/static/images/pgadmin4-query-editor.png)
 
 [pgAdmin 4](https://www.pgadmin.org/) is a popular graphical user interface that
 makes it easy to work with IvorySQL databases from a web-based client. With
@@ -56,7 +56,7 @@ PGPASSWORD=$(kubectl get secrets -n ivory-operator "${PG_CLUSTER_USER_SECRET_NAM
 PGUSER=$(kubectl get secrets -n ivory-operator "${PG_CLUSTER_USER_SECRET_NAME}" -o go-template='{{.data.user | base64decode}}')
 ```
 
-![pgAdmin 4 Login Page](../../static/images/pgadmin4-login.png)
+![pgAdmin 4 Login Page](https://github.com/IvorySQL/ivory-operator/blob/master/docs/static/images/pgadmin4-login.png)
 
 
 If your password does not appear to work, you can retry setting up the user by
