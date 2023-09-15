@@ -1,6 +1,6 @@
 # Monitoring
 
-![IvorySQL Operator Monitoring](../../static/images/ivorysql-monitoring.png)
+![IvorySQL Operator Monitoring](https://github.com/IvorySQL/ivory-operator/blob/master/docs/static/images/ivorysql-monitoring.png)
 
 While having [high availability](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/high-availability.md),
 [backups]("https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/backups.md"), and disaster recovery systems in place helps in the event of something going wrong with your
@@ -57,7 +57,7 @@ Many of the visualizations can be broken down based on the following groupings:
 
 ### Overview
 
-![IvorySQL Operator Monitoring - Overview](../../static/images/ivorysql-monitoring-overview.png)
+![IvorySQL Operator Monitoring - Overview](https://github.com/IvorySQL/ivory-operator/blob/master/docs/static/images/ivorysql-monitoring-overview.png)
 
 The overview provides an overview of all of the IvorySQL clusters that are
 being monitoring by the IvorySQL Operator Monitoring stack. This includes the
@@ -72,7 +72,7 @@ Each entry is clickable to provide additional cluster details.
 
 ### IvorySQL Details
 
-![IvorySQL Operator Monitoring - Cluster Cluster Details](../../static/images/ivorysql-monitoring.png)
+![IvorySQL Operator Monitoring - Cluster Cluster Details](https://github.com/IvorySQL/ivory-operator/blob/master/docs/static/images/ivorysql-monitoring.png)
 
 The IvorySQL Details view provides more information about a specific
 IvorySQL cluster that is being managed and monitored by the IvorySQL
@@ -130,7 +130,7 @@ system.
 
 ### Pod Details
 
-![IvorySQL Operator Monitoring - Pod Details](../../static/images/ivorysql-monitoring-pod.png)
+![IvorySQL Operator Monitoring - Pod Details](https://github.com/IvorySQL/ivory-operator/blob/master/docs/static/images/ivorysql-monitoring-pod.png)
 
 Pod details provide information about a given Pod or Pods that are being used
 by an IvorySQL cluster. These are similar to "operating system" or "node"
@@ -151,7 +151,7 @@ device.
 
 ### Backups
 
-![IvorySQL Operator - Monitoring - Backup Health](../../static/images/ivorysql-monitoring-backups.png)
+![IvorySQL Operator - Monitoring - Backup Health](https://github.com/IvorySQL/ivory-operator/blob/master/docs/static/images/ivorysql-monitoring-backups.png)
 
 There are a variety of reasons why you need to monitoring your backups, starting
 from answering the fundamental question of "do I have backups available?"
@@ -184,7 +184,7 @@ causing issues for your Postgres cluster.
 
 ### IvorySQL Service Health Overview
 
-![IvorySQL Operator Monitoring - Service Health Overview](../../static/images/ivorysql-monitoring-service-health.png)
+![IvorySQL Operator Monitoring - Service Health Overview](https://github.com/IvorySQL/ivory-operator/blob/master/docs/static/images/ivorysql-monitoring-service-health.png)
 
 The Service Health Overview provides information about the Kubernetes Services
 that sit in front of the IvorySQL Pods. This provides information about the

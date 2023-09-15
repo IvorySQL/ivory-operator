@@ -1,6 +1,6 @@
 # Create an Ivory Cluster
 
-## Create 
+## Create
 Creating an Ivory cluster is pretty simple. Using the example in the `examples/kustomize/ivory` directory, all we have to do is run:
 
 ```
