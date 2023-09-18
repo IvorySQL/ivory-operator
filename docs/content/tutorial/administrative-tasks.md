@@ -227,4 +227,4 @@ switchover again.
 
 ## Next Steps
 
-We've covered a lot in terms of building, maintaining, scaling, customizing, restarting, and expanding our Ivory cluster. However, there may come a time where we need to [delete our Ivory cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/administrative-tasks.md). How do we do that?
+We've covered a lot in terms of building, maintaining, scaling, customizing, restarting, and expanding our Ivory cluster. However, there may come a time where we need to [delete our Ivory cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/delete-cluster.md). How do we do that?

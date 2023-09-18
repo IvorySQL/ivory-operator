@@ -107,4 +107,4 @@ DROP DATABASE zoo;
 
 ## Next Steps
 
-Let's look at how IVYO handles [disaster recovery](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/backups.md)!
+Let's look at how IVYO handles [disaster recovery](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/disaster-recovery.md)!

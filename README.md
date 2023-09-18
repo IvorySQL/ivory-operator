@@ -175,7 +175,7 @@ IvorySQL Operator, please follow this catalog:
 - [Content Cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/connect-cluster.md)
 - [High Availability](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/high-availability.md)
 - [Resize Cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/resize-cluster.md)
-- [Customize Cluster](https://github.com/IvorySQL/ivory-operator/bcustomize-cluster.mdlob/master/docs/content/tutorial/)
+- [Customize Cluster](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/customize-cluster.md)
 - [User Management](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/user-management.md)
 - [Backups](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/backups.md)
 - [Backup Management](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/backup-management.md)
@@ -191,8 +191,8 @@ IvorySQL Operator, please follow this catalog:
 - [Backups](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/backups.md)
 - [Scheduling](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/scheduling.md)
 - [User Management](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/user-management.md)
-- [Monitoring](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/user-management.md)
-- [Disaster Recovery](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/monitoring.md)
+- [Monitoring](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/monitoring.md)
+- [Disaster Recovery](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/disaster-recovery.md)
 - [pgAdmin4](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/pgAdmin4.md)
 # Contributing to the Project
 

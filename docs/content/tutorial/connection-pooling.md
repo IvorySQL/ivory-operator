@@ -231,4 +231,4 @@ If you want to ensure that your PgBouncer instances are deployed more evenly (or
 
 ## Next Steps
 
-Now that we can enable connection pooling in a cluster, Let’s explore some [administrative tasks](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/disaster-recovery.md) such as manually restarting IvorySQL using IVYO. How do we do that?
+Now that we can enable connection pooling in a cluster, Let’s explore some [administrative tasks](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/administrative-tasks.md) such as manually restarting IvorySQL using IVYO. How do we do that?
