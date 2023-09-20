@@ -193,7 +193,7 @@ IvorySQL Operator, please follow this catalog:
 - [User Management](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/user-management.md)
 - [Monitoring](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/monitoring.md)
 - [Disaster Recovery](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/disaster-recovery.md)
-- [pgAdmin4](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/pgAdmin4.md)
+- [pgAdmin4](https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/architecture/pgadmin4.md)
 # Contributing to the Project
 
 Want to contribute to the IvorySQL Operator project? Great! We've put together
