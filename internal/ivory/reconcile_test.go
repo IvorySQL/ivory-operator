@@ -180,7 +180,7 @@ containers:
     while read -r -t 5 -u "${fd}" || true; do
       if [ "${directory}" -nt "/proc/self/fd/${fd}" ] &&
         install -D --mode=0600 -t "/tmp/replication" "${directory}"/{replication/tls.crt,replication/tls.key,replication/ca.crt} &&
-        pkill -HUP --exact --parent=1 ivory
+        pkill -HUP --exact --parent=1 postgres
       then
         exec {fd}>&- && exec {fd}<> <(:)
         stat --format='Loaded certificates dated %y' "${directory}"

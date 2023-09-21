@@ -176,7 +176,7 @@ exec {fd}<> <(:)
 while read -r -t 5 -u "${fd}" || true; do
   if [ "${directory}" -nt "/proc/self/fd/${fd}" ] &&
     install -D --mode=0600 -t %q "${directory}"/{%s,%s,%s} &&
-    pkill -HUP --exact --parent=1 ivory
+    pkill -HUP --exact --parent=1 postgres
   then
     exec {fd}>&- && exec {fd}<> <(:)
     stat --format='Loaded certificates dated %%y' "${directory}"
