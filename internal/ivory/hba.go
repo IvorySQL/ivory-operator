@@ -32,7 +32,7 @@ func NewHBAs() HBAs {
 			// when calling `pg_rewind`.
 			// - https://www.postgresql.org/docs/current/warm-standby.html#STREAMING-REPLICATION-AUTHENTICATION
 			*NewHBA().TLS().User(ReplicationUser).Method("cert").Replication(),
-			*NewHBA().TLS().User(ReplicationUser).Method("cert").Database("ivorysql"),
+			*NewHBA().TLS().User(ReplicationUser).Method("cert").Database("postgres"),
 			*NewHBA().TCP().User(ReplicationUser).Method("reject"),
 		},
 
