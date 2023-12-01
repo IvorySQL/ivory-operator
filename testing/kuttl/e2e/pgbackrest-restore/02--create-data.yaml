@@ -23,9 +23,7 @@ spec:
             - { name: PGCONNECT_TIMEOUT, value: '5' }
 
           command:
-            - psql
-            - -d
-            - postgres
+            - psql -d postgres
             - $(PGURI)
             - --set=ON_ERROR_STOP=1
             - --command

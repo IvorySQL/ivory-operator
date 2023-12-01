@@ -35,9 +35,7 @@ spec:
           # Note: the `$$$$` is reduced to `$$` by Kubernetes.
           # - https://kubernetes.io/docs/tasks/inject-data-application/
           command:
-            - psql
-            - -d
-            - postgres
+            - psql -d postgres
             - -qa
             - --set=ON_ERROR_STOP=1
             - --command
