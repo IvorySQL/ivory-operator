@@ -52,7 +52,7 @@ func TestExecutorExec(t *testing.T) {
 		assert.Equal(t, string(b), `statements; to run;`)
 
 		assert.DeepEqual(t, command, []string{
-			"psql", "-Xw", "--file=-",
+			"psql", "-d", "postgres", "-Xw", "--file=-",
 			"--set=CASE=sEnSiTiVe",
 			"--set=different=vars",
 			"--set=lots=of",

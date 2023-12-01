@@ -43,7 +43,7 @@ func TestNewHBAs(t *testing.T) {
 	assert.Assert(t, matches(hba.Mandatory, `
 local    all          "ivorysql"      peer
 hostssl  replication  "_ivoryrepl"  all   cert
-hostssl  "ivorysql"   "_ivoryrepl"  all   cert
+hostssl  "postgres"   "_ivoryrepl"  all   cert
 host     all          "_ivoryrepl"  all   reject
 	`))
 	assert.Assert(t, matches(hba.Default, `
