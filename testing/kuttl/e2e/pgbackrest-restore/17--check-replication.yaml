@@ -12,7 +12,7 @@ commands:
       )
 
       kubectl exec --stdin --namespace "${NAMESPACE}" "${REPLICA}" \
-        -- psql -d postgres -qb original --set ON_ERROR_STOP=1 \
+        -- psql -qb original --set ON_ERROR_STOP=1 \
           --file=- <<'SQL'
         DO $$
         BEGIN
