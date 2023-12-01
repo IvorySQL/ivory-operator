@@ -12,7 +12,7 @@ commands:
       )
       START=$(
         kubectl exec --namespace "${NAMESPACE}" "${PRIMARY}" \
-          -- psql -qAt --command 'SELECT pg_postmaster_start_time()'
+          -- psql -d original -qAt --command 'SELECT pg_postmaster_start_time()'
       )
       kubectl annotate --namespace "${NAMESPACE}" ivorycluster/original \
         "testing/start-before=${START}"

@@ -11,7 +11,7 @@ commands:
       )
       OBJECTIVE=$(
         kubectl exec --namespace "${NAMESPACE}" "${PRIMARY}" \
-          -- psql -qAt --command 'SELECT clock_timestamp()'
+          -- psql -d original -qAt --command 'SELECT clock_timestamp()'
       )
 
       # Store the recovery objective for later steps.
@@ -26,7 +26,7 @@ commands:
           --command 'SELECT pg_switch_wal()'
 
       while [ 0 = "$(
-        kubectl exec "${NAMESPACE}" "${PRIMARY}" -- psql -qAt -c 'SELECT archived_count FROM pg_stat_archiver'
+        kubectl exec "${NAMESPACE}" "${PRIMARY}" -- psql -d original -qAt -c 'SELECT archived_count FROM pg_stat_archiver'
       )" ]; do sleep 1; done
 
   # The replica should also need to be restored.
