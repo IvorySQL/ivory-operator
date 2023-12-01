@@ -92,9 +92,9 @@ sql_target=$(< /dev/stdin)
 sql_databases="$1"
 shift 1
 
-databases=$(psql "$@" -Xw -Aqt --file=- <<< "${sql_databases}")
+databases=$(psql -d postgres -Xw -Aqt --file=- <<< "${sql_databases}")
 while IFS= read -r database; do
-	PGDATABASE="${database}" psql "$@" -Xw --file=- <<< "${sql_target}"
+	PGDATABASE="${database}" psql -d postgres -Xw --file=- <<< "${sql_target}"
 done <<< "${databases}"
 `,
 			"-",
@@ -138,9 +138,9 @@ sql_target=$(< /dev/stdin)
 sql_databases="$1"
 shift 1
 
-databases=$(psql "$@" -Xw -Aqt --file=- <<< "${sql_databases}")
+databases=$(psql -d postgres -Xw -Aqt --file=- <<< "${sql_databases}")
 while IFS= read -r database; do
-	PGDATABASE="${database}" psql "$@" -Xw --file=- <<< "${sql_target}"
+	PGDATABASE="${database}" psql -d postgres -Xw --file=- <<< "${sql_target}"
 done <<< "${databases}"
 `,
 			"-",

@@ -36,8 +36,12 @@ func (exec Executor) GetExporterSetupSQL(ctx context.Context, version int) (stri
 
 	var stdout, stderr bytes.Buffer
 	var sql string
+	// version 16 didn't match with exporter
+	if version > 15 {
+		version = 15
+	}
 	err := exec(ctx, nil, &stdout, &stderr,
-		[]string{"cat", fmt.Sprintf("/opt/cpm/conf/pg%d/setup.sql", 15)}...)
+		[]string{"cat", fmt.Sprintf("/opt/cpm/conf/pg%d/setup.sql", version)}...)
 
 	log.V(1).Info("sql received from exporter", "stdout", stdout.String(), "stderr", stderr.String())
 
