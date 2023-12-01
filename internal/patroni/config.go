@@ -80,7 +80,7 @@ func clusterYAML(
 		},
 
 		"postgresql": map[string]interface{}{
-			"database": "ivorysql",
+			"database": "postgres",
 			// TODO(cbandy): "callbacks"
 
 			// Custom configuration "must exist on all cluster nodes".

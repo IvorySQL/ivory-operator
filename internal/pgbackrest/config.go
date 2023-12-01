@@ -245,7 +245,7 @@ fi
 pg_ctl start --silent --timeout=31536000 --wait --options='--config-file=/tmp/postgres.restore.conf'
 fi
 
-recovery=$(psql -Atc "SELECT CASE
+recovery=$(psql -d postgres -Atc "SELECT CASE
   WHEN NOT pg_catalog.pg_is_in_recovery() THEN false
   WHEN NOT pg_catalog.pg_is_wal_replay_paused() THEN true
   ELSE pg_catalog.pg_wal_replay_resume()::text = ''

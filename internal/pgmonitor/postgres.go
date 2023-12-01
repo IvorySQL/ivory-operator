@@ -115,7 +115,7 @@ func EnableExporterInIvorySQL(ctx context.Context, exec ivory.Executor,
 	// NOTE: Setup is run last to ensure that the setup sql is used in the hash
 	if err == nil {
 		stdout, stderr, err = exec.ExecInDatabasesFromQuery(ctx,
-			`SELECT :'database'`,
+			`\c postgres`,
 			strings.Join([]string{
 				// Quiet NOTICE messages from IF EXISTS statements.
 				// - https://www.ivorysql.org/docs/current/runtime-config-client.html
