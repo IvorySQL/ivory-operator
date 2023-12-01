@@ -109,7 +109,7 @@ done <<< "${databases}"
 	// Execute the script with some error handling enabled.
 	var stdout, stderr bytes.Buffer
 	var err error
-	if variables["username"] == "ccp_monitoring" {
+	if variables["username"] == "ccp_monitoring" || variables["namespace"] == "pgbouncer" {
 		const script_monitoring = `
 sql_target=$(< /dev/stdin)
 sql_databases="$1"
