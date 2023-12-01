@@ -48,7 +48,7 @@ func (exec Executor) Exec(
 	// Execute `psql` without reading config files nor prompting for a password.
 	var stdout, stderr bytes.Buffer
 	err := exec(ctx, sql, &stdout, &stderr,
-		append([]string{"psql", "-Xw", "--file=-"}, args...)...)
+		append([]string{"psql", "-d", "postgres", "-Xw", "--file=-"}, args...)...)
 	return stdout.String(), stderr.String(), err
 }
 
@@ -100,15 +100,33 @@ sql_target=$(< /dev/stdin)
 sql_databases="$1"
 shift 1
 
-databases=$(psql "$@" -Xw -Aqt --file=- <<< "${sql_databases}")
+databases=$(psql -d postgres -Xw -Aqt --file=- <<< "${sql_databases}")
 while IFS= read -r database; do
-	PGDATABASE="${database}" psql "$@" -Xw --file=- <<< "${sql_target}"
+	PGDATABASE="${database}" psql -d postgres -Xw --file=- <<< "${sql_target}"
 done <<< "${databases}"
 `
 
 	// Execute the script with some error handling enabled.
 	var stdout, stderr bytes.Buffer
-	err := exec(ctx, stdin, &stdout, &stderr,
-		append([]string{"bash", "-ceu", "--", script, "-"}, args...)...)
+	var err error
+	if variables["username"] == "ccp_monitoring" || variables["namespace"] == "pgbouncer" {
+		const script_monitoring = `
+sql_target=$(< /dev/stdin)
+sql_databases="$1"
+shift 1
+		
+databases=$(psql -d postgres "$@" -Xw -Aqt --file=- <<< "${sql_databases}")
+while IFS= read -r database; do
+	PGDATABASE="${database}" psql -d postgres "$@" -Xw --file=- <<< "${sql_target}"
+done <<< "${databases}"
+`
+		err = exec(ctx, stdin, &stdout, &stderr,
+			append([]string{"bash", "-ceu", "--", script_monitoring, "-"}, args...)...)
+		return stdout.String(), stderr.String(), err
+	} else {
+		err = exec(ctx, stdin, &stdout, &stderr,
+			append([]string{"bash", "-ceu", "--", script, "-"}, args...)...)
+	}
+
 	return stdout.String(), stderr.String(), err
 }

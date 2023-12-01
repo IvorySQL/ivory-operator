@@ -857,7 +857,7 @@ spec:
                 type: object
               fromIvoryVersion:
                 description: The major version of IvorySQL before the upgrade.
-                maximum: 15
+                maximum: 16
                 minimum: 10
                 type: integer
               image:
@@ -936,7 +936,7 @@ spec:
                 type: string
               toIvoryVersion:
                 description: The major version of IvorySQL to be upgraded to.
-                maximum: 15
+                maximum: 16
                 minimum: 10
                 type: integer
               tolerations:

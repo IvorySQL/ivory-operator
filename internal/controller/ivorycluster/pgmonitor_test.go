@@ -109,7 +109,7 @@ func TestAddPGMonitorExporterToInstancePodSpec(t *testing.T) {
 			{Name: "PG_STAT_STATEMENTS_THROTTLE_MINUTES", Value: "-1"},
 			{Name: "EXPORTER_PG_HOST", Value: "localhost"},
 			{Name: "EXPORTER_PG_PORT", Value: fmt.Sprint(*cluster.Spec.Port)},
-			{Name: "EXPORTER_PG_DATABASE", Value: "ivorysql"},
+			{Name: "EXPORTER_PG_DATABASE", Value: "postgres"},
 			{Name: "EXPORTER_PG_USER", Value: pgmonitor.MonitoringUser},
 			{Name: "EXPORTER_PG_PASSWORD", ValueFrom: &corev1.EnvVarSource{
 				SecretKeyRef: &corev1.SecretKeySelector{
@@ -441,7 +441,7 @@ func TestReconcilePGMonitorExporterStatus(t *testing.T) {
 		podExecCalled:   false,
 		// Status was generated manually for this test case
 		// TODO jmckulk: add code to generate status
-		status:                      v1beta1.MonitoringStatus{ExporterConfiguration: "77f5689d99"},
+		status:                      v1beta1.MonitoringStatus{ExporterConfiguration: "777bd974fd"},
 		statusChangedAfterReconcile: false,
 	}} {
 		t.Run(test.name, func(t *testing.T) {

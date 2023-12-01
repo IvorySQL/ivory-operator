@@ -42,7 +42,7 @@ const (
 	// it makes sense to hard-code the database. When moving away from the
 	// ivorysql-ivory-exporter start.sh script we should re-evaluate always
 	// setting the exporter database to `ivory`.
-	exporterDB = "ivorysql"
+	exporterDB = "postgres"
 
 	// The exporter connects to all databases over loopback using a password.
 	// Kubernetes guarantees localhost resolves to loopback:

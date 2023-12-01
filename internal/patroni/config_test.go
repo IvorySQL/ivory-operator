@@ -83,7 +83,7 @@ postgresql:
       sslmode: verify-ca
       sslrootcert: /tmp/replication/ca.crt
       username: _ivoryrepl
-  database: ivorysql
+  database: postgres
 restapi:
   cafile: /etc/patroni/~ivory-operator/patroni.ca-roots
   certfile: /etc/patroni/~ivory-operator/patroni.crt+key
@@ -142,7 +142,7 @@ postgresql:
       sslmode: verify-ca
       sslrootcert: /tmp/replication/ca.crt
       username: _ivoryrepl
-  database: ivorysql
+  database: postgres
 restapi:
   cafile: /etc/patroni/~ivory-operator/patroni.ca-roots
   certfile: /etc/patroni/~ivory-operator/patroni.crt+key
