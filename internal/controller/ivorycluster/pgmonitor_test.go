@@ -109,7 +109,7 @@ func TestAddPGMonitorExporterToInstancePodSpec(t *testing.T) {
 			{Name: "PG_STAT_STATEMENTS_THROTTLE_MINUTES", Value: "-1"},
 			{Name: "EXPORTER_PG_HOST", Value: "localhost"},
 			{Name: "EXPORTER_PG_PORT", Value: fmt.Sprint(*cluster.Spec.Port)},
-			{Name: "EXPORTER_PG_DATABASE", Value: "ivorysql"},
+			{Name: "EXPORTER_PG_DATABASE", Value: "postgres"},
 			{Name: "EXPORTER_PG_USER", Value: pgmonitor.MonitoringUser},
 			{Name: "EXPORTER_PG_PASSWORD", ValueFrom: &corev1.EnvVarSource{
 				SecretKeyRef: &corev1.SecretKeySelector{
