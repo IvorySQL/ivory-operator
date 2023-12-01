@@ -26,8 +26,6 @@ spec:
           # - https://kubernetes.io/docs/tasks/inject-data-application/
           command:
             - psql
-            - -d
-            - postgres
             - $(PGURI)
             - -qa
             - --set=ON_ERROR_STOP=1
