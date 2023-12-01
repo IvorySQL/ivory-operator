@@ -3,5 +3,5 @@ kind: IvoryCluster
 metadata:
   name: exporter
 spec:
-  postgresVersion: 15
-  image: docker.io/ivorysql/ivorysql:ubi8-2.2-1.1-1
+  postgresVersion: 16
+  image: docker.io/ivorysql/ivorysql:ubi8-3.0-2.0-1
