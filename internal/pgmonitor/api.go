@@ -37,7 +37,7 @@ func (exec Executor) GetExporterSetupSQL(ctx context.Context, version int) (stri
 	var stdout, stderr bytes.Buffer
 	var sql string
 	err := exec(ctx, nil, &stdout, &stderr,
-		[]string{"cat", fmt.Sprintf("/opt/cpm/conf/pg%d/setup.sql", version)}...)
+		[]string{"cat", fmt.Sprintf("/opt/cpm/conf/pg%d/setup.sql", 15)}...)
 
 	log.V(1).Info("sql received from exporter", "stdout", stdout.String(), "stderr", stderr.String())
 
