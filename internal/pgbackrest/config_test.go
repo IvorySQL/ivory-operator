@@ -153,7 +153,7 @@ repo4-s3-region = earth
 repo4-type = s3
 
 [db]
-pg-version-force = 17
+pg-version-force = 18
 pg1-path = /pgdata/pg12
 pg1-port = 2345
 pg1-socket-path = /tmp/postgres

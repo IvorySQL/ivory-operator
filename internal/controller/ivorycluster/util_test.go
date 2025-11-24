@@ -268,7 +268,7 @@ func TestAddNSSWrapper(t *testing.T) {
 		}}
 
 	expectedEnv := []corev1.EnvVar{
-		{Name: "LD_PRELOAD", Value: "/usr/lib64/libnss_wrapper.so:/lib64/libssl.so.1.1:/lib64/libcrypto.so.1.1"},
+		{Name: "LD_PRELOAD", Value: "/usr/lib64/libnss_wrapper.so"},
 		{Name: "NSS_WRAPPER_PASSWD", Value: "/tmp/nss_wrapper/ivory/passwd"},
 		{Name: "NSS_WRAPPER_GROUP", Value: "/tmp/nss_wrapper/ivory/group"},
 	}

@@ -26,10 +26,10 @@ spec:
               fieldPath: metadata.namespace
         - name: IVORY_DEBUG
           value: "true"
-        - name: RELATED_IMAGE_IVORY_3
-          value: "docker.io/ivorysql/ivorysql:ubi8-4.5-4.0-1"
+        - name: RELATED_IMAGE_IVORY_5
+          value: "docker.io/ivorysql/ivorysql:ubi8-5.0-5.0-1"
         - name: RELATED_IMAGE_PGBACKREST
-          value: "docker.io/ivorysql/pgbackrest:ubi8-2.54.1-4.0-1"
+          value: "docker.io/ivorysql/pgbackrest:ubi8-2.56.0-5.0-1"
 
         securityContext:
           allowPrivilegeEscalation: false

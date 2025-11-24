@@ -14,4 +14,4 @@ patches:
 images:
 - name: ivory-operator
   newName: docker.io/ivorysql/ivory-operator
-  newTag: v4.0
+  newTag: v5.0

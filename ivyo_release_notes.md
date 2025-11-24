@@ -43,4 +43,17 @@
 	- timescaledb 2.17.2
 	- wal2json 2.6
 	- pgnodemx 1.7
-
+## IvorySQL Operator 5.0
+- 数据库版本支持**ivorysql 5.0**
+- 组件版本升级
+    - pgBackrest 2.56
+    - PgBouncer 1.23.0
+    - Patroni 4.0.7
+    - pgAdmin4 9.9
+    - pgExporter 0.17.0
+- 插件版本升级
+	- PostGIS 3.5.4
+	- pgaudit 18.0
+	- pg_cron 1.6.7
+	- wal2json 2.6
+	- pgnodemx 1.7

@@ -13,7 +13,7 @@ bases:
 images:
 - name: ivory-operator
   newName: docker.io/ivorysql/ivory-operator
-  newTag: v4.0
+  newTag: v5.0
 
 patchesJson6902:
 - target: { group: apps, version: v1, kind: Deployment, name: ivyo }

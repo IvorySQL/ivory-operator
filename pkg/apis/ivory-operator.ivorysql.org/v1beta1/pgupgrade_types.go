@@ -59,7 +59,7 @@ type IVYUpgradeSpec struct {
 	// The major version of IvorySQL before the upgrade.
 	// +kubebuilder:validation:Required
 	// +kubebuilder:validation:Minimum=10
-	// +kubebuilder:validation:Maximum=17
+	// +kubebuilder:validation:Maximum=18
 	FromIvoryVersion int `json:"fromIvoryVersion"`
 
 	// TODO(benjaminjb): define webhook validation to make sure
@@ -70,7 +70,7 @@ type IVYUpgradeSpec struct {
 	// The major version of IvorySQL to be upgraded to.
 	// +kubebuilder:validation:Required
 	// +kubebuilder:validation:Minimum=10
-	// +kubebuilder:validation:Maximum=17
+	// +kubebuilder:validation:Maximum=18
 	ToIvoryVersion int `json:"toIvoryVersion"`
 
 	// The image name to use for IvorySQL containers after upgrade.

@@ -109,7 +109,7 @@ NSS_WRAPPER_DIR="/tmp/nss_wrapper/${NSS_WRAPPER_SUBDIR}"
 NSS_WRAPPER_PASSWD="${NSS_WRAPPER_DIR}/passwd"
 NSS_WRAPPER_GROUP="${NSS_WRAPPER_DIR}/group"
 
-export LD_PRELOAD=/usr/lib64/libnss_wrapper.so:/lib64/libssl.so.1.1:/lib64/libcrypto.so.1.1
+export LD_PRELOAD=/usr/lib64/libnss_wrapper.so
 export NSS_WRAPPER_PASSWD="${NSS_WRAPPER_PASSWD}"
 export NSS_WRAPPER_GROUP="${NSS_WRAPPER_GROUP}"
 
@@ -194,7 +194,7 @@ func addNSSWrapper(image string, imagePullPolicy corev1.PullPolicy, template *co
 			passwd := fmt.Sprintf(nssWrapperDir, "ivory", "passwd")
 			group := fmt.Sprintf(nssWrapperDir, "ivory", "group")
 			template.Spec.Containers[i].Env = append(template.Spec.Containers[i].Env, []corev1.EnvVar{
-				{Name: "LD_PRELOAD", Value: "/usr/lib64/libnss_wrapper.so:/lib64/libssl.so.1.1:/lib64/libcrypto.so.1.1"},
+				{Name: "LD_PRELOAD", Value: "/usr/lib64/libnss_wrapper.so"},
 				{Name: "NSS_WRAPPER_PASSWD", Value: passwd},
 				{Name: "NSS_WRAPPER_GROUP", Value: group},
 			}...)

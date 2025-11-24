@@ -18,20 +18,20 @@ spec:
               fieldPath: metadata.namespace
         - name: IVORY_DEBUG
           value: "true"
-        - name: RELATED_IMAGE_IVORY_16
-          value: "docker.io/ivorysql/ivorysql:ubi8-4.5-4.0-1"
+        - name: RELATED_IMAGE_IVORY_18
+          value: "docker.io/ivorysql/ivorysql:ubi8-5.0-5.0-1"
         - name: RELATED_IMAGE_PGADMIN
-          value: "docker.io/ivorysql/pgadmin:ubi8-8.14.0-4.0-1"
+          value: "docker.io/ivorysql/pgadmin:ubi8-9.9-5.0-1"
         - name: RELATED_IMAGE_PGBACKREST
-          value: "docker.io/ivorysql/pgbackrest:ubi8-2.54.1-4.0-1"
+          value: "docker.io/ivorysql/pgbackrest:ubi8-2.56.0-5.0-1"
         - name: RELATED_IMAGE_PGBOUNCER
-          value: "docker.io/ivorysql/pgbouncer:ubi8-1.23.0-4.0-1"
+          value: "docker.io/ivorysql/pgbouncer:ubi8-1.23.0-5.0-1"
         - name: RELATED_IMAGE_PGEXPORTER
-          value: "docker.io/ivorysql/postgres-exporter:ubi8-0.17.0-4.0-1"
+          value: "docker.io/ivorysql/postgres-exporter:ubi8-0.17.0-5.0-1"
         - name: RELATED_IMAGE_PGUPGRADE
           value: "registry.developers.crunchydata.com/crunchydata/crunchy-upgrade:ubi8-5.3.1-0"  
-        - name: RELATED_IMAGE_POSTGRES_16_GIS_3.4
-          value: "docker.io/ivorysql/ivorysql-postgis:ubi8-3.4-2.0-1"
+        - name: RELATED_IMAGE_POSTGRES_18_GIS_3.5
+          value: "docker.io/ivorysql/ivorysql-postgis:ubi8-3.5-5.0-1"
         securityContext:
           allowPrivilegeEscalation: false
           capabilities: { drop: [ALL] }
