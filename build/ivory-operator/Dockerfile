@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi-micro
+FROM registry.access.redhat.com/ubi9/ubi-micro
 
 COPY licenses /licenses
 
