@@ -154,8 +154,8 @@ func TestCustomLabels(t *testing.T) {
 
 	t.Run("Cluster", func(t *testing.T) {
 		cluster := testCluster()
-		cluster.ObjectMeta.Name = "global-cluster"
-		cluster.ObjectMeta.Namespace = ns.Name
+		cluster.ObjectMeta.Name = "global-cluster" // nolint:staticcheck
+		cluster.ObjectMeta.Namespace = ns.Name // nolint:staticcheck
 		cluster.Spec.InstanceSets = []v1beta1.IvoryInstanceSetSpec{{
 			Name:                "daisy-instance1",
 			Replicas:            initialize.Int32(1),
@@ -204,8 +204,8 @@ func TestCustomLabels(t *testing.T) {
 
 	t.Run("Instance", func(t *testing.T) {
 		cluster := testCluster()
-		cluster.ObjectMeta.Name = "instance-cluster"
-		cluster.ObjectMeta.Namespace = ns.Name
+		cluster.ObjectMeta.Name = "instance-cluster" // nolint:staticcheck
+		cluster.ObjectMeta.Namespace = ns.Name // nolint:staticcheck
 		cluster.Spec.InstanceSets = []v1beta1.IvoryInstanceSetSpec{{
 			Name:                "max-instance",
 			Replicas:            initialize.Int32(1),
@@ -258,8 +258,8 @@ func TestCustomLabels(t *testing.T) {
 
 	t.Run("PGBackRest", func(t *testing.T) {
 		cluster := testCluster()
-		cluster.ObjectMeta.Name = "pgbackrest-cluster"
-		cluster.ObjectMeta.Namespace = ns.Name
+		cluster.ObjectMeta.Name = "pgbackrest-cluster" // nolint:staticcheck
+		cluster.ObjectMeta.Namespace = ns.Name // nolint:staticcheck
 		cluster.Spec.Backups.PGBackRest.Metadata = &v1beta1.Metadata{
 			Labels: map[string]string{"my.pgbackrest.label": "lucy"},
 		}
@@ -305,8 +305,8 @@ func TestCustomLabels(t *testing.T) {
 
 	t.Run("PGBouncer", func(t *testing.T) {
 		cluster := testCluster()
-		cluster.ObjectMeta.Name = "pgbouncer-cluster"
-		cluster.ObjectMeta.Namespace = ns.Name
+		cluster.ObjectMeta.Name = "pgbouncer-cluster" // nolint:staticcheck
+		cluster.ObjectMeta.Namespace = ns.Name // nolint:staticcheck
 		cluster.Spec.Proxy.PGBouncer.Metadata = &v1beta1.Metadata{
 			Labels: map[string]string{"my.pgbouncer.label": "lucy"},
 		}
@@ -407,8 +407,8 @@ func TestCustomAnnotations(t *testing.T) {
 
 	t.Run("Cluster", func(t *testing.T) {
 		cluster := testCluster()
-		cluster.ObjectMeta.Name = "global-cluster"
-		cluster.ObjectMeta.Namespace = ns.Name
+		cluster.ObjectMeta.Name = "global-cluster" // nolint:staticcheck
+		cluster.ObjectMeta.Namespace = ns.Name // nolint:staticcheck
 		cluster.Spec.InstanceSets = []v1beta1.IvoryInstanceSetSpec{{
 			Name:                "daisy-instance1",
 			Replicas:            initialize.Int32(1),
@@ -458,8 +458,8 @@ func TestCustomAnnotations(t *testing.T) {
 
 	t.Run("Instance", func(t *testing.T) {
 		cluster := testCluster()
-		cluster.ObjectMeta.Name = "instance-cluster"
-		cluster.ObjectMeta.Namespace = ns.Name
+		cluster.ObjectMeta.Name = "instance-cluster" // nolint:staticcheck
+		cluster.ObjectMeta.Namespace = ns.Name // nolint:staticcheck
 		cluster.Spec.InstanceSets = []v1beta1.IvoryInstanceSetSpec{{
 			Name:                "max-instance",
 			Replicas:            initialize.Int32(1),
@@ -512,8 +512,8 @@ func TestCustomAnnotations(t *testing.T) {
 
 	t.Run("PGBackRest", func(t *testing.T) {
 		cluster := testCluster()
-		cluster.ObjectMeta.Name = "pgbackrest-cluster"
-		cluster.ObjectMeta.Namespace = ns.Name
+		cluster.ObjectMeta.Name = "pgbackrest-cluster" // nolint:staticcheck
+		cluster.ObjectMeta.Namespace = ns.Name // nolint:staticcheck
 		cluster.Spec.Backups.PGBackRest.Metadata = &v1beta1.Metadata{
 			Annotations: map[string]string{"my.pgbackrest.annotation": "lucy"},
 		}
@@ -559,8 +559,8 @@ func TestCustomAnnotations(t *testing.T) {
 
 	t.Run("PGBouncer", func(t *testing.T) {
 		cluster := testCluster()
-		cluster.ObjectMeta.Name = "pgbouncer-cluster"
-		cluster.ObjectMeta.Namespace = ns.Name
+		cluster.ObjectMeta.Name = "pgbouncer-cluster" // nolint:staticcheck
+		cluster.ObjectMeta.Namespace = ns.Name // nolint:staticcheck
 		cluster.Spec.Proxy.PGBouncer.Metadata = &v1beta1.Metadata{
 			Annotations: map[string]string{"my.pgbouncer.annotation": "lucy"},
 		}
@@ -774,12 +774,14 @@ type: ClusterIP
 		assert.NilError(t, err)
 
 		// Annotations present in the metadata.
-		assert.Assert(t, marshalMatches(service.ObjectMeta.Annotations, `
+		assert.Assert(t, marshalMatches(service.ObjectMeta.Annotations, // nolint:staticcheck
+			`
 some: note
-		`))
+		`)) // nolint:staticcheck
 
 		// Labels present in the metadata.
-		assert.Assert(t, marshalMatches(service.ObjectMeta.Labels, `
+		assert.Assert(t, marshalMatches(service.ObjectMeta.Labels, // nolint:staticcheck
+			`
 happy: label
 ivory-operator.ivorysql.org/cluster: pg2
 ivory-operator.ivorysql.org/role: replica

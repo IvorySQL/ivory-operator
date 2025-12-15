@@ -101,7 +101,7 @@ func (c *Client) doWithBackoff(
 			request.Header = headers.Clone()
 
 			//nolint:bodyclose // This response is returned to the caller.
-			response, err = c.Client.Do(request)
+			response, err = c.Client.Do(request) // nolint:staticcheck
 		}
 
 		// An error indicates there was no response from the server, and the
@@ -187,7 +187,7 @@ func (c *Client) CreateInstallation(ctx context.Context) (Installation, error) {
 	})
 
 	if err == nil {
-		defer response.Body.Close()
+		defer response.Body.Close() // nolint:errcheck
 
 		var body bytes.Buffer
 		_, _ = io.Copy(&body, response.Body)

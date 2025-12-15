@@ -57,7 +57,7 @@ func (f *fakeClientWithError) Get(ctx context.Context, key types.NamespacedName,
 // Once that gets fixed, we can test without envtest
 func (f *fakeClientWithError) Patch(ctx context.Context, obj crclient.Object,
 	patch crclient.Patch, opts ...crclient.PatchOption) error {
-	switch {
+	switch { // nolint:staticcheck
 	case f.errorType == "patch error":
 		return fmt.Errorf("patch error")
 	default:

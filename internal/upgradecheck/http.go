@@ -107,7 +107,7 @@ func checkForUpgrades(ctx context.Context, url, versionString string, backoff wa
 				res, err = client.Do(req)
 
 				if err == nil {
-					defer res.Body.Close()
+					defer res.Body.Close() // nolint:errcheck
 					status = res.StatusCode
 
 					// This is a very basic check, ignoring nuances around

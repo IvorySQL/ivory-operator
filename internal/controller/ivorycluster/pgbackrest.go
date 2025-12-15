@@ -2066,7 +2066,7 @@ func (r *Reconciler) reconcileDedicatedRepoHost(ctx context.Context,
 
 	if isCreate {
 		r.Recorder.Eventf(ivoryCluster, corev1.EventTypeNormal, EventRepoHostCreated,
-			"created pgBackRest repository host %s/%s", repoHost.TypeMeta.Kind, repoHostName)
+			"created pgBackRest repository host %s/%s", repoHost.TypeMeta.Kind, repoHostName) // nolint:staticcheck
 	}
 
 	return repoHost, nil
@@ -2252,7 +2252,7 @@ func (r *Reconciler) reconcileManualBackup(ctx context.Context,
 	backupJob := &batchv1.Job{}
 	backupJob.ObjectMeta = naming.PGBackRestBackupJob(ivoryCluster)
 	if currentBackupJob != nil {
-		backupJob.ObjectMeta.Name = currentBackupJob.ObjectMeta.Name
+		backupJob.ObjectMeta.Name = currentBackupJob.ObjectMeta.Name // nolint:staticcheck
 	}
 
 	var labels, annotations map[string]string
@@ -2265,8 +2265,8 @@ func (r *Reconciler) reconcileManualBackup(ctx context.Context,
 		map[string]string{
 			naming.PGBackRestBackup: manualAnnotation,
 		})
-	backupJob.ObjectMeta.Labels = labels
-	backupJob.ObjectMeta.Annotations = annotations
+	backupJob.ObjectMeta.Labels = labels // nolint:staticcheck
+	backupJob.ObjectMeta.Annotations = annotations // nolint:staticcheck
 
 	spec, err := generateBackupJobSpecIntent(ivoryCluster, repo,
 		serviceAccount.GetName(), labels, annotations, backupOpts...)
@@ -2427,7 +2427,7 @@ func (r *Reconciler) reconcileReplicaCreateBackup(ctx context.Context,
 	backupJob := &batchv1.Job{}
 	backupJob.ObjectMeta = naming.PGBackRestBackupJob(ivoryCluster)
 	if job != nil {
-		backupJob.ObjectMeta.Name = job.ObjectMeta.Name
+		backupJob.ObjectMeta.Name = job.ObjectMeta.Name // nolint:staticcheck
 	}
 
 	var labels, annotations map[string]string
@@ -2441,8 +2441,8 @@ func (r *Reconciler) reconcileReplicaCreateBackup(ctx context.Context,
 			naming.PGBackRestCurrentConfig: containerName,
 			naming.PGBackRestConfigHash:    configHash,
 		})
-	backupJob.ObjectMeta.Labels = labels
-	backupJob.ObjectMeta.Annotations = annotations
+	backupJob.ObjectMeta.Labels = labels // nolint:staticcheck
+	backupJob.ObjectMeta.Annotations = annotations // nolint:staticcheck
 
 	spec, err := generateBackupJobSpecIntent(ivoryCluster, replicaCreateRepo,
 		serviceAccount.GetName(), labels, annotations)

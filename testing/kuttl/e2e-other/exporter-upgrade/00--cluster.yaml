@@ -4,7 +4,7 @@ metadata:
   name: exporter
 spec:
   postgresVersion: 18
-  image: docker.io/ivorysql/ivorysql:ubi8-5.0-5.0-1
+  image: docker.io/ivorysql/ivorysql:ubi9-5.1-5.1-1
   instances:
     - name: instance1
       dataVolumeClaimSpec:
