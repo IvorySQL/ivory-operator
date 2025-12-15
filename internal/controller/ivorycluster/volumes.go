@@ -222,7 +222,7 @@ func (r *Reconciler) configureExistingPGVolumes(
 				Spec: cluster.Spec.InstanceSets[0].DataVolumeClaimSpec,
 			}
 
-			volume.ObjectMeta.Labels = map[string]string{
+			volume.ObjectMeta.Labels = map[string]string{ // nolint:staticcheck
 				naming.LabelCluster:     cluster.Name,
 				naming.LabelInstanceSet: cluster.Spec.InstanceSets[0].Name,
 				naming.LabelInstance:    instanceName,
@@ -275,7 +275,7 @@ func (r *Reconciler) configureExistingPGWALVolume(
 			Spec: cluster.Spec.InstanceSets[0].DataVolumeClaimSpec,
 		}
 
-		volume.ObjectMeta.Labels = map[string]string{
+		volume.ObjectMeta.Labels = map[string]string{ // nolint:staticcheck
 			naming.LabelCluster:     cluster.Name,
 			naming.LabelInstanceSet: cluster.Spec.InstanceSets[0].Name,
 			naming.LabelInstance:    instanceName,
@@ -429,14 +429,14 @@ func (r *Reconciler) reconcileMovePGDataDir(ctx context.Context,
 
 	// at this point, the Job either wasn't found or it has failed, so the it
 	// should be created
-	moveDirJob.ObjectMeta.Annotations = naming.Merge(cluster.Spec.Metadata.
+	moveDirJob.ObjectMeta.Annotations = naming.Merge(cluster.Spec.Metadata. // nolint:staticcheck
 		GetAnnotationsOrNil())
 	labels := naming.Merge(cluster.Spec.Metadata.GetLabelsOrNil(),
 		naming.DirectoryMoveJobLabels(cluster.Name),
 		map[string]string{
 			naming.LabelMovePGDataDir: "",
 		})
-	moveDirJob.ObjectMeta.Labels = labels
+	moveDirJob.ObjectMeta.Labels = labels // nolint:staticcheck
 
 	// `patroni.dynamic.json` holds the previous state of the DCS. Since we are
 	// migrating the volumes, we want to clear out any obsolete configuration info.
@@ -551,14 +551,14 @@ func (r *Reconciler) reconcileMoveWALDir(ctx context.Context,
 		}
 	}
 
-	moveDirJob.ObjectMeta.Annotations = naming.Merge(cluster.Spec.Metadata.
+	moveDirJob.ObjectMeta.Annotations = naming.Merge(cluster.Spec.Metadata. // nolint:staticcheck
 		GetAnnotationsOrNil())
 	labels := naming.Merge(cluster.Spec.Metadata.GetLabelsOrNil(),
 		naming.DirectoryMoveJobLabels(cluster.Name),
 		map[string]string{
 			naming.LabelMovePGWalDir: "",
 		})
-	moveDirJob.ObjectMeta.Labels = labels
+	moveDirJob.ObjectMeta.Labels = labels // nolint:staticcheck
 
 	script := fmt.Sprintf(`echo "Preparing cluster %s volumes for IVO v5.x"
     echo "pg_wal_pvc=%s"
@@ -573,7 +573,7 @@ func (r *Reconciler) reconcileMoveWALDir(ctx context.Context,
 		cluster.Spec.DataSource.Volumes.PGWALVolume.PVCName,
 		cluster.Spec.DataSource.Volumes.PGWALVolume.Directory,
 		cluster.Spec.DataSource.Volumes.PGWALVolume.Directory,
-		cluster.ObjectMeta.Name)
+		cluster.ObjectMeta.Name)  // nolint:staticcheck
 
 	container := corev1.Container{
 		Command:         []string{"bash", "-ceu", script},
@@ -669,14 +669,14 @@ func (r *Reconciler) reconcileMoveRepoDir(ctx context.Context,
 		}
 	}
 
-	moveDirJob.ObjectMeta.Annotations = naming.Merge(
+	moveDirJob.ObjectMeta.Annotations = naming.Merge(  // nolint:staticcheck
 		cluster.Spec.Metadata.GetAnnotationsOrNil())
 	labels := naming.Merge(cluster.Spec.Metadata.GetLabelsOrNil(),
 		naming.DirectoryMoveJobLabels(cluster.Name),
 		map[string]string{
 			naming.LabelMovePGBackRestRepoDir: "",
 		})
-	moveDirJob.ObjectMeta.Labels = labels
+	moveDirJob.ObjectMeta.Labels = labels // nolint:staticcheck
 
 	script := fmt.Sprintf(`echo "Preparing cluster %s pgBackRest repo volume for IVO v5.x"
     echo "repo_pvc=%s"

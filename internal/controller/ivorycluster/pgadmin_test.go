@@ -118,12 +118,12 @@ ownerReferences:
 		assert.Assert(t, specified)
 
 		// Annotations present in the metadata.
-		assert.DeepEqual(t, configmap.ObjectMeta.Annotations, map[string]string{
+		assert.DeepEqual(t, configmap.ObjectMeta.Annotations, map[string]string{  // nolint:staticcheck
 			"a": "v5", "b": "v2", "e": "v6",
 		})
 
 		// Labels present in the metadata.
-		assert.DeepEqual(t, configmap.ObjectMeta.Labels, map[string]string{
+		assert.DeepEqual(t, configmap.ObjectMeta.Labels, map[string]string{  // nolint:staticcheck
 			"c": "v7", "d": "v4", "f": "v8",
 			"ivory-operator.ivorysql.org/cluster": "pg1",
 			"ivory-operator.ivorysql.org/role":    "pgadmin",
@@ -208,12 +208,12 @@ ownerReferences:
 		assert.Assert(t, specified)
 
 		// Annotations present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{  // nolint:staticcheck
 			"a": "v1",
 		})
 
 		// Labels present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{  // nolint:staticcheck
 			"b":                                   "v2",
 			"ivory-operator.ivorysql.org/cluster": "my-cluster",
 			"ivory-operator.ivorysql.org/role":    "pgadmin",
@@ -239,13 +239,13 @@ ownerReferences:
 		assert.Assert(t, specified)
 
 		// Annotations present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{  // nolint:staticcheck
 			"a": "v1",
 			"c": "v3",
 		})
 
 		// Labels present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{  // nolint:staticcheck
 			"b":                                   "v2",
 			"d":                                   "v4",
 			"ivory-operator.ivorysql.org/cluster": "my-cluster",
@@ -253,7 +253,7 @@ ownerReferences:
 		})
 
 		// Labels not in the selector.
-		assert.DeepEqual(t, service.Spec.Selector, map[string]string{
+		assert.DeepEqual(t, service.Spec.Selector, map[string]string{  // nolint:staticcheck
 			"ivory-operator.ivorysql.org/cluster": "my-cluster",
 			"ivory-operator.ivorysql.org/role":    "pgadmin",
 		})

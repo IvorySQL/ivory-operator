@@ -108,7 +108,7 @@ func TestInstallationReconcile(t *testing.T) {
 
 				reconciler.NewClient = func() *Client {
 					c := NewClient(server.URL, "")
-					c.Backoff.Steps = 1
+					c.Backoff.Steps = 1 // nolint:staticcheck
 					assert.Equal(t, c.BaseURL.String(), server.URL)
 					return c
 				}
@@ -163,7 +163,7 @@ func TestInstallationReconcile(t *testing.T) {
 
 				reconciler.NewClient = func() *Client {
 					c := NewClient(server.URL, "")
-					c.Backoff.Steps = 1
+					c.Backoff.Steps = 1 // nolint:staticcheck
 					assert.Equal(t, c.BaseURL.String(), server.URL)
 					return c
 				}

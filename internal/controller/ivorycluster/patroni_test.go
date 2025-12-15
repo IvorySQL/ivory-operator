@@ -111,12 +111,12 @@ ownerReferences:
 		assert.NilError(t, err)
 
 		// Annotations present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{  // nolint:staticcheck
 			"a": "v1",
 		})
 
 		// Labels present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{  // nolint:staticcheck
 			"b":                                   "v2",
 			"ivory-operator.ivorysql.org/cluster": "pg2",
 			"ivory-operator.ivorysql.org/patroni": "pg2-ha",
@@ -139,13 +139,13 @@ ownerReferences:
 		assert.NilError(t, err)
 
 		// Annotations present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{  // nolint:staticcheck
 			"a": "v1",
 			"c": "v3",
 		})
 
 		// Labels present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{  // nolint:staticcheck
 			"b":                                   "v2",
 			"d":                                   "v4",
 			"ivory-operator.ivorysql.org/cluster": "pg2",
@@ -486,8 +486,8 @@ func TestReconcilePatroniStatus(t *testing.T) {
 			ObjectMeta: naming.PatroniDistributedConfiguration(ivoryCluster),
 		}
 		if writeAnnotation {
-			endpoints.ObjectMeta.Annotations = make(map[string]string)
-			endpoints.ObjectMeta.Annotations["initialize"] = systemIdentifier
+			endpoints.ObjectMeta.Annotations = make(map[string]string) // nolint:staticcheck
+			endpoints.ObjectMeta.Annotations["initialize"] = systemIdentifier  // nolint:staticcheck
 		}
 		assert.NilError(t, tClient.Create(ctx, endpoints, &client.CreateOptions{}))
 
@@ -553,17 +553,17 @@ func TestReconcilePatroniSwitchover(t *testing.T) {
 			switch {
 			case timelineCall:
 				timelineCall = false
-				stdout.Write([]byte(`[{"Cluster": "hippo-ha", "Member": "hippo-instance1-67mc-0", "Host": "hippo-instance1-67mc-0.hippo-pods", "Role": "Leader", "State": "running", "TL": 4}, {"Cluster": "hippo-ha", "Member": "hippo-instance1-ltcf-0", "Host": "hippo-instance1-ltcf-0.hippo-pods", "Role": "Replica", "State": "running", "TL": 4, "Lag in MB": 0}]`))
+				stdout.Write([]byte(`[{"Cluster": "hippo-ha", "Member": "hippo-instance1-67mc-0", "Host": "hippo-instance1-67mc-0.hippo-pods", "Role": "Leader", "State": "running", "TL": 4}, {"Cluster": "hippo-ha", "Member": "hippo-instance1-ltcf-0", "Host": "hippo-instance1-ltcf-0.hippo-pods", "Role": "Replica", "State": "running", "TL": 4, "Lag in MB": 0}]`)) // nolint:errcheck
 			case timelineCallNoLeader:
-				stdout.Write([]byte(`[{"Cluster": "hippo-ha", "Member": "hippo-instance1-ltcf-0", "Host": "hippo-instance1-ltcf-0.hippo-pods", "Role": "Replica", "State": "running", "TL": 4, "Lag in MB": 0}]`))
+				stdout.Write([]byte(`[{"Cluster": "hippo-ha", "Member": "hippo-instance1-ltcf-0", "Host": "hippo-instance1-ltcf-0.hippo-pods", "Role": "Replica", "State": "running", "TL": 4, "Lag in MB": 0}]`)) // nolint:errcheck
 			case callError:
 				return errors.New("boom")
 			case callFails:
-				stdout.Write([]byte("bang"))
+				stdout.Write([]byte("bang")) // nolint:errcheck
 			case failover:
-				stdout.Write([]byte("failed over"))
+				stdout.Write([]byte("failed over")) // nolint:errcheck
 			default:
-				stdout.Write([]byte("switched over"))
+				stdout.Write([]byte("switched over")) // nolint:errcheck
 			}
 			return nil
 		},

@@ -117,12 +117,12 @@ ownerReferences:
 		assert.Assert(t, specified)
 
 		// Annotations present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{  // nolint:staticcheck
 			"a": "v1",
 		})
 
 		// Labels present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{  // nolint:staticcheck
 			"b":                                   "v2",
 			"ivory-operator.ivorysql.org/cluster": "pg7",
 			"ivory-operator.ivorysql.org/role":    "pgbouncer",
@@ -148,13 +148,13 @@ ownerReferences:
 		assert.Assert(t, specified)
 
 		// Annotations present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Annotations, map[string]string{  // nolint:staticcheck
 			"a": "v1",
 			"c": "v3",
 		})
 
 		// Labels present in the metadata.
-		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{
+		assert.DeepEqual(t, service.ObjectMeta.Labels, map[string]string{  // nolint:staticcheck
 			"b":                                   "v2",
 			"d":                                   "v4",
 			"ivory-operator.ivorysql.org/cluster": "pg7",
@@ -431,12 +431,12 @@ namespace: ns3
 		assert.Assert(t, specified)
 
 		// Annotations present in the metadata.
-		assert.DeepEqual(t, deploy.ObjectMeta.Annotations, map[string]string{
+		assert.DeepEqual(t, deploy.ObjectMeta.Annotations, map[string]string{  // nolint:staticcheck
 			"a": "v1",
 		})
 
 		// Labels present in the metadata.
-		assert.DeepEqual(t, deploy.ObjectMeta.Labels, map[string]string{
+		assert.DeepEqual(t, deploy.ObjectMeta.Labels, map[string]string{  // nolint:staticcheck
 			"b":                                   "v2",
 			"ivory-operator.ivorysql.org/cluster": "test-cluster",
 			"ivory-operator.ivorysql.org/role":    "pgbouncer",

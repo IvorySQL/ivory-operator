@@ -14,7 +14,7 @@ spec:
             storage: 1Gi
   backups:
     pgbackrest:
-      image: docker.io/ivorysql/pgbackrest:ubi9-2.56-5.1-1
+      image: docker.io/ivorysql/pgbackrest:ubi9-2.56.0-5.1-1
       configuration:
       - secret:
           name: ivyo-gcs-creds

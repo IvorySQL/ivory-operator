@@ -30,9 +30,9 @@ func saveEnv(t testing.TB, key string) {
 	previous, ok := os.LookupEnv(key)
 	t.Cleanup(func() {
 		if ok {
-			os.Setenv(key, previous)
+			os.Setenv(key, previous) // nolint:errcheck
 		} else {
-			os.Unsetenv(key)
+			os.Unsetenv(key) // nolint:errcheck
 		}
 	})
 }

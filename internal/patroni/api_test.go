@@ -74,7 +74,7 @@ func TestExecutorChangePrimaryAndWait(t *testing.T) {
 		success, _ := Executor(func(
 			_ context.Context, _ io.Reader, stdout, _ io.Writer, _ ...string,
 		) error {
-			_, _ = stdout.Write([]byte(`no luck`))
+			_, _ = stdout.Write([]byte(`no luck`)) // nolint:errcheck
 			return nil
 		}).ChangePrimaryAndWait(context.Background(), "any", "thing")
 
@@ -126,7 +126,7 @@ func TestExecutorSwitchoverAndWait(t *testing.T) {
 		success, _ := Executor(func(
 			_ context.Context, _ io.Reader, stdout, _ io.Writer, _ ...string,
 		) error {
-			_, _ = stdout.Write([]byte(`no luck`))
+			_, _ = stdout.Write([]byte(`no luck`)) // nolint:errcheck
 			return nil
 		}).SwitchoverAndWait(context.Background(), "next")
 
@@ -178,7 +178,7 @@ func TestExecutorFailoverAndWait(t *testing.T) {
 		success, _ := Executor(func(
 			_ context.Context, _ io.Reader, stdout, _ io.Writer, _ ...string,
 		) error {
-			_, _ = stdout.Write([]byte(`no luck`))
+			_, _ = stdout.Write([]byte(`no luck`)) // nolint:errcheck
 			return nil
 		}).FailoverAndWait(context.Background(), "next")
 
@@ -254,7 +254,7 @@ func TestExecutorGetTimeline(t *testing.T) {
 		tl, actual := Executor(func(
 			_ context.Context, stdin io.Reader, stdout, stderr io.Writer, command ...string,
 		) error {
-			stderr.Write([]byte(`no luck`))
+			stderr.Write([]byte(`no luck`)) // nolint:errcheck
 			return nil
 		}).GetTimeline(context.Background())
 
@@ -266,7 +266,7 @@ func TestExecutorGetTimeline(t *testing.T) {
 		tl, actual := Executor(func(
 			_ context.Context, stdin io.Reader, stdout, stderr io.Writer, command ...string,
 		) error {
-			stdout.Write([]byte(`no luck`))
+			stdout.Write([]byte(`no luck`)) // nolint:errcheck
 			return nil
 		}).GetTimeline(context.Background())
 
@@ -278,7 +278,7 @@ func TestExecutorGetTimeline(t *testing.T) {
 		tl, actual := Executor(func(
 			_ context.Context, stdin io.Reader, stdout, stderr io.Writer, command ...string,
 		) error {
-			stdout.Write([]byte(`[{"Cluster": "hippo-ha", "Member": "hippo-instance1-ltcf-0", "Host": "hippo-instance1-ltcf-0.hippo-pods", "Role": "Replica", "State": "running", "TL": 4, "Lag in MB": 0}]`))
+			stdout.Write([]byte(`[{"Cluster": "hippo-ha", "Member": "hippo-instance1-ltcf-0", "Host": "hippo-instance1-ltcf-0.hippo-pods", "Role": "Replica", "State": "running", "TL": 4, "Lag in MB": 0}]`)) // nolint:errcheck
 			return nil
 		}).GetTimeline(context.Background())
 
@@ -290,7 +290,7 @@ func TestExecutorGetTimeline(t *testing.T) {
 		tl, actual := Executor(func(
 			_ context.Context, stdin io.Reader, stdout, stderr io.Writer, command ...string,
 		) error {
-			stdout.Write([]byte(`[{"Cluster": "hippo-ha", "Member": "hippo-instance1-67mc-0", "Host": "hippo-instance1-67mc-0.hippo-pods", "Role": "Leader", "State": "running", "TL": 4}, {"Cluster": "hippo-ha", "Member": "hippo-instance1-ltcf-0", "Host": "hippo-instance1-ltcf-0.hippo-pods", "Role": "Replica", "State": "running", "TL": 4, "Lag in MB": 0}]`))
+			stdout.Write([]byte(`[{"Cluster": "hippo-ha", "Member": "hippo-instance1-67mc-0", "Host": "hippo-instance1-67mc-0.hippo-pods", "Role": "Leader", "State": "running", "TL": 4}, {"Cluster": "hippo-ha", "Member": "hippo-instance1-ltcf-0", "Host": "hippo-instance1-ltcf-0.hippo-pods", "Role": "Replica", "State": "running", "TL": 4, "Lag in MB": 0}]`)) // nolint:errcheck
 			return nil
 		}).GetTimeline(context.Background())
 
