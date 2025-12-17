@@ -229,7 +229,7 @@ func TestAddDevSHM(t *testing.T) {
 
 			// check there is an empty dir mounted under the dshm volume
 			for _, v := range template.Spec.Volumes {
-				if v.Name == "dshm" && v.VolumeSource.EmptyDir != nil && v.VolumeSource.EmptyDir.Medium == corev1.StorageMediumMemory {
+				if v.Name == "dshm" && v.VolumeSource.EmptyDir != nil && v.VolumeSource.EmptyDir.Medium == corev1.StorageMediumMemory { // nolint:staticcheck
 					found = true
 					break
 				}
@@ -371,7 +371,7 @@ func TestAddNSSWrapper(t *testing.T) {
 				// Each container that requires the nss_wrapper envs should be updated
 				var actualUpdatedContainerCount int
 				for i, c := range template.Spec.Containers {
-					if c.Name == naming.ContainerDatabase ||
+					if c.Name == naming.ContainerDatabase || // nolint:staticcheck
 						c.Name == naming.PGBackRestRepoContainerName ||
 						c.Name == naming.PGBackRestRestoreContainerName {
 						assert.DeepEqual(t, expectedEnv, c.Env)

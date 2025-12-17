@@ -74,7 +74,7 @@ func (r *Reconciler) reconcileRootCertificate(
 	intent.SetGroupVersionKind(corev1.SchemeGroupVersion.WithKind("Secret"))
 	intent.Namespace, intent.Name = cluster.Namespace, naming.RootCertSecret
 	intent.Data = make(map[string][]byte)
-	intent.ObjectMeta.OwnerReferences = existing.ObjectMeta.OwnerReferences
+	intent.ObjectMeta.OwnerReferences = existing.ObjectMeta.OwnerReferences // nolint:staticcheck
 
 	// A root secret is scoped to the namespace where ivorycluster(s)
 	// are deployed. For operator deployments with ivoryclusters in more than
@@ -150,7 +150,7 @@ func (r *Reconciler) reconcileClusterCertificate(
 	intent := &corev1.Secret{ObjectMeta: naming.IvoryTLSSecret(cluster)}
 	intent.SetGroupVersionKind(corev1.SchemeGroupVersion.WithKind("Secret"))
 	intent.Data = make(map[string][]byte)
-	intent.ObjectMeta.OwnerReferences = existing.ObjectMeta.OwnerReferences
+	intent.ObjectMeta.OwnerReferences = existing.ObjectMeta.OwnerReferences // nolint:staticcheck
 
 	intent.Annotations = naming.Merge(cluster.Spec.Metadata.GetAnnotationsOrNil())
 	intent.Labels = naming.Merge(

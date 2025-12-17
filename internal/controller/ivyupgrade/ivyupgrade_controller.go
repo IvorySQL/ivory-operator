@@ -407,7 +407,7 @@ func (r *IvyUpgradeReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 				// - https://kubernetes.io/docs/concepts/workloads/controllers/job/
 				// - https://github.com/kubernetes/kubernetes/blob/master/pkg/registry/batch/job/strategy.go#L58
 				propagate := client.PropagationPolicy(metav1.DeletePropagationBackground)
-				err = client.IgnoreNotFound(r.Client.Delete(ctx, object, exactly, propagate))
+				err = client.IgnoreNotFound(r.Client.Delete(ctx, object, exactly, propagate)) // nolint:staticcheck
 			}
 		}
 
@@ -459,7 +459,7 @@ func (r *IvyUpgradeReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 			uid := object.GetUID()
 			version := object.GetResourceVersion()
 			exactly := client.Preconditions{UID: &uid, ResourceVersion: &version}
-			err = client.IgnoreNotFound(r.Client.Delete(ctx, object, exactly))
+			err = client.IgnoreNotFound(r.Client.Delete(ctx, object, exactly)) // nolint:staticcheck
 		}
 
 		// Requeue to verify that Patroni endpoints are deleted

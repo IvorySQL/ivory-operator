@@ -128,7 +128,7 @@ func (r *Reconciler) generateClusterPrimaryService(
 	// Endpoints for a Service have the same name as the Service. Copy labels,
 	// annotations, and ownership, too.
 	endpoints := &corev1.Endpoints{}
-	service.ObjectMeta.DeepCopyInto(&endpoints.ObjectMeta)
+	service.ObjectMeta.DeepCopyInto(&endpoints.ObjectMeta)  // nolint:staticcheck
 	endpoints.SetGroupVersionKind(corev1.SchemeGroupVersion.WithKind("Endpoints"))
 
 	if leader == nil {

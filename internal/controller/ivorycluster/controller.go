@@ -379,7 +379,7 @@ func (r *Reconciler) patch(
 	patch client.Patch, options ...client.PatchOption,
 ) error {
 	options = append([]client.PatchOption{r.Owner}, options...)
-	return r.Client.Patch(ctx, object, patch, options...)
+	return r.Client.Patch(ctx, object, patch, options...) // nolint:staticcheck
 }
 
 // The owner reference created by controllerutil.SetControllerReference blocks
