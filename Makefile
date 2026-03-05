@@ -205,8 +205,8 @@ check-kuttl: ## example command: make check-kuttl KUTTL_TEST='
 generate-kuttl: export KUTTL_PG_UPGRADE_FROM_VERSION ?= 14
 generate-kuttl: export KUTTL_PG_UPGRADE_TO_VERSION ?= 15
 generate-kuttl: export KUTTL_PG_VERSION ?= 15
-generate-kuttl: export KUTTL_POSTGIS_VERSION ?= 3.3
-generate-kuttl: export KUTTL_IVORY_IMAGE ?= docker.io/ivorysql/ivorysql:ubi9-5.1-5.1-1
+generate-kuttl: export KUTTL_POSTGIS_VERSION ?= 3.5
+generate-kuttl: export KUTTL_IVORY_IMAGE ?= docker.io/ivorysql/ivorysql:ubi9-5.3-5.3-1
 generate-kuttl: ## Generate kuttl tests
 	[ ! -d testing/kuttl/e2e-generated ] || rm -r testing/kuttl/e2e-generated
 	[ ! -d testing/kuttl/e2e-generated-other ] || rm -r testing/kuttl/e2e-generated-other
