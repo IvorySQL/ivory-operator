@@ -3,7 +3,7 @@ kind: IvoryCluster
 metadata:
   name: hippo
 spec:
-  image: docker.io/ivorysql/ivorysql:ubi9-5.3-5.3-1
+  image: docker.io/ivorysql/ivorysql:ubi9-5.4-5.4-1
   postgresVersion: 15
   instances:
     - name: instance1
@@ -15,7 +15,7 @@ spec:
             storage: 1Gi
   backups:
     pgbackrest:
-      image: docker.io/ivorysql/pgbackrest:ubi9-2.56.0-5.3-1
+      image: docker.io/ivorysql/pgbackrest:ubi9-2.58.0-5.4-1
       repos:
       - name: repo1
         volume:
