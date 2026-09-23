@@ -181,6 +181,27 @@ func TestClientDoWithBackoff(t *testing.T) {
 		assert.Assert(t, requests > 0, "expected multiple requests")
 	})
 
+	t.Run("CancellationDuringBackoff", func(t *testing.T) {
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusServiceUnavailable)
+		}))
+		t.Cleanup(server.Close)
+
+		client := NewClient(server.URL, "")
+		client.Backoff.Duration = 3 * time.Second // nolint:staticcheck
+		client.Backoff.Jitter = 0                 // nolint:staticcheck
+		client.Backoff.Steps = 2                  // nolint:staticcheck
+
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
+		t.Cleanup(cancel)
+
+		started := time.Now()
+		_, err := client.doWithBackoff(ctx, "POST", "/any", nil, nil) //nolint:bodyclose
+		assert.ErrorIs(t, err, context.DeadlineExceeded)
+		assert.Assert(t, time.Since(started) < time.Second,
+			"cancellation must interrupt the backoff delay")
+	})
+
 	t.Run("Cancellation", func(t *testing.T) {
 		requests := 0
 		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

@@ -93,7 +93,7 @@ func (c *Client) doWithBackoff(
 	headers.Set("User-Agent", "IVO/"+c.Version)
 	url := c.BaseURL.JoinPath(path).String()
 
-	err := wait.ExponentialBackoff(c.Backoff, func() (bool, error) {
+	err := wait.ExponentialBackoffWithContext(ctx, c.Backoff, func() (bool, error) {
 		// NOTE: The [net/http] package treats an empty [bytes.Reader] the same as nil.
 		request, err := http.NewRequestWithContext(ctx, method, url, bytes.NewReader(body))
 
