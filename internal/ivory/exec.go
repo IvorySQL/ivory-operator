@@ -102,7 +102,7 @@ shift 1
 
 databases=$(psql -d postgres -Xw -Aqt --file=- <<< "${sql_databases}")
 while IFS= read -r database; do
-	PGDATABASE="${database}" psql -d postgres -Xw --file=- <<< "${sql_target}"
+	PGDATABASE="${database}" psql -Xw --file=- <<< "${sql_target}"
 done <<< "${databases}"
 `
 
